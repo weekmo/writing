@@ -1,0 +1,57 @@
+\vspace {-\cftbeforepartskip }
+\contentsline {chapter}{\numberline {1}{Introduction}}{1}{chapter.1}
+\contentsline {section}{\numberline {1}{\textbf {Brain Fiber Pathways}}}{1}{section.1.1}
+\contentsline {paragraph}{{The human brain}}{1}{section.1.1}
+\contentsline {paragraph}{{White Matter}}{1}{section.1.1}
+\contentsline {paragraph}{{Anterior Thalamic Radiation (ATR)}}{1}{section.1.1}
+\contentsline {paragraph}{{Corpus Callosum (CC)}}{1}{section.1.1}
+\contentsline {paragraph}{{Genu of the Corpus Callosum (genu)}}{2}{section.1.1}
+\contentsline {paragraph}{{Splenium of the Corpus Callosum (splenium)}}{2}{section.1.1}
+\contentsline {paragraph}{{Body of Corpus Callosum (truncus)}}{2}{section.1.1}
+\contentsline {paragraph}{{Cingulum (Cing)}}{2}{section.1.1}
+\contentsline {paragraph}{{Corticospinal Tract (CST)}}{2}{section.1.1}
+\contentsline {paragraph}{{Fornix (Fornix)}}{3}{section.1.1}
+\contentsline {paragraph}{{Inferior Fronto-occipital Fasciculus (IFO)}}{3}{section.1.1}
+\contentsline {paragraph}{{Inferior Longitudinal Fasciculus (ILF)}}{3}{section.1.1}
+\contentsline {paragraph}{{Superior Longitudinal Fasciculus (SLF)}}{3}{section.1.1}
+\contentsline {paragraph}{{Ventral Tegmental Area (VTA)}}{3}{section.1.1}
+\contentsline {subsection}{\numberline {1.1}{From Thesis}}{4}{subsection.1.1.1}
+\contentsline {section}{\numberline {2}{Registration}}{5}{section.1.2}
+\contentsline {subsection}{\numberline {2.1}{Iterative closest point (ICP)}}{5}{subsection.1.2.1}
+\contentsline {subsection}{\numberline {2.2}{PCA Transformation}}{6}{subsection.1.2.2}
+\contentsline {subsection}{\numberline {2.3}{Clustering}}{6}{subsection.1.2.3}
+\contentsline {subsection}{\numberline {2.4}{Distance Functions}}{6}{subsection.1.2.4}
+\contentsline {paragraph}{{KD Tree}}{6}{subsection.1.2.4}
+\contentsline {paragraph}{{Point Cloud based}}{6}{subsection.1.2.4}
+\contentsline {paragraph}{{Fiber Based}}{6}{subsection.1.2.4}
+\contentsline {chapter}{\numberline {2}{Introduction}}{7}{chapter.2}
+\contentsline {section}{\numberline {1}{Brain Fiber Pathways}}{7}{section.2.1}
+\contentsline {paragraph}{{The human brain}}{7}{section.2.1}
+\contentsline {paragraph}{{White Matter}}{7}{section.2.1}
+\contentsline {paragraph}{{Anterior Thalamic Radiation (ATR)}}{7}{section.2.1}
+\contentsline {paragraph}{{Corpus Callosum (CC)}}{7}{section.2.1}
+\contentsline {paragraph}{{Cingulum (Cing)}}{8}{section.2.1}
+\contentsline {paragraph}{{Corticospinal Tract (CST)}}{8}{section.2.1}
+\contentsline {paragraph}{{Fornix (Fornix)}}{8}{section.2.1}
+\contentsline {paragraph}{{Inferior Fronto-occipital Fasciculus (IFO)}}{9}{section.2.1}
+\contentsline {paragraph}{{Inferior Longitudinal Fasciculus (ILF)}}{9}{section.2.1}
+\contentsline {paragraph}{{Superior Longitudinal Fasciculus (SLF)}}{9}{section.2.1}
+\contentsline {paragraph}{{Ventral Tegmental Area (VTA)}}{9}{section.2.1}
+\contentsline {subsection}{\numberline {1.1}{From Thesis}}{9}{subsection.2.1.1}
+\contentsline {section}{\numberline {2}{Diffusion MRI and tractography}}{11}{section.2.2}
+\contentsline {section}{\numberline {3}{Registration}}{11}{section.2.3}
+\contentsline {subsection}{\numberline {3.1}{Iterative closest point (ICP)}}{12}{subsection.2.3.1}
+\contentsline {subsection}{\numberline {3.2}{PCA Transformation}}{12}{subsection.2.3.2}
+\contentsline {subsection}{\numberline {3.3}{Clustering}}{12}{subsection.2.3.3}
+\contentsline {subsection}{\numberline {3.4}{Distance Functions}}{12}{subsection.2.3.4}
+\contentsline {paragraph}{{KD Tree}}{12}{subsection.2.3.4}
+\contentsline {paragraph}{{Point Cloud based}}{12}{subsection.2.3.4}
+\contentsline {paragraph}{{Fiber Based}}{12}{subsection.2.3.4}
+\contentsline {chapter}{\numberline {3}{Method}}{13}{chapter.3}
+\contentsline {section}{\numberline {1}{Setup}}{14}{section.3.1}
+\contentsline {section}{\numberline {2}{Preparation Steps}}{15}{section.3.2}
+\contentsline {section}{\numberline {3}{Finding The Affine Transformation}}{16}{section.3.3}
+\contentsline {subsection}{\numberline {3.1}{Cost Function}}{16}{subsection.3.3.1}
+\contentsline {subsection}{\numberline {3.2}{Optimizing the Cost Function}}{18}{subsection.3.3.2}
+\contentsline {chapter}{\numberline {4}{Result}}{21}{chapter.4}
+\contentsline {chapter}{\numberline {5}{Conclusion}}{23}{chapter.5}

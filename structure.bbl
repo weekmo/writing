@@ -1,0 +1,92 @@
+\begin{thebibliography}{10}
+
+\bibitem{Ganeva2015}
+Margarita Ganeva.
+\newblock Patch-based nonrigid registration of triangle meshes and point
+  clouds.
+\newblock Master's thesis, Institute for Computer Science, University of Bonn,
+  2015.
+
+\bibitem{Amberg2007}
+Brian Amberg, Sami Romdhani, and Thomas Vetter.
+\newblock Optimal step nonrigid icp algorithms for surface registration.
+\newblock In {\em Computer Vision and Pattern Recognition, 2007. CVPR'07. IEEE
+  Conference on}, pages 1--8. IEEE, 2007.
+
+\bibitem{Blumenfeld2010}
+Hal Blumenfeld.
+\newblock {\em Neuroanatomy through Clinical Cases}.
+\newblock Oxford University Press, 2010.
+
+\bibitem{Fields2008}
+R.~Douglas Fields.
+\newblock White matter matters.
+\newblock {\em Scientific American}, 298(3):54--61, mar 2008.
+
+\bibitem{Klein2008}
+Stephen~B. Klein.
+\newblock {\em Biological Psychology}.
+\newblock Worth Publishers, 2008.
+
+\bibitem{Washington1994}
+{University of Washington}.
+\newblock Braininfo.
+\newblock http://braininfo.rprc.washington.edu, 1994.
+
+\bibitem{Grimm2018}
+Sabine~E. Grimm, Nigel Armstrong, Bram L.~T. Ramaekers, Xavier Pouwels, Shona
+  Lang, Svenja Petersohn, Rob Riemsma, Gillian Worthy, Lisa Stirk, Janine Ross,
+  Jos Kleijnen, and Manuela~A. Joore.
+\newblock Nivolumab for treating metastatic or unresectable urothelial cancer:
+  An evidence review group perspective of a {NICE} single technology appraisal.
+\newblock {\em {PharmacoEconomics}}, oct 2018.
+
+\bibitem{Mamah2010}
+Daniel Mamah, Thomas~E. Conturo, Michael~P. Harms, Erbil Akbudak, Lei Wang,
+  Amanda~R. McMichael, Mokhtar~H. Gado, Deanna~M. Barch, and John~G.
+  Csernansky.
+\newblock Anterior thalamic radiation integrity in schizophrenia: A
+  diffusion-tensor imaging study.
+\newblock {\em Psychiatry Research: Neuroimaging}, 183(2):144 -- 150, 2010.
+
+\bibitem{PDD2015}
+{Pr Denis Ducreux}.
+\newblock Connectopedia knowledge database.
+\newblock http://www.fmritools.com/kdb/index.html, 2015.
+
+\bibitem{Brodal2016}
+Per Brodal.
+\newblock {\em The Central Nervous System}.
+\newblock OXFORD UNIV PR, 2016.
+
+\bibitem{HenryGray1918}
+{Henry Gray}.
+\newblock {\em Anatomy of the Human Body}.
+\newblock Philadelphia : Lea \& Febiger, 1918.
+
+\bibitem{Jbabdi2015a}
+Saad Jbabdi, Stamatios~N Sotiropoulos, Suzanne~N Haber, David~C Van~Essen, and
+  Timothy~E Behrens.
+\newblock Measuring macroscopic brain connections in vivo.
+\newblock {\em Nature neuroscience}, 18(11):1546, 2015.
+
+\bibitem{Yogarajah2009}
+M.~Yogarajah, J.S. Duncan, and M.J. Koepp.
+\newblock Imaging | structure and function: Imaging connectivity using
+  tractography.
+\newblock In Philip~A. Schwartzkroin, editor, {\em Encyclopedia of Basic
+  Epilepsy Research}, pages 1586 -- 1592. Academic Press, Oxford, 2009.
+
+\bibitem{Li2007}
+Hongdong Li and Richard Hartley.
+\newblock The 3d-3d registration problem revisited.
+\newblock In {\em 2007 {IEEE} 11th International Conference on Computer
+  Vision}. {IEEE}, 2007.
+
+\bibitem{Rusinkiewicza2001}
+S.~Rusinkiewicz and M.~Levoy.
+\newblock Efficient variants of the {ICP} algorithm.
+\newblock In {\em Proceedings Third International Conference on 3-D Digital
+  Imaging and Modeling}. {IEEE} Comput. Soc, 2001.
+
+\end{thebibliography}
