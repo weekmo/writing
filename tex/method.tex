@@ -2,6 +2,7 @@
 %\usepackage{../mypkg}
 \begin{document}
 \chapter{Method}
+\section{The framework}
 \hspace{2em}The main subject of this thesis is demonstrating how the ICP framework can be extended to nonrigid registration, whilst retaining the convergence properties of the original algorithm. The principle idea is the application of the work presented in \cite{Amberg2007}. The resulting optimal step nonrigid ICP framework allows for the use of different regularisations, as long as they have an adjustable stiffness parameter. The registration loops over a series of decreasing stiffness weights and incrementally deforms the template towards the target, recovering the whole range of global and local deformations. To find the optimal deformation for a given stiffness, optimal iterative closest point steps are used. Preliminary correspondences are estimated by a nearest point search. Subsequently, the optimal deformation of the template for these fixed correspondences and the active stiffness is calculated. Afterwards, the process continues with new correspondences found by searching from the displaced template vertices. We present an algorithm using a locally affine regularisation which assigns an affine transformation to each vertex and minimises the difference in the transformation of neighbouring vertices. It is shown that for this regularisation, the optimal deformation for fixed correspondences and fixed stiffness can be determined exactly and efficiently. The method is successful for a wide range of initial conditions, and handles missing data robustly. Furthermore, it is compared qualitatively and quantitatively to other algorithms using synthetic examples and real world data.
 
 \hspace{2em} As has been defined in the introduction, vertex registration is a problem in which two or more datasets of points are given and the task is to optimally align them by estimating a best transformation. In our case, we use a dense registration method to find a mapping from each point in the template onto the target while sparse methods find correspondence only for selected feature points. This is done by deforming the template, locally moving it closer in each iteration to the target in order to wrap them together with respect to stiffness.
@@ -18,14 +19,64 @@
 \label{equ:equation2}
 X = [X_1, X_2, ... ,X_n]^T
 \end{equation}
+
 If we were to simply solve the equation (\ref{equ:equation1}) by assigning $A$ as the template and $b$ as the target, we will get exactly $Ax=b$, which means the difference between them is zero. That leads to the deforming of $A$ and a complete loss of its shape, therefore, we need to add the stiffness part to the equation that will prevent this deformation by keeping the vertices originally as close to each other as possible which we will later explain in this chapter.
 
-\begin{figure}[t]
+\begin{figure}[h]
 \centering
 \includegraphics[scale=0.5]{001_conn}
 \captionsetup{justification=centering}
-\caption{With one iteration of ICP, the template $S$ moves closer to target $T$ as it becomes $S(x)$. [source \cite{Amberg2007}]}
+\caption{With one iteration of ICP, the template $S$ moves closer to target $T$ as it becomes $S(x)$, Reference \cite{Amberg2007}}
 \label{fig:figure1}
 \end{figure}
+
+\section{Setup}
+The method presented in \cite{Amberg2007} deals with graph representation of the data $S=(V,E)$ where $S,V$ and $E$ are signed to  graph, vertices and edges respectively. As we describe in the introduction our data is human brain bundles (pathways) saved in \textbf{\textit{ply}} data format as it shown in the simplified Figure \ref{fig:data}. It consist of three parts, the upper part is the header of the file which has the description of the file (i.e. format, comment, etc), the important parts of the header elements parts, which describe how many elements each parts has. in the sample in figure \ref{fig:data}, it has 69283 vertices in x,y,z and 603 fibers. The second part of the \textbf{\textit{ply}} files, is vertices in 3D Eucledian coordinate and the last part of \textbf{\textit{ply}} file represent the end index of each fiber.
+
+As the method in \cite{Amberg2007} require the template to be in graph format, we develop a tool to read \textbf{\textit{ply}} files and put them in a numpy array of array which can be later used as a graph. To be able to use \textbf{\textit{numpy ndarray}} as graph, we put each tract in a separet array with respect to the link, to do so, we put each points linked together next to each other, and then wrap all the tracts belong to the same bundle (i.e ATR, CC, genu, splenium, etc) in a new \textbf{\textit{numpy ndarray}}.
+
+\begin{figure}[h]
+\centering
+\includegraphics[scale=0.5]{002_data}
+\captionsetup{justification=centering}
+\caption{Simplified ply file sample}
+\label{fig:data}
+\end{figure}
+
+\section{Preparation}
+After we read the data in suitable format, we need to align the template to the source as much as possible. For that we use \textit{Principal Components Analysis}. To get the best aligning we scale the template to the source and use $[-1,1]^3$ cube, we use the combination of the cube and mesure the distance each time to select the minimal distance as illustrated in table \ref{tab:pca}.
+
+\begin{figure}[h]
+	\centering
+	\begin{subfigure}[b]{0.59\textwidth}
+	\includegraphics[width=\textwidth]{003_original}
+	\caption{Original position}
+	\end{subfigure}
+	% separate
+	\begin{subfigure}[b]{0.39\textwidth}
+	\includegraphics[width=\textwidth]{004_pca}
+	\caption{After PCA}
+	\end{subfigure}
+\label{fig:pca}
+\caption{PCA alignment}
+\end{figure}
+
+\pagebreak
+
+\begin{center}
+\begin{table}[h]
+	\begin{tabular}{| c | c | c | c | c | c | c | c |}
+	\hline
+	1 & 2 & 3 & 4 & 5 & 6 & 7 & 8\\
+	\hline
+	(x,y,z) & (x,y,-z) & (x,-y,z) & (x,-y,-z) & (-x,-y,z) & (-x,y,-z) & (-x,y,z) & (-x,-y,-z)\\
+	\hline
+	\end{tabular}
+\caption{PCA $[-1,1]^3$ cube combination}
+\label{table:pca}
+\end{table}
+\end{center}
+
+
 
 \end{document}
