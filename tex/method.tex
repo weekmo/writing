@@ -2,12 +2,12 @@
 %\usepackage{../mypkg}
 \begin{document}
 \chapter{Method}
-\section{The framework}
+\section{The ICP framework}
 \hspace{2em}The main subject of this thesis is demonstrating how the ICP framework can be extended to nonrigid registration, whilst retaining the convergence properties of the original algorithm. The principle idea is the application of the work presented in \cite{Amberg2007}. The resulting optimal step nonrigid ICP framework allows for the use of different regularisations, as long as they have an adjustable stiffness parameter. The registration loops over a series of decreasing stiffness weights and incrementally deforms the template towards the target, recovering the whole range of global and local deformations. To find the optimal deformation for a given stiffness, optimal iterative closest point steps are used. Preliminary correspondences are estimated by a nearest point search. Subsequently, the optimal deformation of the template for these fixed correspondences and the active stiffness is calculated. Afterwards, the process continues with new correspondences found by searching from the displaced template vertices. We present an algorithm using a locally affine regularisation which assigns an affine transformation to each vertex and minimises the difference in the transformation of neighbouring vertices. It is shown that for this regularisation, the optimal deformation for fixed correspondences and fixed stiffness can be determined exactly and efficiently. The method is successful for a wide range of initial conditions, and handles missing data robustly. Furthermore, it is compared qualitatively and quantitatively to other algorithms using synthetic examples and real world data.
 
 \hspace{2em} As has been defined in the introduction, vertex registration is a problem in which two or more datasets of points are given and the task is to optimally align them by estimating a best transformation. In our case, we use a dense registration method to find a mapping from each point in the template onto the target while sparse methods find correspondence only for selected feature points. This is done by deforming the template, locally moving it closer in each iteration to the target in order to wrap them together with respect to stiffness.
-
 \hspace{2em}ICP moves the template $S$ towards the target $T$ step by step. In each iteration, it minimizes the difference between the template $S$ and the target, $T$ as illustrated in figure (\ref{fig:figure1}), to reach the minimal value by solving the main equation (\ref{equ:equation1}):
+
 \begin{equation}
 \label{equ:equation1}
 ||Ax-b||^2
@@ -26,25 +26,38 @@ If we were to simply solve the equation (\ref{equ:equation1}) by assigning $A$ a
 \centering
 \includegraphics[scale=0.5]{001_conn}
 \captionsetup{justification=centering}
-\caption{With one iteration of ICP, the template $S$ moves closer to target $T$ as it becomes $S(x)$, Reference \cite{Amberg2007}}
+\caption{The template graph $S$ (green) is deformed by locally affine transformations $(X_{i})$ onto the target graph $T$ (red). The algorithm determines closest points $(u_{i})$ for each displaced source vertex $(X_{i}v_{i})$ and finds the optimal deformation for the stiffness used in this iteration. This is repeated until a stable state is found. The process then continues with a lower stiffness. Due to the stiffness constraint the vertices do not move directly towards the target graph, but may move parallel along it. The correspondences $u_{1}$
+and $u_{4}$ are dropped as they lie on the border of the target \cite{Amberg2007}.}
 \label{fig:figure1}
 \end{figure}
 
-\section{Setup}
-The method presented in \cite{Amberg2007} deals with graph representation of the data $S=(V,E)$ where $S,V$ and $E$ are signed to  graph, vertices and edges respectively. As we describe in the introduction our data is human brain bundles (pathways) saved in \textbf{\textit{ply}} data format as it shown in the simplified Figure \ref{fig:data}. It consist of three parts, the upper part is the header of the file which has the description of the file (i.e. format, comment, etc), the important parts of the header elements parts, which describe how many elements each parts has. in the sample in figure \ref{fig:data}, it has 69283 vertices in x,y,z and 603 fibers. The second part of the \textbf{\textit{ply}} files, is vertices in 3D Eucledian coordinate and the last part of \textbf{\textit{ply}} file represent the end index of each fiber.
-
-As the method in \cite{Amberg2007} require the template to be in graph format, we develop a tool to read \textbf{\textit{ply}} files and put them in a numpy array of array which can be later used as a graph. To be able to use \textbf{\textit{numpy ndarray}} as graph, we put each tract in a separet array with respect to the link, to do so, we put each points linked together next to each other, and then wrap all the tracts belong to the same bundle (i.e ATR, CC, genu, splenium, etc) in a new \textbf{\textit{numpy ndarray}}.
+\section{Setup Data}
+The method presented in \cite{Amberg2007} deals with graph representations of the data $S=(V,E)$ where $S,V$ and $E$ are assigned to graph, vertices and edges, respectively. As described in the introduction, our data contains human brain fiber bundles (pathways) saved in a \textbf{\textit{ply}} data format, as shown in the simplified figure [\ref{fig:data}]. The \textbf{\textit{ply}} format consists of three parts; the first, uppermost part is the header of the file which contains the file description (i.e. format, comment, etc) and the major components of the header element parts which describe how many elements each part has. In the sample in figure [\ref{fig:data}], there are 69283 vertices in x,y,z and 603 fibers. The second part of the \textbf{\textit{ply}} files contains vertices in 3D Euclidean coordinate space while the last part of the \textbf{\textit{ply}} file represents the end index of each fiber.As the method in \cite{Amberg2007} require the template to be in graph format, we develop a tool to read \textbf{\textit{ply}} files into a numpy array of arrays which can subsequently be used as a graph. To be able to use \textbf{\textit{numpy ndarray}} as a graph, we put each tract in a separate array with respect to the link between points. To do so, we put each point linked together next to each other, and then wrap all the tracts belonging to the same bundle (i.e ATR, CC, genu, splenium, etc) in a new \textbf{\textit{numpy ndarray}}.
 
 \begin{figure}[h]
 \centering
 \includegraphics[scale=0.5]{002_data}
 \captionsetup{justification=centering}
-\caption{Simplified ply file sample}
+\caption{Simplified \textbf{\textit{ply}} file sample}
 \label{fig:data}
 \end{figure}
 
-\section{Preparation}
-After we read the data in suitable format, we need to align the template to the source as much as possible. For that we use \textit{Principal Components Analysis}. To get the best aligning we scale the template to the source and use $[-1,1]^3$ cube, we use the combination of the cube and mesure the distance each time to select the minimal distance as illustrated in table \ref{tab:pca}.
+\section{Preparation Steps}
+After we read the data in graph format, we must align the template graph to the target graph as closely as possible. In order to do so, we use \textit{Principal Components Analysis (PCA)}. Before applying PCA, we scale the template graph and the target graph to a $[0,1]$ scale to match each other. This is done by subtracting all points from the minimum value in the graph and then dividing them by the maximum value in the graph. Next, we apply PCA and use $[-1,1]^3$ cube combination and measure the distance between each point in the template graph to the closest point in the target graph $\sum ||v_i-v_j||_F^2$ where $v_i \in S, v_j \in T$ eight times to select the combination with the minimum distance as is illustrated in table [\ref{table:cube}].
+
+\begin{center}
+\begin{table}[h]
+	\begin{tabular}{| c | c | c | c | c | c | c | c |}
+	\hline
+	1 & 2 & 3 & 4 & 5 & 6 & 7 & 8\\
+	\hline
+	(x,y,z) & (x,y,-z) & (x,-y,z) & (x,-y,-z) & (-x,-y,z) & (-x,y,-z) & (-x,y,z) & (-x,-y,-z)\\
+	\hline
+	\end{tabular}
+\caption{$[-1,1]^3$ cube combination}
+\label{table:cube}
+\end{table}
+\end{center}
 
 \begin{figure}[h]
 	\centering
@@ -61,22 +74,135 @@ After we read the data in suitable format, we need to align the template to the 
 \caption{PCA alignment}
 \end{figure}
 
-\pagebreak
+\section{Distance measurement}
+In all process in our code we use K-D tree (or k-dimensional)  to measure the euclidean distance between the points, either on PCA transformation, ICP or any where we measure the distance.
+\subsection{The K-D tree} 
+The K-D tree is a space-partitioning data structure (binary tree)  for organizing points, every leaf node is a k-dimensional point. Every non-leaf node can be thought of as implicitly generating a splitting hyperplane that divides the space into two parts, known as half-spaces. Points to the left of this hyperplane are represented by the left subtree of that node and points to the right of the hyperplane are represented by the right subtree. The hyperplane direction is chosen in the following way: every node in the tree is associated with one of the k dimensions, with the hyperplane perpendicular to that dimension's axis. So, for example, if for a particular split the "x" axis is chosen, all points in the subtree with a smaller "x" value than the node will appear in the left subtree and all points with larger "x" value will be in the right subtree. In such a case, the hyperplane would be set by the x-value of the point, and its normal would be the unit x-axis \cite{Bentley1975}.
 
-\begin{center}
-\begin{table}[h]
-	\begin{tabular}{| c | c | c | c | c | c | c | c |}
-	\hline
-	1 & 2 & 3 & 4 & 5 & 6 & 7 & 8\\
-	\hline
-	(x,y,z) & (x,y,-z) & (x,-y,z) & (x,-y,-z) & (-x,-y,z) & (-x,y,-z) & (-x,y,z) & (-x,-y,-z)\\
-	\hline
-	\end{tabular}
-\caption{PCA $[-1,1]^3$ cube combination}
-\label{table:pca}
-\end{table}
-\end{center}
+\begin{figure}[h!]
+\centering
+\includegraphics[scale=0.3]{005_3dtree}
+\captionsetup{justification=centering}
+\caption{A 3-dimensional k-d tree. The first split (the red vertical plane) cuts the root cell (white) into two subcells, each of which is then split (by the green horizontal planes) into two subcells. Finally, four cells are split (by the four blue vertical planes) into two subcells. Since there is no more splitting, the final eight are called leaf cells \cite{Wikipedia2006}.}
+\label{fig:data}
+\end{figure}
 
+\section{Finding the Affine transformation}
+After we prepare our data, we refer back to \cite{Amberg2007} and determine how we need to build the cost function. As we are going to explain, it consists of three parts: distance term, stiffness term and landmark term.
+\subsection{The original cost function:}
+As we mention above, the cost function as it shown in equation (\ref{equ:costFun}) consists of three terms, each of which represent different concepts: the distance term, stiffness term and landmark term. The distance term represents the distance between the template graph $S$ and target graph $T$ which has to be as minimal as possible (i.e., which must be minimized). The stiffness term regularizes the template graph to prevents it from being exactly the target graph. The final term is the landmark term which gives the initial case for the template graph.
 
+\begin{equation}
+E(X) = E_{d}(X) + \alpha E_{s}(X) + \beta E_{t}(X)
+\label{equ:costFun}
+\end{equation}
+%\subsubsection{The Distance Term}
+%\paragraph{The Distance Term:}
+Lets illustrate the first term, \textbf{the distance term}. As we mention before it is euclidean distance between points in template graph $S$ and points in target graph $T$, which can be wirtten as represented in equation (\ref{equ:distanceEq1}), this distance has to be minimized as much as possible to align template graph $S$ to target graph $T$ with respect to the original shape of template graph $S$ as much as possible, that means we need to make sure (by using stiffness term, which we will descuse later in this section) that all points which colse to each other stay as possible as they are.
 
+\begin{equation}
+E_{d}(X) = \sum_{v_{i} \in V} w_{i}dist^2(T,X_{i}v_{i})
+\label{equ:distance1}
+\end{equation}
+
+In equation (\ref{equ:distanceEq1}), $v_{i}$ represent the vertices $V$ in the template graph $S$ in homogeneous coordinate $v_{i} = [x,y,z,1]^T$, as we mention before, to be able to multiply them with affine matrices $X_{i}$ which are $3 \times 4$ matrices including transformation part which illustrated in equation (\ref{equ:equation1}). The distance between each vertex $v_{i} \in V$ in the template graph $S$ and it is closest vertex $u_{i} \in U$ in target graph $T$ noted with $dist^2(T,X_{i}v_{i})$, and $w \in [0,1]$ is weight which is \textit{one} if the correspondence for this vertex $v_{i}$ is found in the target graph $S$, and \textit{zero} if not. This concept will let each vertex $v_{i}$ in the template graph $T$ moves toward its correspondence vertex $u_{i}$ in the target graph $T$ if it found, otherwise, it moves with its neighbors because of the stiffness. Simply we use distance threshold as parameter to distinguish correspondances.
+
+Now we come to the second term, \textbf{the stiffness term}, which regularizes the shape deformation, represented in euqation (\ref{equ:stiffness1}):
+
+\begin{equation}
+E_{s}(X) = \sum_{i,j \in E} ||(X_{i} - X_{j})G||_{F}^2
+\label{equ:stiffness1}
+\end{equation}
+
+Regularizing the deformation occure by penalising the weighted difference of the transformations of neighbouring vertices under the Frobenius norm $||.||_{F}$ using a weighting matrix $G := diag(1, 1, 1, \gamma)$.
+$\gamma$ can be used to weight differences in the rotational and skew part of the deformation against the translational part of the deformation as it mentioned in \cite{Amberg2007}. The value of parameter $\gamma$ depends on the units of the data, and on the type of deformation that shall be expressed. In our case we choose it to be one because we already scaled our data into the $[-1, 1]^3$ cube.
+
+As it mentioned in \cite{Amberg2007} and in this thesis as well we use twelve parameters per vertex in $3 \times 4$ shape. This will allow us to write the cost function as a quadratic function which can be solved directly.
+
+The Forbenius norm in equation (\ref{equ:stiffness1}) defined for matrix A as demonistrated in equation (\ref{equ:stiffness2}):
+
+\begin{equation}
+||A||_{F} = \sqrt{\sum_{i=1}^m \sum_{j=1}^n |a_{ij}|^2}
+\label{equ:stiffness2}
+\end{equation} 
+
+By applying this equation we keep the vertices, which linked togther (there is an edge between them, they are in the same tract) or neighbors, close to each other.
+
+The $\alpha$ parameter in equation (\ref{equ:costFun}) is a constant that manages the effect of the stiffness term, when it is hight the neighbor vertices stay close to each other and vice versa, when it is low, more deformation can occure.
+
+The final part of equation (\ref{equ:costFun}) is \textbf{Stiffness term} which demonstrated in bellow in equation (\ref{equ:landmark1}):
+
+\begin{equation}
+E_{l}(X) = \sum_{(vi,l) \in L}||(X_{i}v_{i} - l||^2
+\label{equ:landmark1}
+\end{equation}
+
+Refere back to \cite{Amberg2007}, it mention that landmark uses for initalization and guidance of the registration. Given a set of landmarks $L = \left\{(v_{i1},l_{1}),(v_{i2},l_{2}),...,(v_{il},l_{l})\right\}$ mapping template graph $S$ vertices $V_{i}$ into the target graph $T$ vertices $U_{i}$, the landmark weight $\beta$ in equatin (\ref{equ:costFun}) is used to fade out the importance of the potentially noisy landmarks towards the end of the registration process.
+
+The registration can be found even without landmarks. Without landmarks the cost function has global minima where the template is collapsed onto a point on the target surface, but the local minimum corresponding to the correct registration can be found for a wide range of initial conditions.
+
+In our case, we use PCA transformation as initial step to align two graphs, therefore, we ommit the landmark term later on from our cost function, this consider to be a first optimization to the cost function due to reduction of calculation effort and time the landmark term in our code.
+
+Let us go deeper to illustrate the cost function more, and put the graphs in matrices that suit our cost function to ease implementation of the method.
+
+\textbf{Distance term} in equation (\ref{equ:costFun}) and (\ref{equ:distance1}) become:
+
+\begin{equation}
+\bar{E}_{d}(X) = \sum_{v_{i}\in V} w_{i}||X_{i}v_{i}-u_{i}||^2
+\label{equ:distance2}
+\end{equation}
+\begin{equation*}
+= \left\|(W \otimes I_{3}) \left( 
+\begin{bmatrix}
+X_{1} & & \\ 
+ & \ddots & \\
+ & & X_{n}
+\end{bmatrix}
+\begin{bmatrix}
+v_{1} \\ \vdots \\ v_{n}
+\end{bmatrix} - 
+\begin{bmatrix}
+u_{1}\\ \vdots \\ u_{n}
+\end{bmatrix}
+\right) \right\|^2
+\end{equation*}
+
+where $W = diag(w_{1},\dots, w_{n})$ is corresponded weight in diagonal matrix multiplied by Kronecker product $\otimes$ to $I_{3}$ identity matrix, $X$ is diagonal matrix of $X_{i}$ that we need to solve multiplyed by $V$ which is vertices of template graph $S$ subtracted by the (corresponded) vertices $U$ of the target graph $T$.
+
+the \textbf{Kronecker product}, denoted by $\otimes$, is an operation on two matrices of arbitrary size resulting in a block matrix. It is a generalization of the outer product (which is denoted by the same symbol) from vectors to matrices, and gives the matrix of the tensor product with respect to a standard choice of basis \cite{Wikipedia2019}.
+
+For instance, If $A$ is an $m \times n$ matrix and $B$ is a $p \times q$ matrix, then the Kronecker product $A \otimes B$ is the $mp \times nq$ block matrix:
+
+\begin{equation*}
+A \otimes B = 
+\begin{bmatrix}
+a_{11}B & \dots  & a_{1n}B \\
+\vdots  & \ddots & \vdots  \\
+a_{m1}B & \dots  & a_{mn}B
+\end{bmatrix}
+\end{equation*}
+
+So, the result of $W \otimes I_{3}$ is $3n\times 3n$ matrix, where $X$ matrix has size $3n\times4n$, $V$ has $4n\times1$ shape and $U$ has shape $3n\times1$.
+
+We continue reform the equation to be differentiated easily by putting it into canonical form. We swap the position of $X$ and the $V$ matrices. For $V$ matrix we define a sparse matrix $D$ which contains the the vertices $v_{i} \in V$ in diagonal position as demonstrated below:
+ 
+\begin{equation}
+D = 
+\begin{bmatrix}
+v_{1}^T & & & \\
+ & v_{2}^T & & \\
+ & & \ddots & \\
+ & & & v_{n}^T 
+\end{bmatrix}
+\end{equation} 
+
+The new format of the equation become:
+
+\begin{equation}
+\bar{E}_{d}(X) = ||W(DX-U||_{F}^2
+\end{equation}
+
+Where the matrix $W$ has size $n\times n$, the matrix $D$ has size $n\times 4n$ (vertices $v_{i}$ are in homogeneous coordinates $[x,y,z,1]^T$), $X$ has size $4n\times 3$, and $U$ doesn't change with shape $n\times 3$ (vertices $u_{i}$ are in 3D coordinate).
+
+We continue to reform \textbf{the stiffness term} which penalises differences between the transformation matrices (affine matrices) $X$ assigned to neighboring vertices.
 \end{document}

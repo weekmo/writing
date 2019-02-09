@@ -1,0 +1,62 @@
+\begin{thebibliography}{10}
+
+\bibitem{Amberg2007}
+Brian Amberg, Sami Romdhani, and Thomas Vetter.
+\newblock Optimal step nonrigid icp algorithms for surface registration.
+\newblock In {\em Computer Vision and Pattern Recognition, 2007. CVPR'07. IEEE
+  Conference on}, pages 1--8. IEEE, 2007.
+
+\bibitem{Wikipedia2006}
+{Wikipedia, the free encyclopedia}.
+\newblock 3d tree, February 2006.
+\newblock [Online; accessed Feb 9, 2019].
+
+\bibitem{Li2007}
+Hongdong Li and Richard Hartley.
+\newblock The 3d-3d registration problem revisited.
+\newblock In {\em 2007 {IEEE} 11th International Conference on Computer
+  Vision}. {IEEE}, 2007.
+
+\bibitem{Blumenfeld2010}
+Hal Blumenfeld.
+\newblock {\em Neuroanatomy through Clinical Cases}.
+\newblock Oxford University Press, 2010.
+
+\bibitem{Klein2008}
+Stephen~B. Klein.
+\newblock {\em Biological Psychology}.
+\newblock Worth Publishers, 2008.
+
+\bibitem{Fields2008}
+R.~Douglas Fields.
+\newblock White matter matters.
+\newblock {\em Scientific American}, 298(3):54--61, mar 2008.
+
+\bibitem{Zhang1994}
+Zhengyou Zhang.
+\newblock Iterative point matching for registration of free-form curves and
+  surfaces.
+\newblock {\em International Journal of Computer Vision}, 13(2):119--152, oct
+  1994.
+
+\bibitem{Jolliffe2002}
+I.T. Jolliffe.
+\newblock {\em Principal Component Analysis (Springer Series in Statistics)}.
+\newblock Springer, 2002.
+
+\bibitem{Paige1982}
+Christopher~C. Paige and Michael~A. Saunders.
+\newblock Lsqr: An algorithm for sparse linear equations and sparse least
+  squares, 1982.
+
+\bibitem{Bentley1975}
+Jon~Louis Bentley.
+\newblock Multidimensional binary search trees used for associative searching.
+\newblock {\em Communications of the ACM}, 18(9):509--517, 1975.
+
+\bibitem{Wikipedia2019}
+{Wikipedia contributors}.
+\newblock Kronecker product, February 2019.
+\newblock [Online; accessed 9-February-2019].
+
+\end{thebibliography}
