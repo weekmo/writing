@@ -22,7 +22,7 @@ X = [X_1, X_2, ... ,X_n]^T
 
 If we were to simply solve the equation (\ref{equ:equation1}) by assigning $A$ as the template and $b$ as the target, we will get exactly $Ax=b$, which means the difference between them is zero. That leads to the deforming of $A$ and a complete loss of its shape, therefore, we need to add the stiffness part to the equation that will prevent this deformation by keeping the vertices originally as close to each other as possible which we will later explain in this chapter.
 
-\begin{figure}[h]
+\begin{figure}[h!]
 \centering
 \includegraphics[scale=0.5]{001_conn}
 \captionsetup{justification=centering}
@@ -32,9 +32,9 @@ and $u_{4}$ are dropped as they lie on the border of the target \cite{Amberg2007
 \end{figure}
 
 \section{Setup Data}
-The method presented in \cite{Amberg2007} deals with graph representations of the data $S=(V,E)$ where $S,V$ and $E$ are assigned to graph, vertices and edges, respectively. As described in the introduction, our data contains human brain fiber bundles (pathways) saved in a \textbf{\textit{ply}} data format, as shown in the simplified figure [\ref{fig:data}]. The \textbf{\textit{ply}} format consists of three parts; the first, uppermost part is the header of the file which contains the file description (i.e. format, comment, etc) and the major components of the header element parts which describe how many elements each part has. In the sample in figure [\ref{fig:data}], there are 69283 vertices in x,y,z and 603 fibers. The second part of the \textbf{\textit{ply}} files contains vertices in 3D Euclidean coordinate space while the last part of the \textbf{\textit{ply}} file represents the end index of each fiber.As the method in \cite{Amberg2007} require the template to be in graph format, we develop a tool to read \textbf{\textit{ply}} files into a numpy array of arrays which can subsequently be used as a graph. To be able to use \textbf{\textit{numpy ndarray}} as a graph, we put each tract in a separate array with respect to the link between points. To do so, we put each point linked together next to each other, and then wrap all the tracts belonging to the same bundle (i.e ATR, CC, genu, splenium, etc) in a new \textbf{\textit{numpy ndarray}}.
+The method presented in \cite{Amberg2007} deals with graph representations of the data $S=(V,E)$ where $S,V$ and $E$ are assigned to graph, vertices and edges, respectively. As described in the introduction, our data contains human brain fiber bundles (pathways) saved in a \textbf{\textit{ply}} data format, as shown in the simplified figure [\ref{fig:data}]. The \textbf{\textit{ply}} format consists of three parts; the first, uppermost part is the header of the file which contains the file description (i.e. format, comment, etc) and the major components of the header element parts which describe how many elements each part has. In the sample in figure [\ref{fig:data}], there are 69283 vertices in x,y,z and 603 fibers. The second part of the \textbf{\textit{ply}} files contains vertices in 3D Euclidean coordinate space while the last part of the \textbf{\textit{ply}} file represents the end index of each fiber.As the method in \cite{Amberg2007} require the template to be in graph format, we develop a tool to read \textbf{\textit{ply}} files into a numpy array of arrays which can subsequently be used as a graph. To be able to use \textbf{\textit{numpy ndarray}} as a graph, we put each tract in a separate array with respect to the link between points (Edges $E$). To do so, we put each point linked together next to each other, and then wrap all the tracts belonging to the same bundle (i.e ATR, CC, genu, splenium, etc) in a new \textbf{\textit{numpy ndarray}}.
 
-\begin{figure}[h]
+\begin{figure}[h!]
 \centering
 \includegraphics[scale=0.5]{002_data}
 \captionsetup{justification=centering}
@@ -44,7 +44,7 @@ The method presented in \cite{Amberg2007} deals with graph representations of th
 
 \section{Preparation Steps}
 After we read the data in graph format, we must align the template graph to the target graph as closely as possible. In order to do so, we use \textit{Principal Components Analysis (PCA)}. Before applying PCA, we scale the template graph and the target graph to a $[0,1]$ scale to match each other. This is done by subtracting all points from the minimum value in the graph and then dividing them by the maximum value in the graph. Next, we apply PCA and use $[-1,1]^3$ cube combination and measure the distance between each point in the template graph to the closest point in the target graph $\sum ||v_i-v_j||_F^2$ where $v_i \in S, v_j \in T$ eight times to select the combination with the minimum distance as is illustrated in table [\ref{table:cube}].
-
+% Above to be reviewed
 \begin{center}
 \begin{table}[h]
 	\begin{tabular}{| c | c | c | c | c | c | c | c |}
@@ -59,7 +59,7 @@ After we read the data in graph format, we must align the template graph to the 
 \end{table}
 \end{center}
 
-\begin{figure}[h]
+\begin{figure}[h!]
 	\centering
 	\begin{subfigure}[b]{0.59\textwidth}
 	\includegraphics[width=\textwidth]{003_original}
@@ -73,6 +73,8 @@ After we read the data in graph format, we must align the template graph to the 
 \label{fig:pca}
 \caption{PCA alignment}
 \end{figure}
+
+% New part start here
 
 \section{Distance measurement}
 In all process in our code we use K-D tree (or k-dimensional)  to measure the euclidean distance between the points, either on PCA transformation, ICP or any where we measure the distance.
@@ -133,7 +135,7 @@ The $\alpha$ parameter in equation (\ref{equ:costFun}) is a constant that manage
 The final part of equation (\ref{equ:costFun}) is \textbf{Stiffness term} which demonstrated in bellow in equation (\ref{equ:landmark1}):
 
 \begin{equation}
-E_{l}(X) = \sum_{(vi,l) \in L}||(X_{i}v_{i} - l||^2
+E_{l}(X) = \sum_{(vi,l) \in L}||(X_{i}v_{i} - l)||^2
 \label{equ:landmark1}
 \end{equation}
 
@@ -199,10 +201,127 @@ v_{1}^T & & & \\
 The new format of the equation become:
 
 \begin{equation}
-\bar{E}_{d}(X) = ||W(DX-U||_{F}^2
+\bar{E}_{d}(X) = ||W(DX-U)||_{F}^2
 \end{equation}
 
 Where the matrix $W$ has size $n\times n$, the matrix $D$ has size $n\times 4n$ (vertices $v_{i}$ are in homogeneous coordinates $[x,y,z,1]^T$), $X$ has size $4n\times 3$, and $U$ doesn't change with shape $n\times 3$ (vertices $u_{i}$ are in 3D coordinate).
 
-We continue to reform \textbf{the stiffness term} which penalises differences between the transformation matrices (affine matrices) $X$ assigned to neighboring vertices.
+We continue to reform \textbf{the stiffness term} which penalises differences between the transformation matrices (affine matrices) $X$ assigned to neighboring vertices. The simplified form of stiffness term will be:
+
+\begin{equation}
+E_{s}(X) = ||(M\otimes G)X||_{F}^2
+\end{equation}
+
+where $M$ is node-arc incidence matrix which defined for directed graph. The number of rows in this matrix equal the number of nodes (vertices) and the number of columns equal the number of arcs (edges) on the graph and the values has to be \textit{zeros, ones and/or minus ones}. the value will be \textit{zero} if the edge on this column not connected to the vertex on this row where the value lie, otherwise the value has to be either $1$ or $-1$, it will be $1$ if the edge direction comming to the vertex and $-1$ otherwise, it is illustrated in the figure \ref{fig:directed_graph},the matrix $M$ has size $e\times n$ where $e and n$ are the number of edges and vertices respectively. $G = diag(1,1,1,y)$ is diagonal matrix  and the result of $M \otimes G$ is a matrix with size $4e \times 4n$.
+
+\begin{figure}[h!]
+\centering
+\includegraphics[scale=0.2]{006_direct_graph}
+\captionsetup{justification=centering}
+\caption{Oriented graph with corresponding incidence matrix  \cite{Wikipedia2010}}
+\label{fig:directed_graph}
+\end{figure}
+
+Final term is \textbf{the landmark term} needs to be reformed as well, we reform it similar to distance term. We only consider those vertices from $D$ ($D$ \textit{from the distance term (\ref{equ:distance2})}) are landmarks in a new matrix called $D_{L}$, and verticse from $U$ (which are vertices from target graph $T$) are corresponded to those landmarks and putt them in a new matrix called $U_{L} = [l_{1}, l_{1}, \dots,l_{l}]^T$.
+
+The final shape of the cost function is quadratic function as shown below:
+
+\begin{equation}
+\bar{E}(X) = \left\|
+\begin{bmatrix}
+\alpha M \otimes G \\ WD \\ \beta D_{L}
+\end{bmatrix}
+X -
+\begin{bmatrix}
+0 \\ WU \\ U_{L}
+\end{bmatrix}
+\right\| ^2 = ||AX - B||_{F}^2
+\end{equation}
+
+The current form of the function can be minimized by setting its derivative to zero and solve it as linear equation. The minimum value of $\bar{E}(X)$ is when $X = (A^T A)^-1 A^T B$. Even the $A$ is a sparse matrix and most of its values are zeros, it is still large matrix and it takes the must time of solving the equatin. To solve this problem, we well remove the landmark term as mentioned before, because we already have the initial step by applying PCA, after we ommit the landmark term the function will look like this:
+
+\begin{equation}
+\bar{E}(X) = \left\|
+\begin{bmatrix}
+\alpha M \otimes G \\ WD
+\end{bmatrix}
+X -
+\begin{bmatrix}
+0 \\ WU
+\end{bmatrix}
+\right\| ^2 = ||AX - B||_{F}^2
+\end{equation}
+
+\section{Applying the Transformations}
+Let us review the principal of affine transformation briefly. If we have a point $[x,y,1]$ in homogeneous coordinate in 2D euclidean space and we want to move this point three unit through the \textit{X axis}, $[x,y,1]^T a = [x+3,y,1]^T$, in this case $a$ is called affine matrix.
+
+\begin{equation*}
+\begin{bmatrix}
+x \\ y \\ 1
+\end{bmatrix}
+\begin{bmatrix}
+1 & 0 & 3 \\
+0 & 1 & 0 \\
+0 & 0 & 1
+\end{bmatrix}
+= 
+\begin{bmatrix}
+x + 3 \\ y \\ 1
+\end{bmatrix}
+\end{equation*}
+
+The example mentioned above is only for translation, we have still some other moves (i.e. sheer, rotation and scale) as demonestrated in figure [\ref{fig:affine}] for 2D shape.
+
+\begin{figure}[h!]
+\centering
+\includegraphics[scale=0.5]{007_affine}
+\captionsetup{justification=centering}
+\caption{2D affine transformation matrices \cite{Wikipedia2016}}
+\label{fig:affine}
+\end{figure}
+
+We have shown that how 2D transformation occurs, and the same applies to 3D as illustrated below:
+
+\begin{equation*}
+\begin{bmatrix}
+\hat{x} \\ \hat{y} \\ \hat{z} \\ 1
+\end{bmatrix}
+\begin{bmatrix}
+a & b & c & e\\
+f & g & h & i\\
+j & k & l & m\\
+0 & 0 & 0 & 1
+\end{bmatrix}
+= 
+\begin{bmatrix}
+x \\ y \\ z \\ 1
+\end{bmatrix}
+\end{equation*}
+
+But this is still on point, if we have more points like our case, the equation above become:
+
+\begin{equation*}
+\begin{bmatrix}
+\hat{x_{1}} & \hat{x_{2}} & \dots & \hat{x_{n}}\\
+\hat{y_{1}} & \hat{y_{2}} & \dots & \hat{y_{n}}\\
+\hat{z_{1}} & \hat{z_{2}} & \dots & \hat{z_{n}}\\
+1 & 1 & \dots & 1
+\end{bmatrix}
+\begin{bmatrix}
+a & b & c & e\\
+f & g & h & i\\
+j & k & l & m\\
+0 & 0 & 0 & 1
+\end{bmatrix}
+= 
+\begin{bmatrix}
+x_{1} & x_{2} & \dots & x_{n}\\
+y_{1} & y_{2} & \dots & y_{n}\\
+z_{1} & z_{2} & \dots & z_{n}\\
+1 & 1 & \dots & 1
+\end{bmatrix}
+\end{equation*}
+
+\section{Nonrigid optimal step ICP algorithms}
+
 \end{document}

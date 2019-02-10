@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2019/dev/Debian) (preloaded format=pdflatex 2019.1.29)  10 FEB 2019 00:35
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2019/dev/Debian) (preloaded format=pdflatex 2019.1.29)  10 FEB 2019 20:44
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1004,7 +1004,7 @@ LaTeX Font Info:    Font shape `OT1/pplj/bx/it' in size <12> not available
 (./tex/abstract.tex [9] [10
 
 ])
-Overfull \hbox (2.3694pt too wide) in paragraph at lines 5--13
+Overfull \hbox (2.3694pt too wide) in paragraph at lines 5--12
 \OT1/pplj/m/n/12 (-20) In This the-sis we show how to ex-tend the ICP frame-wor
 k to non-rigid reg-is-tra-tion,
  []
@@ -1034,14 +1034,14 @@ Underfull \vbox (badness 1430) has occurred while \output is active []
  [3
 
 ]
-<./img/001_conn.png, id=192, 586.19pt x 239.89626pt>
+<./img/001_conn.png, id=215, 586.19pt x 239.89626pt>
 File: ./img/001_conn.png Graphic file (type png)
 <use ./img/001_conn.png>
 Package pdftex.def Info: ./img/001_conn.png  used on input line 27.
 (pdftex.def)             Requested size: 293.09428pt x 119.94783pt.
 
 [4 <./img/001_conn.png>]
-<./img/002_data.png, id=204, 588.1975pt x 375.4025pt>
+<./img/002_data.png, id=227, 588.1975pt x 375.4025pt>
 File: ./img/002_data.png Graphic file (type png)
 <use ./img/002_data.png>
 Package pdftex.def Info: ./img/002_data.png  used on input line 39.
@@ -1050,19 +1050,19 @@ LaTeX Font Info:    Font shape `OT1/pplj/bx/n' in size <10.95> not available
 (Font)              Font shape `OT1/pplj/b/n' tried instead on input line 41.
 LaTeX Font Info:    Font shape `OT1/pplj/bx/it' in size <10.95> not available
 (Font)              Font shape `OT1/pplj/b/it' tried instead on input line 41.
-<./img/003_original.png, id=207, 1103.12125pt x 670.505pt>
+<./img/003_original.png, id=230, 1103.12125pt x 670.505pt>
 File: ./img/003_original.png Graphic file (type png)
 <use ./img/003_original.png>
 Package pdftex.def Info: ./img/003_original.png  used on input line 65.
 (pdftex.def)             Requested size: 245.42627pt x 149.16899pt.
-<./img/004_pca.png, id=208, 532.99126pt x 356.33125pt>
+<./img/004_pca.png, id=231, 532.99126pt x 356.33125pt>
 File: ./img/004_pca.png Graphic file (type png)
 <use ./img/004_pca.png>
 Package pdftex.def Info: ./img/004_pca.png  used on input line 70.
 (pdftex.def)             Requested size: 162.23167pt x 108.46066pt.
 
 
-LaTeX Warning: `h' float specifier changed to `ht'.
+LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 
 Underfull \vbox (badness 2020) has occurred while \output is active []
@@ -1071,10 +1071,10 @@ Package microtype Info: Character `013' is missing
 (microtype)             in font `OT1/pplj/m/sc/10.95'.
 (microtype)             Ignoring protrusion settings for this character.
  [5 <./img/002_data.png>]
-<./img/005_3dtree.png, id=216, 550.055pt x 522.95375pt>
+<./img/005_3dtree.png, id=239, 550.055pt x 522.95375pt>
 File: ./img/005_3dtree.png Graphic file (type png)
 <use ./img/005_3dtree.png>
-Package pdftex.def Info: ./img/005_3dtree.png  used on input line 84.
+Package pdftex.def Info: ./img/005_3dtree.png  used on input line 86.
 (pdftex.def)             Requested size: 165.01776pt x 156.88733pt.
 
 
@@ -1086,14 +1086,14 @@ Underfull \vbox (badness 2865) has occurred while \output is active []
  [6 <./img/003_original.png> <./img/004_pca.png>]
 
 LaTeX Warning: Reference `equ:distanceEq1' on page 7 undefined on input line 10
-1.
+3.
 
 
-LaTeX Warning: Reference `equ:distanceEq1' on page 7 undefined on input line 10
-8.
+LaTeX Warning: Reference `equ:distanceEq1' on page 7 undefined on input line 11
+0.
 
 
-Overfull \hbox (16.46344pt too wide) in paragraph at lines 108--109
+Overfull \hbox (16.46344pt too wide) in paragraph at lines 110--111
 []\OT1/pplj/m/n/12 (-20) In equa-tion ([]), $\OML/zplm/m/it/12 v[]$ \OT1/pplj/m
 /n/12 (-20) rep-re-sent the ver-tices $\OML/zplm/m/it/12 V$ \OT1/pplj/m/n/12 (-
 20) in the tem-plate graph $\OML/zplm/m/it/12 S$ \OT1/pplj/m/n/12 (-20) in ho-m
@@ -1101,33 +1101,56 @@ o-ge-neous
  []
 
 [7 <./img/005_3dtree.png>] [8]
-Overfull \hbox (13.6929pt too wide) in paragraph at lines 170--171
+Overfull \hbox (13.6929pt too wide) in paragraph at lines 172--173
 []\OT1/pplj/m/n/12 (-20) where $\OML/zplm/m/it/12 W \OT1/zplm/m/n/12 = \OML/zpl
 m/m/it/12 diag\OT1/zplm/m/n/12 (\OML/zplm/m/it/12 w[]\OT1/pplx/m/n/12 , [] , \O
 ML/zplm/m/it/12 w[]\OT1/zplm/m/n/12 )$ \OT1/pplj/m/n/12 (-20) is cor-re-sponded
  weight in di-ag-o-nal ma-trix mul-ti-plied
  []
 
-[9]) (./tex/results.tex
+[9]
+<./img/006_direct_graph.png, id=289, 1284.8pt x 670.505pt>
+File: ./img/006_direct_graph.png Graphic file (type png)
+<use ./img/006_direct_graph.png>
+Package pdftex.def Info: ./img/006_direct_graph.png  used on input line 219.
+(pdftex.def)             Requested size: 256.95544pt x 134.09862pt.
+ [10 <./img/006_direct_graph.png>]
+<./img/007_affine.png, id=303, 803.0pt x 1071.00125pt>
+File: ./img/007_affine.png Graphic file (type png)
+<use ./img/007_affine.png>
+Package pdftex.def Info: ./img/007_affine.png  used on input line 277.
+(pdftex.def)             Requested size: 401.49902pt x 535.49931pt.
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+[11]) (./tex/implementation.tex
 Chapter 3.
-[10]) (./tex/conclusion.tex
+
+Underfull \vbox (badness 1005) has occurred while \output is active []
+
+ [12 <./img/007_affine.png>] [13] [14
+
+]) (./tex/results.tex
 Chapter 4.
-[11
+[15] [16
 
-] [12
+]) (./tex/conclusion.tex
+Chapter 5.
+[17] [18
 
-]) [13] [14
+]) [19] [20
 
-] (./structure.bbl) [15
+] (./structure.bbl) [21
 
 ]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 28.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 28.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 23.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 23.
  (./structure.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 28.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 28.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 23.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 23.
 Package rerunfilecheck Info: File `structure.out' has not changed.
-(rerunfilecheck)             Checksum: 3D427A933B460F075700B4EFFAC571DC;1007.
+(rerunfilecheck)             Checksum: 0DC783E1B38F52DD6BA69BF1B1AF3386;1215.
 
 
 LaTeX Warning: There were undefined references.
@@ -1135,14 +1158,14 @@ LaTeX Warning: There were undefined references.
 
 LaTeX Warning: There were multiply-defined labels.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 28.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 23.
  ) 
 Here is how much of TeX's memory you used:
- 15509 strings out of 492641
- 263690 string characters out of 6131787
- 435078 words of memory out of 5000000
- 18693 multiletter control sequences out of 15000+600000
- 73720 words of font info for 361 fonts, out of 8000000 for 9000
+ 15572 strings out of 492641
+ 264590 string characters out of 6131787
+ 437349 words of memory out of 5000000
+ 18715 multiletter control sequences out of 15000+600000
+ 74785 words of font info for 377 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  66i,23n,93p,1666b,649s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/share/texliv
@@ -1156,10 +1179,10 @@ usr/share/texlive/texmf-dist/fonts/type1/urw/palatino/uplb8a.pfb></usr/share/te
 xlive/texmf-dist/fonts/type1/urw/palatino/uplbi8a.pfb></usr/share/texlive/texmf
 -dist/fonts/type1/urw/palatino/uplr8a.pfb></usr/share/texlive/texmf-dist/fonts/
 type1/urw/palatino/uplri8a.pfb>
-Output written on structure.pdf (27 pages, 257551 bytes).
+Output written on structure.pdf (33 pages, 407002 bytes).
 PDF statistics:
- 348 PDF objects out of 1000 (max. 8388607)
- 294 compressed objects within 3 object streams
- 70 named destinations out of 1000 (max. 500000)
- 60058 words of extra memory for PDF output out of 61914 (max. 10000000)
+ 414 PDF objects out of 1000 (max. 8388607)
+ 348 compressed objects within 4 object streams
+ 86 named destinations out of 1000 (max. 500000)
+ 60092 words of extra memory for PDF output out of 61914 (max. 10000000)
 

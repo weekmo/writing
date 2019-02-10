@@ -10,6 +10,9 @@
 \contentsline {figure}{\numberline {2}{\ignorespaces Simplified \textbf {\textit {ply}} file sample\relax }}{5}{figure.caption.2}
 \contentsline {figure}{\numberline {3}{\ignorespaces PCA alignment\relax }}{6}{figure.caption.4}
 \contentsline {figure}{\numberline {4}{\ignorespaces A 3-dimensional k-d tree. The first split (the red vertical plane) cuts the root cell (white) into two subcells, each of which is then split (by the green horizontal planes) into two subcells. Finally, four cells are split (by the four blue vertical planes) into two subcells. Since there is no more splitting, the final eight are called leaf cells \cite {Wikipedia2006}.\relax }}{7}{figure.caption.5}
+\contentsline {figure}{\numberline {5}{\ignorespaces Oriented graph with corresponding incidence matrix \cite {Wikipedia2010}\relax }}{10}{figure.caption.6}
+\contentsline {figure}{\numberline {6}{\ignorespaces 2D affine transformation matrices \cite {Wikipedia2016}\relax }}{12}{figure.caption.7}
+\ttl@tocsep 
 \ttl@tocsep 
 \ttl@tocsep 
 \ttl@tocsep 
