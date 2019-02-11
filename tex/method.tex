@@ -87,7 +87,7 @@ The K-D tree is a space-partitioning data structure (binary tree)  for organizin
 \includegraphics[scale=0.3]{005_3dtree}
 \captionsetup{justification=centering}
 \caption{A 3-dimensional k-d tree. The first split (the red vertical plane) cuts the root cell (white) into two subcells, each of which is then split (by the green horizontal planes) into two subcells. Finally, four cells are split (by the four blue vertical planes) into two subcells. Since there is no more splitting, the final eight are called leaf cells \cite{Wikipedia2006}.}
-\label{fig:data}
+\label{fig:3dtree}
 \end{figure}
 
 \section{Finding the Affine transformation}
@@ -251,6 +251,7 @@ X -
 0 \\ WU
 \end{bmatrix}
 \right\| ^2 = ||AX - B||_{F}^2
+\label{equ:finalCostFun}
 \end{equation}
 
 \section{Applying the Transformations}

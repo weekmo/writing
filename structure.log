@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2019/dev/Debian) (preloaded format=pdflatex 2019.1.29)  11 FEB 2019 21:28
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2019/dev/Debian) (preloaded format=pdflatex 2019.1.29)  11 FEB 2019 23:30
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -766,11 +766,7 @@ Package: rotating 2016/08/11 v2.16d rotated objects in LaTeX
 \rot@float@box=\box33
 \rot@mess@toks=\toks30
 ))
-(./structure.aux
-
-LaTeX Warning: Label `fig:data' multiply defined.
-
-)
+(./structure.aux)
 \openout1 = `structure.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 4.
@@ -1004,9 +1000,9 @@ LaTeX Font Info:    Font shape `OT1/pplj/bx/it' in size <12> not available
 (./tex/abstract.tex [9] [10
 
 ])
-Overfull \hbox (2.3694pt too wide) in paragraph at lines 5--12
-\OT1/pplj/m/n/12 (-20) In This the-sis we show how to ex-tend the ICP frame-wor
-k to non-rigid reg-is-tra-tion,
+Overfull \hbox (26.26355pt too wide) in paragraph at lines 5--12
+\OT1/pplj/m/n/12 (-20) search. Then the op-ti-mal de-for-ma-tion of the tem-pla
+te for these fixed cor-re-spon-dences
  []
 
 [11] [12
@@ -1029,6 +1025,12 @@ a-vor-able nu-mer-i-cal prop-er-ties
  []
 
 [2]
+Package microtype Info: Character `013' is missing
+(microtype)             in font `OT1/pplj/m/sc/10.95'.
+(microtype)             Ignoring protrusion settings for this character.
+ [3] [4
+
+]
 Overfull \hbox (9.94409pt too wide) in paragraph at lines 7--8
 \OT1/pplj/m/n/12 (-20) the whole range of global and lo-cal de-for-ma-tions. To
  find the op-ti-mal de-for-ma-tion
@@ -1045,17 +1047,15 @@ LaTeX Font Warning: Font shape `OMS/pplj/m/n' undefined
 
 Underfull \vbox (badness 1430) has occurred while \output is active []
 
- [3
-
-]
-<./img/001_conn.png, id=215, 586.19pt x 239.89626pt>
+ [5]
+<./img/001_conn.png, id=226, 586.19pt x 239.89626pt>
 File: ./img/001_conn.png Graphic file (type png)
 <use ./img/001_conn.png>
 Package pdftex.def Info: ./img/001_conn.png  used on input line 28.
 (pdftex.def)             Requested size: 293.09428pt x 119.94783pt.
 
-[4 <./img/001_conn.png>]
-<./img/002_data.png, id=227, 588.1975pt x 375.4025pt>
+[6 <./img/001_conn.png>]
+<./img/002_data.png, id=238, 588.1975pt x 375.4025pt>
 File: ./img/002_data.png Graphic file (type png)
 <use ./img/002_data.png>
 Package pdftex.def Info: ./img/002_data.png  used on input line 40.
@@ -1064,12 +1064,12 @@ LaTeX Font Info:    Font shape `OT1/pplj/bx/n' in size <10.95> not available
 (Font)              Font shape `OT1/pplj/b/n' tried instead on input line 42.
 LaTeX Font Info:    Font shape `OT1/pplj/bx/it' in size <10.95> not available
 (Font)              Font shape `OT1/pplj/b/it' tried instead on input line 42.
-<./img/003_original.png, id=230, 1103.12125pt x 670.505pt>
+<./img/003_original.png, id=241, 1103.12125pt x 670.505pt>
 File: ./img/003_original.png Graphic file (type png)
 <use ./img/003_original.png>
 Package pdftex.def Info: ./img/003_original.png  used on input line 66.
 (pdftex.def)             Requested size: 245.42627pt x 149.16899pt.
-<./img/004_pca.png, id=231, 532.99126pt x 356.33125pt>
+<./img/004_pca.png, id=242, 532.99126pt x 356.33125pt>
 File: ./img/004_pca.png Graphic file (type png)
 <use ./img/004_pca.png>
 Package pdftex.def Info: ./img/004_pca.png  used on input line 71.
@@ -1081,11 +1081,8 @@ LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 Underfull \vbox (badness 2020) has occurred while \output is active []
 
-Package microtype Info: Character `013' is missing
-(microtype)             in font `OT1/pplj/m/sc/10.95'.
-(microtype)             Ignoring protrusion settings for this character.
- [5 <./img/002_data.png>]
-<./img/005_3dtree.png, id=239, 550.055pt x 522.95375pt>
+ [7 <./img/002_data.png>]
+<./img/005_3dtree.png, id=251, 550.055pt x 522.95375pt>
 File: ./img/005_3dtree.png Graphic file (type png)
 <use ./img/005_3dtree.png>
 Package pdftex.def Info: ./img/005_3dtree.png  used on input line 87.
@@ -1097,7 +1094,7 @@ LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 Underfull \vbox (badness 2865) has occurred while \output is active []
 
- [6 <./img/003_original.png> <./img/004_pca.png>]
+ [8 <./img/003_original.png> <./img/004_pca.png>]
 Overfull \hbox (11.68744pt too wide) in paragraph at lines 111--112
 []\OT1/pplj/m/n/12 (-20) In equa-tion ([][]4[][]), $\OML/zplm/m/it/12 v[]$ \OT1
 /pplj/m/n/12 (-20) rep-re-sent the ver-tices $\OML/zplm/m/it/12 V$ \OT1/pplj/m/
@@ -1105,7 +1102,7 @@ n/12 (-20) in the tem-plate graph $\OML/zplm/m/it/12 S$ \OT1/pplj/m/n/12 (-20)
 in ho-mo-ge-neous
  []
 
-[7 <./img/005_3dtree.png>] [8]
+[9 <./img/005_3dtree.png>] [10]
 Overfull \hbox (13.6929pt too wide) in paragraph at lines 173--174
 []\OT1/pplj/m/n/12 (-20) where $\OML/zplm/m/it/12 W \OT1/zplm/m/n/12 = \OML/zpl
 m/m/it/12 diag\OT1/zplm/m/n/12 (\OML/zplm/m/it/12 w[]\OT1/pplx/m/n/12 , [] , \O
@@ -1113,40 +1110,53 @@ ML/zplm/m/it/12 w[]\OT1/zplm/m/n/12 )$ \OT1/pplj/m/n/12 (-20) is cor-re-sponded
  weight in di-ag-o-nal ma-trix mul-ti-plied
  []
 
-[9]
-<./img/006_direct_graph.png, id=292, 1284.8pt x 670.505pt>
+[11]
+<./img/006_direct_graph.png, id=303, 1284.8pt x 670.505pt>
 File: ./img/006_direct_graph.png Graphic file (type png)
 <use ./img/006_direct_graph.png>
 Package pdftex.def Info: ./img/006_direct_graph.png  used on input line 220.
 (pdftex.def)             Requested size: 256.95544pt x 134.09862pt.
- [10 <./img/006_direct_graph.png>]
-<./img/007_affine.png, id=305, 803.0pt x 1071.00125pt>
+ [12 <./img/006_direct_graph.png>]
+<./img/007_affine.png, id=316, 803.0pt x 1071.00125pt>
 File: ./img/007_affine.png Graphic file (type png)
 <use ./img/007_affine.png>
-Package pdftex.def Info: ./img/007_affine.png  used on input line 278.
+Package pdftex.def Info: ./img/007_affine.png  used on input line 279.
 (pdftex.def)             Requested size: 401.49902pt x 535.49931pt.
 
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-[11]
+[13]
 Underfull \vbox (badness 1005) has occurred while \output is active []
 
- [12 <./img/007_affine.png>]) (./tex/implementation.tex
+ [14 <./img/007_affine.png>]) (./tex/implementation.tex
 Chapter 3.
-[13] [14
-
-]) (./tex/results.tex
-Chapter 4.
 [15] [16
 
-]) (./tex/conclusion.tex
+]
+Overfull \hbox (10.91042pt too wide) in paragraph at lines 17--18
+\OT1/pplj/m/it/12 (-20) scipy.sparse.linalg \OT1/pplj/m/n/12 (-20) li-brary. As
+ men-tioned in the \OT1/pplj/m/it/12 (-20) scipy.sparse.linalg.lsqr \OT1/pplj/m
+/n/12 (-20) doc-u-men-ta-tion
+ []
+
+[17]
+<./img/008_ide.png, id=347, 1324.95pt x 744.7825pt>
+File: ./img/008_ide.png Graphic file (type png)
+<use ./img/008_ide.png>
+Package pdftex.def Info: ./img/008_ide.png  used on input line 23.
+(pdftex.def)             Requested size: 397.48807pt x 223.43648pt.
+) (./tex/results.tex
+Chapter 4.
+[18 <./img/008_ide.png>]) (./tex/conclusion.tex
 Chapter 5.
-[17] [18
+[19
 
-]) [19] [20
+] [20
 
-] (./structure.bbl) [21
+]) [21] [22
+
+] (./structure.bbl) [23
 
 ]
 Package atveryend Info: Empty hook `BeforeClearDocument' on input line 23.
@@ -1160,19 +1170,16 @@ Package rerunfilecheck Info: File `structure.out' has not changed.
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
-
-LaTeX Warning: There were multiply-defined labels.
-
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 23.
  ) 
 Here is how much of TeX's memory you used:
- 15595 strings out of 492641
- 264871 string characters out of 6131787
- 437350 words of memory out of 5000000
- 18725 multiletter control sequences out of 15000+600000
- 75569 words of font info for 386 fonts, out of 8000000 for 9000
+ 15617 strings out of 492641
+ 265172 string characters out of 6131787
+ 437474 words of memory out of 5000000
+ 18734 multiletter control sequences out of 15000+600000
+ 76044 words of font info for 393 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 66i,23n,93p,1666b,649s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 67i,23n,94p,1666b,649s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/share/texliv
 e/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/texm
 f-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/
@@ -1184,10 +1191,10 @@ usr/share/texlive/texmf-dist/fonts/type1/urw/palatino/uplb8a.pfb></usr/share/te
 xlive/texmf-dist/fonts/type1/urw/palatino/uplbi8a.pfb></usr/share/texlive/texmf
 -dist/fonts/type1/urw/palatino/uplr8a.pfb></usr/share/texlive/texmf-dist/fonts/
 type1/urw/palatino/uplri8a.pfb>
-Output written on structure.pdf (33 pages, 410883 bytes).
+Output written on structure.pdf (35 pages, 600414 bytes).
 PDF statistics:
- 417 PDF objects out of 1000 (max. 8388607)
- 351 compressed objects within 4 object streams
- 86 named destinations out of 1000 (max. 500000)
- 60092 words of extra memory for PDF output out of 61914 (max. 10000000)
+ 434 PDF objects out of 1000 (max. 8388607)
+ 364 compressed objects within 4 object streams
+ 90 named destinations out of 1000 (max. 500000)
+ 60097 words of extra memory for PDF output out of 61914 (max. 10000000)
 
