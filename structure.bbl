@@ -54,10 +54,12 @@ I.T. Jolliffe.
 \newblock {\em Principal Component Analysis (Springer Series in Statistics)}.
 \newblock Springer, 2002.
 
-\bibitem{Paige1982}
-Christopher~C. Paige and Michael~A. Saunders.
+\bibitem{Paige1982a}
+Christopher~C Paige and Michael~A Saunders.
 \newblock Lsqr: An algorithm for sparse linear equations and sparse least
-  squares, 1982.
+  squares.
+\newblock {\em ACM Transactions on Mathematical Software (TOMS)}, 8(1):43--71,
+  1982.
 
 \bibitem{Bentley1975}
 Jon~Louis Bentley.

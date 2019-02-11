@@ -31,5 +31,5 @@
 PCA is mathematically defined as an orthogonal linear transformation that transforms the data to a new coordinate system such that the greatest variance by some projection of the data comes to lie on the first coordinate (called the first principal component), the second greatest variance on the second coordinate, and so on\cite{Jolliffe2002}.
 PCA is used in the code as a preliminary step, so that the template and target are aligned as much as possible before the registration can begin.
 \section{Least squares (LSQR)}
-LSQR uses an iterative method to approximate the solution. The number of iterations required to reach a certain accuracy depends strongly on the scaling of the problem ($ ||Ax-b||^2 $). Poor scaling of the rows or columns of A should therefore be avoided where possible \cite{Paige1982}.
+LSQR is iterative method for solving $Ax=b$ and $min||Ax-b||^2$, where the matrix $A$ is large and sparse. The method is based on the bidiagonalization procedure of Golub and Kahan. It is analytically equivalent to the standard method of conjugate gradients, but possesses more favorable numerical properties \cite{Paige1982a}.
 \end{document}

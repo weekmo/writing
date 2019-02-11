@@ -4,48 +4,48 @@ The top-level auxiliary file: structure.aux
 The style file: unsrt.bst
 Database file #1: ref.bib
 Warning--string name "february" is undefined
---line 363 of file ref.bib
+--line 353 of file ref.bib
 Warning--string name "april" is undefined
---line 373 of file ref.bib
+--line 363 of file ref.bib
 You've used 13 entries,
             1791 wiz_defined-function locations,
-            527 strings with 5075 characters,
-and the built_in function-call counts, 2262 in all, are:
-= -- 200
+            530 strings with 5130 characters,
+and the built_in function-call counts, 2348 in all, are:
+= -- 213
 > -- 67
 < -- 1
 + -- 30
 - -- 17
-* -- 99
-:= -- 349
-add.period$ -- 40
+* -- 113
+:= -- 364
+add.period$ -- 41
 call.type$ -- 13
 change.case$ -- 10
 chr.to.int$ -- 0
 cite$ -- 13
-duplicate$ -- 111
-empty$ -- 275
+duplicate$ -- 115
+empty$ -- 279
 format.name$ -- 17
-if$ -- 523
+if$ -- 539
 int.to.chr$ -- 0
 int.to.str$ -- 13
-missing$ -- 11
-newline$ -- 67
+missing$ -- 12
+newline$ -- 68
 num.names$ -- 13
-pop$ -- 71
+pop$ -- 65
 preamble$ -- 1
 purify$ -- 0
 quote$ -- 0
-skip$ -- 42
+skip$ -- 41
 stack$ -- 0
-substring$ -- 85
+substring$ -- 104
 swap$ -- 20
 text.length$ -- 1
 text.prefix$ -- 0
 top$ -- 0
 type$ -- 0
 warning$ -- 0
-while$ -- 22
+while$ -- 24
 width$ -- 15
-write$ -- 136
+write$ -- 139
 (There were 2 warnings)
