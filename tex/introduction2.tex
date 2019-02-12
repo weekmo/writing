@@ -1,0 +1,35 @@
+\documentclass[../structure.tex]{subfiles}
+%\usepackage{../mypkg}
+\begin{document}
+\chapter{Introduction}
+\section{Brain Structure (Fiber Pathways)}
+	Human brain which is our focus in this thesis, is the central organ of the human nervous system, it is made up of two main components, gray matter and white matter. Scientists have learned a lot about gray and white matter and the two halves of the brain through autopsies and imaging techniques and by studying diseases or conditions associated with brain damage.
+	\\The thesis focused on \textbf{White Matter} which is refers to areas of the central nervous system that are mainly made up of myelinated axons, also called tracts or fiber pathways \cite{Blumenfeld2010}. It is composed of bundles, which connect various gray matter areas of the brain to each other, and carry nerve impulses between neurons. Myelin acts as an insulator, which allows electrical signals to jump, rather than coursing through the axon, increasing the speed of transmission of all nerve signals \cite{Klein2008}.
+	\\Long thought to be passive tissue, white matter affects learning and brain functions, modulating the distribution of action potentials, acting as a relay and coordinating communication between different brain regions \cite{Fields2008}.
+	
+	The Human Brain consits of these tracts in left and right side:
+    \begin{itemize}
+        \item Anterior Thalamic Radiation (ATR)
+        \item Corpus Callosum (CC)
+        \item Genu of the Corpus Callosum (genu)
+        \item Splenium of the Corpus Callosum (splenium)
+        \item Body of Corpus Callosum (truncus)
+        \item Body of Corpus Callosum (truncus)
+		\item Cingulum (Cing)
+		\item Corticospinal Tract (CST)
+		\item Inferior Fronto-occipital Fasciculus (IFO)
+		\item Inferior Longitudinal Fasciculus (ILF)
+		\item Superior Longitudinal Fasciculus (SLF)
+		\item Ventral Tegmental Area (VTA)
+	\end{itemize}
+\section{Registration}
+	The registration problem (also known as alignment, absolute orientation) is one of the outstanding and very basic problems in computer vision. In this problem, two or more datsets of points are given and the task is to optimally align them by estimating a best transformation (combination of translation, rotation and scaling). Due to its fundamental importance, it arises as a subtask in many different applications (e.g., object recognition, tracking, range data fusion, graphics, medical image alignment, robotics and structural bioinformatics ... etc) \cite{Li2007}.
+		\subsection{Iterative closest point (ICP)}
+		 ICP, which is an algorithm employed to minimize the distance between two or more points clouds, is one of the widely used algorithms in aligning three dimensional models given an initial guess of the rigid body transformation required \cite{Zhang1994}.
+		 In ICP (in our case) one points cloud (vertex cloud), the reference, or target, is kept fixed, while the other one, the source, is transformed to best match the reference. The algorithm iteratively revises the transformation (combination of translation, rotation and scaling) needed to minimize a distance from the source to the reference points cloud.
+\section{PCA Transformation}
+PCA is mathematically defined as an orthogonal linear transformation that transforms the data to a new coordinate system such that the greatest variance by some projection of the data comes to lie on the first coordinate (called the first principal component), the second greatest variance on the second coordinate, and so on\cite{Jolliffe2002}.
+PCA is used in the code as a preliminary step, so that the template and target are aligned as much as possible before the registration can begin.
+\section{Least squares (LSQR)}
+LSQR is iterative method for solving $Ax=b$ and $min||Ax-b||^2$, where the matrix $A$ is large and sparse. The method is based on the bidiagonalization procedure of Golub and Kahan. It is analytically equivalent to the standard method of conjugate gradients, but possesses more favorable numerical properties \cite{Paige1982a}. It is used in this thesis to solve the cost fuction which we will discuss in the next chapter in details.
+\end{document}
