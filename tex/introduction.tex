@@ -97,12 +97,13 @@ Other than addiction VTA is involved in pathophysiology of disorders as in case 
 \section{Registration}
 	The registration problem or sometimes called alignment or absolute orientation is one of fundamental problem in computer vision. If we have two objects and we need to align them that means we should reduce the distance between them by making one object fix and move the other one to the closest distance, this simple form of alignment called rigid transformation, if we add scaling then it call non-rigid transformation and it will extend the size of the object as well. Due to its fundamental importance in computer vision, it is necessary step in many different applications, for instance: object recognition, tracking, range data fusion, graphics, medical image alignment, robotics and structural bioinformatics etc \cite{Li2007}.
 		\subsection{Iterative closest point (ICP)}
-		 ICP, which is an algorithm employed to minimize the distance between two or more points clouds, is one of the most widely used algorithms in aligning three dimensional models given an initial guess of the rigid body transformation required \cite{Zhang1994}.
-		 In ICP (in our case) one points cloud (i.e., vertex cloud), the reference, or target, is kept fixed, while the other one, the source, is transformed to best match the reference. The algorithm iteratively revises the transformation (combination of translation, rotation and scaling) needed to minimize a distance from the source to the reference points cloud.
-\section{PCA Transformation}
-PCA is mathematically defined as an orthogonal linear transformation that transforms the data to a new coordinate system such that the greatest variance by some projection of the data comes to lie on the first coordinate (called the first principal component), the second greatest variance on the second coordinate, and so on\cite{Jolliffe2002}.
+		 ICP, which is an algorithm employed to minimize the distance between two or more points clouds, is one of the most widely used algorithms in aligning three objects with initial position \cite{Zhang1994}.
+		 In ICP (in our case) one points cloud (i.e., vertex cloud), or target, is kept fixed, while the template, is transformed to best match the target. The algorithm iteratively check the transformation (combination of translation, rotation and scaling) required to minimize a distance from the template to the target points cloud.
+\section{Principal component analysis}
+%PCA is mathematically defined as an orthogonal linear transformation that transforms the data to a new coordinate system such that the greatest variance by some projection of the data comes to lie on the first coordinate (called the first principal component), the second greatest variance on the second coordinate, and so on\cite{Jolliffe2002}.
 PCA is used in the code as a preliminary step, so that the template and target are aligned as much as possible before the registration can begin.
 \section{Least squares (LSQR)}
-LSQR uses an iterative method to approximate the solution. The number of iterations required to reach a certain accuracy depends strongly on the scaling of the problem ($ ||Ax-b||^2 $). Poor scaling of the rows or columns of A should therefore be avoided where possible \cite{Paige1982}.
+LSQR is linear iterative method to find the value of $x$ by solving the equation $||Ax-b||^2$.
+%LSQR uses an iterative method to approximate the solution. The number of iterations required to reach a certain accuracy depends strongly on the scaling of the problem ($ ||Ax-b||^2 $). Poor scaling of the rows or columns of A should therefore be avoided where possible \cite{Paige1982}.
 \end{document}
 
