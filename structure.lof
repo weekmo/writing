@@ -7,14 +7,14 @@
 \ttl@tocsep 
 \contentsline {figure}{\numberline {1}{\ignorespaces The Human Brain Fiber Pathway\relax }}{2}{figure.caption.1}
 \ttl@tocsep 
+\ttl@tocsep 
 \contentsline {figure}{\numberline {2}{\ignorespaces The template graph $S$ (green) is deformed by locally affine transformations $(X_{i})$ onto the target graph $T$ (red). The algorithm determines closest points $(u_{i})$ for each displaced source vertex $(X_{i}v_{i})$ and finds the optimal deformation for the stiffness used in this iteration. This is repeated until a stable state is found. The process then continues with a lower stiffness. Due to the stiffness constraint the vertices do not move directly towards the target graph, but may move parallel along it. The correspondences $u_{1}$ and $u_{4}$ are dropped as they lie on the border of the target \cite {Amberg2007}.\relax }}{8}{figure.caption.2}
 \contentsline {figure}{\numberline {3}{\ignorespaces Simplified \textbf {\textit {ply}} file sample\relax }}{9}{figure.caption.3}
 \contentsline {figure}{\numberline {4}{\ignorespaces PCA alignment\relax }}{9}{figure.caption.5}
 \contentsline {figure}{\numberline {5}{\ignorespaces A 3-dimensional k-d tree. The first split (the red vertical plane) cuts the root cell (white) into two subcells, each of which is then split (by the green horizontal planes) into two subcells. Finally, four cells are split (by the four blue vertical planes) into two subcells. Since there is no more splitting, the final eight are called leaf cells \cite {Wikipedia2006}.\relax }}{10}{figure.caption.6}
 \contentsline {figure}{\numberline {6}{\ignorespaces Oriented graph with corresponding incidence matrix \cite {Wikipedia2010}\relax }}{14}{figure.caption.7}
 \contentsline {figure}{\numberline {7}{\ignorespaces 2D affine transformation matrices \cite {Wikipedia2016}\relax }}{15}{figure.caption.8}
-\ttl@tocsep 
-\contentsline {figure}{\numberline {8}{\ignorespaces IDE and visualization tool\relax }}{18}{figure.caption.9}
+\contentsline {figure}{\numberline {8}{\ignorespaces IDE and visualization tool\relax }}{17}{figure.caption.9}
 \ttl@tocsep 
 \contentsline {figure}{\numberline {9}{\ignorespaces To be edited\relax }}{19}{figure.caption.10}
 \contentsline {figure}{\numberline {10}{\ignorespaces To be edited\relax }}{20}{figure.caption.11}
