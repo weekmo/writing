@@ -403,4 +403,64 @@
   publisher = {British Institute of Radiology},
 }
 
+@Article{Seo2013,
+  author    = {J.P. Seo and S.H. Jang},
+  title     = {Different Characteristics of the Corticospinal Tract According to the Cerebral Origin: {DTI} Study},
+  journal   = {American Journal of Neuroradiology},
+  year      = {2013},
+  volume    = {34},
+  number    = {7},
+  pages     = {1359--1363},
+  month     = {jan},
+  doi       = {10.3174/ajnr.a3389},
+  publisher = {American Society of Neuroradiology ({ASNR})},
+}
+
+@Article{Thomas2011,
+  author    = {Adam G. Thomas and Panos Koumellis and Robert A. Dineen},
+  title     = {The Fornix in Health and Disease: An Imaging Review},
+  journal   = {{RadioGraphics}},
+  year      = {2011},
+  volume    = {31},
+  number    = {4},
+  pages     = {1107--1121},
+  month     = {jul},
+  doi       = {10.1148/rg.314105729},
+  publisher = {Radiological Society of North America ({RSNA})},
+}
+
+@Article{Madhavan2014,
+  author    = {Kiely M. Madhavan and Tim McQueeny and Steven R. Howe and Paula Shear and Jerzy Szaflarski},
+  title     = {Superior longitudinal fasciculus and language functioning in healthy aging},
+  journal   = {Brain Research},
+  year      = {2014},
+  volume    = {1562},
+  pages     = {11--22},
+  month     = {may},
+  doi       = {10.1016/j.brainres.2014.03.012},
+  publisher = {Elsevier {BV}},
+}
+
+@InCollection{Schmahmann2006,
+  author    = {Jeremy D. Schmahmann and Deepak N. Pandya},
+  title     = {Superior Longitudinal Fasciculus and Arcuate Fasciculus},
+  booktitle = {Fiber Pathways of the Brain},
+  publisher = {Oxford University Press},
+  year      = {2006},
+  pages     = {393--408},
+  month     = {apr},
+  doi       = {10.1093/acprof:oso/9780195104233.003.0013},
+}
+
+@Article{Wu2016,
+  author    = {Yupeng Wu and Dandan Sun and Yong Wang and Yibao Wang},
+  title     = {Subcomponents and Connectivity of the Inferior Fronto-Occipital Fasciculus Revealed by Diffusion Spectrum Imaging Fiber Tracking},
+  journal   = {Frontiers in Neuroanatomy},
+  year      = {2016},
+  volume    = {10},
+  month     = {sep},
+  doi       = {10.3389/fnana.2016.00088},
+  publisher = {Frontiers Media {SA}},
+}
+
 @Comment{jabref-meta: databaseType:bibtex;}
