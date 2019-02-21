@@ -1,9 +1,17 @@
-%The PDF link
 \documentclass[../structure.tex]{subfiles}
 %\usepackage{../mypkg}
 \begin{document}
 \chapter{Method and Implementation}
-As we implemented registration method, we are going to consider two objects, Target Graph $T$, which is remain fixed, and Template Graph $S$, which moves until it reach the optimal alignment with target graph $T$. To do so, we use Iterative Closest Point (ICP) as we mentioned before, for each point on template graph $S$ we look for closest point on target graph $S$. Then we start moving each point in $S$ to correspondent point in $T$ with respect to stiffness.
+As we are implementing registration method, we are going to consider two objects, Target Graph $T$, which is remain fixed, and Template Graph $S$, which moves iteratively until it reach the optimal alignment with target graph $T$. To do so, we use Iterative Closest Point (ICP) as we mentioned before (see figure [\ref{fig:icp}]), for each point on template graph $S$ we look for closest point on target graph $S$. Then we start moving each point in $S$ to correspondent point in $T$ with respect to stiffness. After solving the cost function by using \textit{Least Square (LSQR)} we have separate \textit{Affine Transformation Matrix} ($X = [x_{1}, x_{2}, x_{3}, ...,x_{n}]$) for each point in the template graph $S$ that moves separately whiles keep the original neighbors close to each other as possible. This type of registration is called non-rigid registration.
+
+\begin{figure}[h!]
+\centering
+\includegraphics[scale=0.5]{001_conn}
+\captionsetup{justification=centering}
+\caption{The template graph $S$ (green) is deformed by locally affine transformations $(X_{i})$ onto the target graph $T$ (red). The algorithm determines closest points $(u_{i})$ for each displaced source vertex $(X_{i}v_{i})$ and finds the optimal deformation for the stiffness used in this iteration. This is repeated until a stable state is found. The process then continues with a lower stiffness. Due to the stiffness constraint the vertices do not move directly towards the target graph, but may move parallel along it. The correspondences $u_{1}$
+and $u_{4}$ are dropped as they lie on the border of the target \cite{Amberg2007}.}
+\label{fig:icp}
+\end{figure}
 
 \section{Data preparation}
 In this thesis we follow the method in \cite{Amberg2007} which implemented for surface graphs. Due to difference between the data used in \cite{Amberg2007} which is surface graphs saved in points cloud format or mesh format, and our data which is pathways in streamlines format saved in \textit{ply} file as shown in figure [\ref{fig:data}]. Thus we had to build a tool for reading \textit{ply} file format as streamlines and build graphs out of it, each \textit{ply} file has one pathway.
@@ -39,7 +47,7 @@ The simplest form of our cost function is shown in the equation (\ref{equ:equati
 ||Ax-b||^2
 \end{equation}
 
-This simple format of the cost function makes it easy to solve by \textit{Least Square (LSQR)} algorithm which implemented in \textit{scipy.sparse.linalg.lsqr}, but to be practical and implement this cost function we need to divide it to three terms as shown in equation (\ref{equ:costFun}), distance term, stiffness term, and landmark term.
+This simple form of the cost function makes it easy to solve by \textit{Least Square (LSQR)} algorithm which is implemented in \textit{scipy.sparse.linalg.lsqr}. To illustrate it more we need to divide it to three parts as shown in equation (\ref{equ:costFun}), distance term, stiffness term, and landmark term.
 
 \begin{equation}
 E(X) = E_{d}(X) + \alpha E_{s}(X) + \beta E_{t}(X)
@@ -47,7 +55,13 @@ E(X) = E_{d}(X) + \alpha E_{s}(X) + \beta E_{t}(X)
 \end{equation}
 
 \subsection{Distance Term}
-The first part of the cost function is distance term as shown in (\ref{equ:costFun}), it represent the accumulation of distance between each point in template graph and the target graph 
- to understand it better lets put it in a new equation ():
+The first part of the cost function (\ref{equ:costFun}) is the distance term, it represent the summation of distances between each point in the template graph $S$ and it is correspondent point in target graph $T$ which illustrated in equation (\ref{equ:distance1}):
+
+\begin{equation}
+E_{d}(X) = \sum_{v_{i} \in V} w_{i}dist^2(T,x_{i}v_{i})
+\label{equ:distance1}
+\end{equation}
+
+where $W = [w_{1}, w_{2}, w_{3}, ..., w_{n}];\quad w_{i}\in [0,1]$ is weight which is \textit{one} if the correspondent point distance is below the threshold and \textit{zero} if not. $T$ is target graph, $x_{i}$ is the correspondent affine matrix and $v_{i}\in V$ is template graph $S$ vertex in homogeneous coordinates $v_{i} = [x,y,z,1]$.
 
 \end{document}
