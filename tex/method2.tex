@@ -99,8 +99,6 @@ E_{d}(X) = \sum_{v_{i} \in V} w_{i}dist^2(T,x_{i}v_{i})
 
 where $W = [w_{1}, w_{2}, w_{3}, ..., w_{n}];\quad w_{i}\in [0,1]$ is weight which is \textit{one} if the correspondent point distance is below the threshold and \textit{zero} if not, even some points in template graph do not have correspondences in target graphs $T$, they move with their neighbors due to stiffness term. $T$ is the target graph, $x_{i}$ is the correspondent affine matrix in size $3\times4$, $v_{i}\in V$ is template graph $S$ vertex in homogeneous coordinates $v_{i} = [x,y,z,1]$ because we want to include transformation on affine matrix $x_{i}$ and the distance between each point in the template graph $S$ and its closest point in target graph $T$ is represented by $dist^2(T,x_{i}v_{i})$.
 
-
-
 \subsection{Stiffness Term}
 \hspace{2em}The stiffness term is the second part of the equation (\ref{equ:stiffness1}), it is the part of the equation regularizes the deformation by penalizing the weighted difference of the transformations of neighboring vertices under the Frobenius norm $||.||_{F}$ using a weight matrix $G := diag(1, 1, 1, \gamma)$ \cite{Amberg2007}, that keeps the vertices which are linked together (i.e., there is an edge between them or they are in the same tract) or neighbors close to each other.
 
