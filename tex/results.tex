@@ -28,7 +28,7 @@ The number of sample used for testing is four sample with eleven pathways (bundl
 \end{center}
 \end{comment}
 
-The test starts by reading the template and target bundles from \textit{ply} files, then we visualize two graphs and plot the distances between correspondences points in histograms before and after applying PCA. Depend on the result we have and whether PCA improved the alignment or no we decide whether to use PCA or not, if PCA improve the alignment, otherwise we skip it. The figures \{\ref{fig:hist_original}\} \{\ref{fig:img_original}\} \{\ref{fig:hist_PCA}\} \{\ref{fig:img_PCA}\} below show visual orientation and histograms before and after PCA.
+The test starts by reading the template and target bundles from \textit{ply} files, where as the template bundle is Thalamic Radiation (ATR) right side and target bundle is the left side of ATR from the same patient, then we visualize two graphs and plot the distances between correspondences points in histograms before and after applying PCA. Depend on the result we have and whether PCA improved the alignment or no we decide whether to use PCA or not, if PCA improve the alignment, otherwise we skip it. The figures \{\ref{fig:hist_original}\} \{\ref{fig:img_original}\} \{\ref{fig:hist_PCA}\} \{\ref{fig:img_PCA}\} below show visual orientation and histograms before and after PCA.
 
 \pagebreak
 
@@ -100,12 +100,43 @@ We align the same bundles with a method discussed in \cite{ODonnell2012} and imp
 \caption{The Orientation after DIPY}
 \label{fig:img_dipy}
 \end{figure}
+\pagebreak
 
-As it mentioned in \cite{ODonnell2012}, DIPY uses minimum average direct-flip distance (MDF)
-\begin{itemize}
-\item Time
-\item Distance 
-\item Visual
-\end{itemize}
+The second test is done by using local and global transformation, we mean by local transformation that we apply different affine transformation matrix for each point in the bundle and local means one affine transformation matrix for all points (no deformation). Then we try to align it again with the original one, we got the results shown in figures \{\ref{fig:hist_original_def}\} \{\ref{fig:img_original_def}\}, the bundle used here is Thalamic Radiation (ATR) right side
+
+\begin{figure}[h!]
+\centering
+\includegraphics[scale=1]{102_hist_original}
+\captionsetup{justification=centering}
+\caption{The distances histogram after deforming a bundle measure the distances with the original one}
+\label{fig:hist_original_def}
+\end{figure}
+
+\begin{figure}[h!]
+\centering
+\includegraphics[scale=.3]{102_img_original}
+\captionsetup{justification=centering}
+\caption{The Orientation after deformation}
+\label{fig:img_original_def}
+\end{figure}
+\pagebreak
+
+Then we align them with DIPY to get the results in figures 
+
+\begin{figure}[h!]
+\centering
+\includegraphics[scale=1]{102_hist_dipy}
+\captionsetup{justification=centering}
+\caption{The distances histogram after deforming a bundle and align it with the original one using DIPY}
+\label{fig:hist_dipy_def}
+\end{figure}
+
+\begin{figure}[h!]
+\centering
+\includegraphics[scale=.3]{102_img_dipy}
+\captionsetup{justification=centering}
+\caption{The Orientation after deforming a bundle and align it with the original one using DIPY}
+\label{fig:img_original_def}
+\end{figure}
 
 \end{document}
