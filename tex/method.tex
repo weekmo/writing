@@ -113,7 +113,7 @@ E_{d}(X) = \sum_{v_{i} \in V} w_{i}dist^2(T,X_{i}v_{i})
 \label{equ:distance1}
 \end{equation}
 
-In equation (\ref{equ:distance1}), $v_{i}$ represent the vertices $V$ in the template graph $S$ in homogeneous coordinate $v_{i} = [x,y,z,1]^T$,  such that they can be multiplied by  affine matrices $X_{i}$. These affine matrices are $3 \times 4$ matrices including the transformation part, as illustrated in equation (\ref{equ:equation1}). The distance between each vertex $v_{i} \in V$ in the template graph $S$ and its closest vertex $u_{i} \in U$ in target graph $T$ noted with $dist^2(T,X_{i}v_{i})$, and $w \in [0,1]$ is weight which is \textit{one} if the correspondence for this vertex $v_{i}$ is found in the target graph $S$, and \textit{zero} otherwise. This concept will let each vertex $v_{i}$ in the template graph $T$ moves toward its correspondence vertex $u_{i}$ in the target graph $T$ if it is found, otherwise, it will move with its neighbors because of the stiffness. Essentially, we use a distance threshold as a parameter to distinguish correspondances.
+In equation (\ref{equ:distance1}), $v_{i}$ represent the vertices $V$ in the template graph $S$ in homogeneous coordinate $v_{i} = [x,y,z,1]^T$,  such that they can be multiplied by  affine matrices $X_{i}$. These affine matrices are $3 \times 4$ matrices including the transformation part, as illustrated in equation (\ref{equ:equation1}). The distance between each vertex $v_{i} \in V$ in the template graph $S$ and its closest vertex $u_{i} \in U$ in target graph $T$ noted with $dist^2(T,X_{i}v_{i})$, and $w \in [0,1]$ is weight which is \textit{one} if the correspondence for this vertex $v_{i}$ is found in the target graph $S$, and \textit{zero} otherwise. This concept will let each vertex $v_{i}$ in the template graph $T$ moves toward its correspondence vertex $u_{i}$ in the target graph $T$ if it is found, otherwise, it will move with its neighbors because of the stiffness. Essentially, we use a distance threshold as a parameter to distinguish correspondences.
 
 Now we come to the second term, \textbf{the stiffness term}, which regularizes the shape deformation, represented in equation (\ref{equ:stiffness1}):
 
@@ -220,7 +220,6 @@ E_{s}(X) = ||(M\otimes G)X||_{F}^2
 
 where $M$ is a node-arc incidence matrix defined for directed graphs. The number of rows in this matrix equal the number of nodes (vertices) and the number of columns equal the number of arcs (edges) on the graph and the values has to be \textit{zeros, ones and/or minus ones}. The value will be \textit{zero} if the edge on this column is not connected to the vertex on this row where the value lies. Otherwise, the value must be either $1$ or $-1$; it will be $1$ if the edge direction is coming towards the vertex and $-1$ otherwise. As illustrated in the figure \{\ref{fig:directed_graph}\}, the matrix $M$ has size $e\times n$ where $e and n$ are the number of edges and vertices respectively. $G = diag(1,1,1,y)$ is the diagonal matrix and the result of $M \otimes G$ is a matrix with size $4e \times 4n$.
 
-
 \begin{figure}[h!]
 \centering
 \includegraphics[scale=0.2]{006_direct_graph}
@@ -245,7 +244,7 @@ X -
 \right\| ^2 = ||AX - B||_{F}^2
 \end{equation}
 
-The current form of the function can be minimized by setting its derivative to zero and solving it as linear equation. The minimum value of $\bar{E}(X)$ is when $X = (A^T A)^{-1} A^T B$. $A$ is also a sparse matrix and most of its values are zeros. However, it is still a large matrix and requires the most time in solving the equation. In order to solve this problem, we will remove the landmark term as mentioned before because we already have the initial step by applying PCA. Once we omit the landmark term, the function will look like this:
+The current form of the function can be minimized by setting its derivative to zero and solving it as linear equation. The minimum value of $\bar{E}(X)$ is when $X = (A^T A)^{-1} A^T B$. In this case $A$ is also a sparse matrix and most of its values are zeros. However, it is still a large matrix and requires the most time in solving the equation. In order to solve the equation faster, we ommited the landmark term because we already have the initial position by applying PCA. Once we omit the landmark term, the function will be:
 
 \begin{equation}
 \bar{E}(X) = \left\|
