@@ -471,7 +471,7 @@
   publisher = {Frontiers Media {SA}},
 }
 
-@InProceedings{ODonnell2012,
+@InProceedings{O’Donnell2012,
   author        = {O’Donnell, Lauren J and Wells, William M and Golby, Alexandra J and Westin, Carl-Fredrik},
   title         = {Unbiased groupwise registration of white matter tractography},
   booktitle     = {International Conference on Medical Image Computing and Computer-Assisted Intervention},
