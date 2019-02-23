@@ -69,8 +69,8 @@ If we have two objects and we need to align them that means we should reduce the
 
 		\subsection{Iterative closest point (ICP)}
 		ICP is an existing method for point cloud registration.  It estimates the motion parameters by minimizing Euclidean distances between two or more point clouds. Point-to-point correspondences is most common type so far whereas point-to-plane ICP estimates the parameters by minimizing the orthogonal distance between the points in one point cloud and the local planes in the other.
-		 ICP, which is an algorithm employed to minimize the distance between two or more points clouds, is one of the most widely used algorithms in aligning three objects with initial position \cite{Zhang1994}.
-		 In ICP (in our case) one points cloud (i.e., vertex cloud), or target, is kept fixed, while the template, is transformed to best match the target. The algorithm iteratively check the transformation (combination of translation, rotation and scaling) required to minimize a distance from the template to the target points cloud.
+		
+		 ICP, which is an algorithm employed to minimize the distance between two or more points clouds, is one of the most widely used algorithms in aligning three objects with initial position \cite{Zhang1994}. In ICP (in our case) one points cloud (i.e., vertex cloud), or target, is kept fixed, while the template, is transformed to best match the target. The algorithm iteratively check the transformation (combination of translation, rotation and scaling) required to minimize a distance from the template to the target points cloud.
 		 \subsubsection{Least squares (LSQR)}
 		 LSQR is linear iterative method to find the value of $x$ by solving the equation $||Ax-b||^2$.
 %LSQR uses an iterative method to approximate the solution. The number of iterations required to reach a certain accuracy depends strongly on the scaling of the problem ($ ||Ax-b||^2 $). Poor scaling of the rows or columns of A should therefore be avoided where possible \cite{Paige1982}.
