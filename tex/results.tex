@@ -12,29 +12,39 @@
 \end{figure}
 
 The number of sample used for testing is four sample with eleven pathways (bundles) in each side of the brain. The data is collected by \textbf{\textit{UKB Universitätsklinikum Bonn}}. 
-\begin{comment}
+% Statistic 
 \begin{center}
 \begin{table}[h!]
-	\begin{tabular}{| c | c | c | c | c | c | c | c |}
-	\hline
-	1 & 2 & 3 & 4 & 5 & 6 & 7 & 8\\
-	\hline
-	(x,y,z) & (x,y,-z) & (x,-y,z) & (x,-y,-z) & (-x,-y,z) & (-x,y,-z) & (-x,y,z) & (-x,-y,-z)\\
-	\hline
+	\begin{tabular}{| c | c  c  c | c  c  c |}
+	%\begin{tabular}{*7c}
+	\toprule
+	&\multicolumn{3}{c}{Tracts}&\multicolumn{3}{c}{Points}\\
+Pathways&Average&Max&Min&Average&Max&Min\\
+\midrule
+%\hline
+ATR&266.75&603&106&26443.875&69283&9623\\
+rostrum&1853.375&2020&1633&162936.625&188143&137536\\
+Cing&1103.375&1369&872&167488.25&244088&100762\\
+CST&1649.25&2044&1476&235265.375&308769&170535\\
+Fornix&399&497&308&26618&37142&16703\\
+genu&2134.5&2333&1967&166567.625&236384&144492\\
+IFOF&862.875&985&774&128850.875&162086&90424\\
+ILF&3751&4392&2950&566332.25&673060&367155\\
+SLF&1333.125&1633&1044&174943.5&251994&105245\\
+splenium&2209.625&2335&2063&206526.875&244341&182993\\
+VTA&327.625&679&150&27784.125&54904&14982\\
+\bottomrule
 	\end{tabular}
-\caption{$[-1,1]^3$ cube combination}
-\label{table:cube}
+\caption{The statistic of tracts (streamlines) in pathways}
+\label{table:data}
 \end{table}
 \end{center}
-\end{comment}
 
-The test starts by reading the template and target bundles from \textit{ply} files, where as the template bundle is Thalamic Radiation (ATR) right side and target bundle is the left side of ATR from the same patient, then we visualize two graphs and plot the distances between correspondences points in histograms before and after applying PCA. Depend on the result we have and whether PCA improved the alignment or no we decide whether to use PCA or not, if PCA improve the alignment, otherwise we skip it. The figures \{\ref{fig:hist_original}\} \{\ref{fig:img_original}\} \{\ref{fig:hist_PCA}\} \{\ref{fig:img_PCA}\} below show visual orientation and histograms before and after PCA.
-
-\pagebreak
+The test starts by reading the template and target bundles from \textit{ply} files, where as the template bundle is Thalamic Radiation (ATR) right side and target bundle is the left side of ATR from the same patient. Then we visualize two graphs and plot the distances between correspondences points in histograms before and after applying PCA. Depend on the result we have and whether PCA improved the alignment or no we decide whether to use PCA or not, if PCA improve the alignment, otherwise we skip it. The figures \{\ref{fig:hist_original}\} \{\ref{fig:img_original}\} \{\ref{fig:hist_PCA}\} \{\ref{fig:img_PCA}\} below show visual orientation and histograms before and after PCA.
 
 \begin{figure}[h!]
 \centering
-\includegraphics[scale=1]{101_hist_original}
+\includegraphics[scale=.9]{101_hist_original}
 \captionsetup{justification=centering}
 \caption{The original distances histogram}
 \label{fig:hist_original}
@@ -42,7 +52,7 @@ The test starts by reading the template and target bundles from \textit{ply} fil
 
 \begin{figure}[h!]
 \centering
-\includegraphics[scale=.8]{101_img_original}
+\includegraphics[scale=.7]{101_img_original}
 \captionsetup{justification=centering}
 \caption{The original orientation}
 \label{fig:img_original}
@@ -102,7 +112,7 @@ We align the same bundles with a method discussed in \cite{ODonnell2012} and imp
 \end{figure}
 \pagebreak
 
-The second test is done by using local and global transformation, we mean by local transformation that we apply different affine transformation matrix for each point in the bundle and local means one affine transformation matrix for all points (no deformation). Then we try to align it again with the original one, we got the results shown in figures \{\ref{fig:hist_original_def}\} \{\ref{fig:img_original_def}\}, the bundle used here is Thalamic Radiation (ATR) right side
+The second test is done for Thalamic Radiation (ATR) right side by transforming it locally and globally, we mean by local transformation that we apply different affine transformation matrix for each point in the bundle and local means one affine transformation matrix for all points (no deformation). Then we try to align it again with the original one. we show the results in figures \{\ref{fig:hist_original_def}\} \{\ref{fig:img_original_def}\} of local transformation only, because it is obvious for global transformation.
 
 \begin{figure}[h!]
 \centering
@@ -121,7 +131,7 @@ The second test is done by using local and global transformation, we mean by loc
 \end{figure}
 \pagebreak
 
-Then we align them with DIPY to get the results in figures 
+Then we align them with DIPY to get the results in figures \{\ref{fig:hist_dipy_def}\} \{\ref{fig:img_dipy_def}\}
 
 \begin{figure}[h!]
 \centering
@@ -136,7 +146,29 @@ Then we align them with DIPY to get the results in figures
 \includegraphics[scale=.3]{102_img_dipy}
 \captionsetup{justification=centering}
 \caption{The Orientation after deforming a bundle and align it with the original one using DIPY}
-\label{fig:img_original_def}
+\label{fig:img_dipy_def}
 \end{figure}
+\pagebreak
+Then we apply non-rigid ICP registration to get the results in figures \{\ref{fig:hist_icp_def}\} \{\ref{fig:img_icp_def}\}
+
+\begin{figure}[h!]
+\centering
+\includegraphics[scale=1]{102_hist_ICP}
+\captionsetup{justification=centering}
+\caption{The distances histogram after deforming a bundle and align it with the original one using ICP}
+\label{fig:hist_icp_def}
+\end{figure}
+
+\begin{figure}[h!]
+\centering
+\includegraphics[scale=.3]{102_img_ICP}
+\captionsetup{justification=centering}
+\caption{The Orientation after deforming a bundle and align it with the original one using ICP}
+\label{fig:img_icp_def}
+\end{figure}
+
+Finally, we found that our tool can handle the deformation easily (elastic registration) but \textit{DIPY} can only handle the size by scaling the template bundles.
+
+\textit{DIPY} method is much faster than our method because it implemented to reduce the number of points used to calculate the distance, in our test, each tract reduced to 20 points rather than the real number of points as shown in table \{\ref{table:data}\}. Furthermore, as mentioned in \cite{ODonnell2012}, \textit{DIPY} uses minimum average direct-flip distance (MDF) which consider the tract to tract distance where as our tool consider point to point distance. To improve our tool, hierarchical clustering bundles can be done and applying soft membership alignment.
 
 \end{document}
