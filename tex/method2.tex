@@ -1,8 +1,8 @@
 \documentclass[../structure.tex]{subfiles}
 %\usepackage{../mypkg}
 \begin{document}
-\chapter{Method and Implementation}
-\hspace{2em}Before we discuss ICP method and implementation, let us review the principle of affine transformation briefly. If we have a point $[x,y,1]$ in homogeneous coordinate in 2D euclidean space and we want to move this point three units through the \textit{X axis}, $[x,y,1]^T a = [x+3,y,1]^T$, in this case, $a$ is called the affine matrix.
+\chapter{Methods and Implementation}
+\hspace{2em}Before we discuss the ICP method and its implementation, let us first briefly review the principle of affine transformation. If we have a point $[x,y,1]$ in homogeneous coordinate in 2D euclidean space and we want to move this point three units through the \textit{X axis}, $[x,y,1]^T a = [x+3,y,1]^T$, where $a$ will be  denoted as the affine matrix.
 
 \begin{equation*}
 \begin{bmatrix}
@@ -47,7 +47,7 @@ x \\ y \\ z \\ 1
 \end{bmatrix}
 \end{equation*}
 
-However,  this is still for one point; if we have more points as in our case, the equation above becomes:
+However,  this is still in the case of one point; if we have more points, as in our case, the equation above becomes:
 
 \begin{equation*}
 \begin{bmatrix}
@@ -71,47 +71,47 @@ z_{1} & z_{2} & \dots & z_{n}\\
 \end{bmatrix}
 \end{equation*}
 
-\hspace{2em}As we are implementing registration method, we are going to consider two objects, Target Graph $T$, which is remain fixed, and Template Graph $S$, which moves iteratively until it reach the optimal alignment with target graph $T$. To do so, we use Iterative Closest Point (ICP) as we mentioned before (see figure \{\ref{fig:icp}\}), for each point on template graph $S$ we look for closest point on target graph $S$. Then we start moving each point in $S$ to correspondent point in $T$ with respect to stiffness. After solving the cost function by using \textit{Least Square (LSQR)} we have separate \textit{Affine Transformation Matrix} ($X = [X_{1}, X_{2}, X_{3}, ...,X_{n}]$) for each point in the template graph $S$ that moves separately whiles keep the original neighbors close to each other as possible. This type of registration is called non-rigid registration.
+\hspace{2em}As we are implementing the registration method, we are going to consider two objects, target graph $T$, which remains fixed, and template graph $S$, which moves iteratively until it reaches the optimal alignment with target graph $T$. To do so, we use Iterative Closest Point (ICP) as previously discussed (see figure \{\ref{fig:icp}\}). With ICP, for each point on the template graph $S$, we look for the closest point on the target graph $S$. Then we start moving each point in $S$ to a correspondent point in $T$ with respect to stiffness. After solving the cost function by using \textit{LSQR} we have a separate \textit{Affine Transformation Matrix} ($X = [X_{1}, X_{2}, X_{3}, ...,X_{n}]$) for each point in the template graph $S$ that moves separately whilst keeping the original neighbors as close to each other as possible. This type of registration is called non-rigid registration.
 
 \begin{figure}[h!]
 \centering
 \includegraphics[scale=0.5]{001_conn}
 \captionsetup{justification=centering}
-\caption{The template graph $S$ (green) is deformed by locally affine transformations $(X_{i})$ onto the target graph $T$ (red). The algorithm determines closest points $(u_{i})$ for each displaced source vertex $(X_{i}v_{i})$ and finds the optimal deformation for the stiffness used in this iteration. This is repeated until a stable state is found. The process then continues with a lower stiffness. Due to the stiffness constraint the vertices do not move directly towards the target graph, but may move parallel along it. The correspondences $u_{1}$
+\caption{The template graph $S$ (green) is deformed by locally applying affine transformations $(X_{i})$ onto the target graph $T$ (red). The algorithm determines the closest points $(u_{i})$ for each displaced source vertex $(X_{i}v_{i})$ and finds the optimal deformation for the stiffness used in this iteration. This is repeated until a stable state is found. The process then continues with a lower stiffness. Due to the stiffness constraint, the vertices do not move directly towards the target graph, but may move parallel along it. The correspondences $u_{1}$
 and $u_{4}$ are dropped as they lie on the border of the target \cite{Amberg2007}.}
 \label{fig:icp}
 \end{figure}
 
-We implement the method in \cite{Amberg2007} by using \textit{Python} programming language, \textit{Spyder} as IDE and a list of packages \textit{[PlyFile, DIPY, NiBabel, Open3D, Numpy, Scipy, Scikit-learn, Matplotlib]}
+We implement the method in \cite{Amberg2007} by using the Python programming language, Spyder as an IDE and several packages, namely PlyFile, DIPY, NiBabel, Open3D, Numpy, Scipy, Scikit-learn and Matplotlib.
 
 \section{Data preparation}
-\hspace{2em}In this thesis we follow the method in \cite{Amberg2007} which is implemented for surface graphs, but due to differences between data used in \cite{Amberg2007} which is surface graphs saved in points cloud format or mesh format, and our data which is pathways in streamlines format saved in \textit{ply} file as shown in figure \{\ref{fig:data}\}, therefore  we had to build a tool for reading \textit{ply} file format as streamlines and build graphs out of it, each \textit{ply} file has one pathway.
+\hspace{2em}In this work, we follow the method in \cite{Amberg2007} which is implemented for surface graphs. However, due to differences between data used in \cite{Amberg2007} which are surface graphs saved in either points cloud or mesh format, and our data which are pathways in streamlines format and saved in \textit{ply} file as shown in figure \{\ref{fig:data}\}, we had to build a tool for reading the \textit{ply} file format as streamlines and build graphs out of it. In this case, each \textit{ply} file has one pathway.
 
 \begin{figure}[h!]
 \centering
 \includegraphics[scale=0.5]{002_data}
 \captionsetup{justification=centering}
-\caption{A sample of a Brain pathway saved in a \textit{ply} file.}
+\caption{A sample of a brain pathway saved in a \textit{ply} file.}
 \label{fig:data}
 \end{figure}
 
 \subsection{The PLY file}
-\hspace{2em}Let us illustrate a bit our data and \textit{ply} files we used to save our data as shown in figure \{\ref{fig:data}\}. It consist of two parts, header and body. The header consist of all information that necessary to pars the file, and the body has the data itself.
+\hspace{2em}Let us illustrate a bit of our data and the \textit{ply} files we used to save our data, as shown in figure \{\ref{fig:data}\}. The \textit{ply} file consists of two parts: the header and body. The header consists of all information that is necessary to parse the file, and the body has the data itself.
 \begin{itemize}
-\item The first line represent the file type.
-\item The second line is the file format.
-\item The third line is comment.
-\item The forth line is first group of elements (as \textit{ply} can have many) name and number (each element in one line). It shows that we have 69283 vertices.
-\item The 5th, 6th and 7th lines shows that the first group of elements has three properties, each of them in float format and the name of each property.
-\item The 8th line shows the second group of elements which has 603 fiber tract and so on.
+\item The first line represents the file type
+\item The second line is the file format
+\item The third line is a comment
+\item The fourth line contains the name and corresponding number of the first group of elements (each ply file can have any number of elements). Specifically, we can see that there are 69283 vertices in the file.
+\item The 5th, 6th and 7th lines shows that the first group of elements has three properties, each of them in float format as well as  the name of each property.
+\item The 8th line shows the second group of elements which has 603 fiber tracts.
 \item The 10th line shows the end of the header part.
-\item The remaining lines is the body of the file which has all the data, each element in one line.
+\item The remaining lines are the body of the file which has all the data, with each element in one line.
 \end{itemize}
 
-\hspace{2em}Before we start registering the graphs, it is better to have the initial position which makes the template graph $S$ as close as possible to the target graph $T$ and in the best possible alignment before ICP. To do so, we use Principal Components Analysis (PCA) which illustrated down below.
+\hspace{2em}Before we start registering the graphs, it is better to have the initial position which makes the template graph $S$ as close as possible to the target graph $T$ and in the best possible alignment before ICP. To do so, we use Principal Components Analysis which is illustrated below.
 
-\section{Principal Components Analysis (PCA)}
-\hspace{2em}Before applying PCA, we scale the template graph $S$ and the target graph $T$ to $[0,1]$, this done by subtracting all points from the minimum value in the graph and then dividing them by the maximum value in the graph. Next, we apply PCA (from \textit{sklearn.decomposition.PCA}) and use $[-1,1]^3$ cube combination and measure the euclidean distance between each point in the template graph to the closest point in the target graph $\sum ||v_i-v_j||_F^2$ where $v_i \in S, v_j \in T$ eight times to select the combination with the minimum distance as is illustrated in table \{\ref{table:cube}\} and in figure \{\ref{fig:pca}\}. Because we have to keep the target graph $T$ fixed, we apply the transformation calculated from both graphs on template graph $T$, thus the transformation of target graph $T$ has to apply oppositely.
+\section{Principal Components Analysis }
+\hspace{2em}Before applying PCA, we scale the template graph $S$ and the target graph $T$ to $[0,1]$. This is done by subtracting all points from the minimum value in the graph and then dividing them by the maximum value in the graph. Next, we apply PCA (from \textit{sklearn.decomposition.PCA}) and use $[-1,1]^3$ cube combination and measure the Euclidean distance between each point in the template graph to the closest point in the target graph as illustrated in the equation $\sum ||v_i-v_j||_F^2$ where $v_i \in S, v_j \in T$. This formula is applied eight times to select the combination with the minimum distance as illustrated in table \{\ref{table:cube}\} and in figure \{\ref{fig:pca}\}. Because we have to keep the target graph $T$ fixed, we apply the transformation calculated from both graphs on template graph $T$, thus the transformation of target graph $T$ has to apply oppositely.
 \vspace{2em}
 \begin{center}
 \begin{table}[h]
@@ -153,9 +153,9 @@ We implement the method in \cite{Amberg2007} by using \textit{Python} programmin
 ||Ax-b||^2
 \end{equation}
 
-This simple form of the cost function makes it easy to solve by \textit{Least Square (LSQR)} (\textit{scipy.sparse.linalg.lsqr}) algorithm which is implementation of a conjugate-gradient type method for solving sparse linear equations and sparse least-squares problems \cite{Paige1982a}.
+This simple form of the cost function makes it easy to solve by the \textit{LSQR} (\textit{scipy.sparse.linalg.lsqr}) algorithm which is the implementation of a conjugate-gradient type method for solving sparse linear equations and sparse least-squares problems \cite{Paige1982a}.
 
-To illustrate the cost function more we need to divide it to three parts as shown in equation (\ref{equ:costFun1}), distance term, stiffness term, and landmark term.
+To illustrate the cost function more we need to divide it into three parts, as shown in equation (\ref{equ:costFun1}). These include the distance term, stiffness term, and landmark term.
 
 \begin{equation}
 E(X) = E_{d}(X) + \alpha E_{s}(X) + \beta E_{t}(X)
@@ -163,7 +163,7 @@ E(X) = E_{d}(X) + \alpha E_{s}(X) + \beta E_{t}(X)
 \end{equation}
 
 \subsection{Distance Term}
-\hspace{2em}The first part of the cost function (\ref{equ:costFun1}) is the distance term, it represent the summation of distances between each point in the template graph $S$ and it is correspondent point in target graph $T$ which illustrated in equation (\ref{equ:distance1}):
+\hspace{2em}The first part of the cost function (\ref{equ:costFun1}) is the distance term, it represent the summation of distances between each point in the template graph $S$ and its correspondent point in the target graph $T$, as illustrated in equation (\ref{equ:distance1}):
 
 \begin{equation}
 E_{d}(X) = \sum_{v_{i} \in V} w_{i}dist^2(T,X_{i}v_{i})
@@ -179,7 +179,7 @@ dist^2(T,X_{i}v_{i}) = ||X_{i}v_{i}-u_{i}||^2
 \label{equ:distance2}
 \end{equation}\\
 
-We calculate the result of $||X_{i}v_{i}-u_{i}||^2$ while the algorithm reduces the distance and improve the alignment iteratively.
+We calculate the result of $||X_{i}v_{i}-u_{i}||^2$ while the algorithm reduces the distance and improves the alignment iteratively.
 
 If we look back to equation (\ref{equ:distance1}) and combine it with equation (\ref{equ:distance2}), then we have a complete equation (\ref{equ:distance3})
 
@@ -203,9 +203,9 @@ u_{1}\\ \vdots \\ u_{n}
 \right) \right\|^2
 \end{equation*}\\
 
-where $W = diag(w_{1},\dots, w_{n})$ corresponds to the weights in the diagonal matrix multiplied by Kronecker product $\otimes$ to $I_{3}$ identity matrix. $X$ is diagonal matrix of $X_{i}$ that we need to solve and that is multiplied by vertices matrix $V=[v_{1},v_{2},v_{3}, \dots,v_{n}]^T$ of template graph $S$, subtracted by the corresponding vertices matrix $U=[u_{1},u_{2},u_{3}, \dots,u_{n}]$ of the target graph $T$.
+where $W = diag(w_{1},\dots, w_{n})$ corresponds to the weights in the diagonal matrix multiplied by the Kronecker product $\otimes$ to $I_{3}$ identity matrix. $X$ is a diagonal matrix of $X_{i}$ that we need to solve and is multiplied by vertices matrix $V=[v_{1},v_{2},v_{3}, \dots,v_{n}]^T$ of template graph $S$, subtracted by the corresponding vertices matrix $U=[u_{1},u_{2},u_{3}, \dots,u_{n}]$ of the target graph $T$.
 
-Let us clearify how \textbf{Kronecker product} works, it is operation of two matrices of arbitrary size denoted by $\otimes$. It is a generalization of the outer product, (denoted by the same symbol) from vectors to matrices, and gives the matrix of the tensor product with respect to a standard choice of basis \cite{Wikipedia2019}.
+Let us clarify how \textbf{Kronecker product} works, it is operation of two matrices of arbitrary size denoted by $\otimes$. It is a generalization of the outer product, (denoted by the same symbol) from vectors to matrices, and gives the matrix of the tensor product with respect to a standard choice of basis \cite{Wikipedia2019}.
 
 For instance, If $A$ is an $m \times n$ matrix and $B$ is a $p \times q$ matrix, then the Kronecker product $A \otimes B$ is the $mp \times nq$ block matrix:
 
@@ -220,7 +220,7 @@ a_{m1}B & \dots  & a_{mn}B
 
 Thus, the result of $W \otimes I_{3}$ is a $3n\times 3n$ matrix, where matrix $X$ has size $3n\times4n$, $V$ has a shape $4n\times1$ and $U$ has shape $3n\times1$.
 
-We continue to reform the equation to be easily differentiated and implemented by converting it into canonical form. First We swap the position of the $X$ and $V$ matrices, then we define a sparse matrix $D$ which contains the the vertices $v_{i} \in V$ in diagonal position as demonstrated below:
+We continue to reform the equation to be easily differentiated and implemented by converting it into canonical form. First we swap the positions of the $X$ and $V$ matrices, then we define a sparse matrix $D$ which contains the vertices $v_{i} \in V$ in diagonal position as demonstrated below:
 
 \begin{equation}
 D =
@@ -243,29 +243,28 @@ The new format of the equation becomes:
 \hspace{2em}Where the matrix $W$ has size $n\times n$, the matrix $D$ has size $n\times 4n$ (vertices $v_{i}$ are in homogeneous coordinates $[x,y,z,1]^T$), $X$ has size $4n\times 3$, and $U$ does not change with shape $n\times 3$ (vertices $u_{i}$ are in 3D coordinate).
 
 \subsection{Stiffness Term}
-\hspace{2em}The stiffness term is the second part of the equation (\ref{equ:costFun1}), it regularizes the deformation of template graph $S$ by penalizing the weighted difference of the transformations of neighboring vertices under the Frobenius norm $||.||_{F}$ using a weight matrix $G := diag(1, 1, 1, \gamma)$ \cite{Amberg2007}, that keeps the vertices which are linked together (i.e., there is an edge between them or they are in the same tract) or neighbors close to each other as possible.
-
+\hspace{2em}The stiffness term is the second part of the equation (\ref{equ:costFun1}). It regularizes the deformation of template graph $S$ by penalizing the weighted difference of the transformations of neighboring vertices under the Frobenius norm $||.||_{F}$ using a weight matrix $G := diag(1, 1, 1, \gamma)$ \cite{Amberg2007}, that keeps the distance between vertices which are neighbours (i.e., vertices which have an edge between them) and also in the same tract constant.
 \begin{equation}
 E_{s}(X) = \sum_{i,j \in E} ||(X_{i} - X_{j})G||_{F}^2
 \label{equ:stiffness1}
 \end{equation}
 
-The parameter $\gamma$ is used to balance the rotational and skew  against translation while transforming the template graph $S$ \cite{Amberg2007}. In our case $\gamma$ is \textit{one} as we have already scaled our data into the $[-1, 1]^3$ cube.
+The parameter $\gamma$ is used to balance the rotation and skew against translation while transforming the template graph $S$ \cite{Amberg2007}. In our case $\gamma$ is \textit{one} as we have already scaled our data into the $[-1, 1]^3$ cube.
 
-To make our function solvable directly we need to write it as quadratic function, therefore we use twelve parameters per vertex in $3 \times 4$ shape, the $\alpha$ parameter in equation (\ref{equ:costFun1}) is a constant that manages the contribution of the stiffness term; when it is high the neighbor vertices does not move far away from each other and when it is low, a greater deformation can occur.
-The part $||.||_{F}$ is the \textit{Frobenius norm} which illustrated in the example below \cite{Amberg2007}: 
+To make our function solvable directly we need to write it as a quadratic function. Therefore we use twelve parameters per vertex in $3 \times 4$ shape and an $\alpha$ parameter in equation (\ref{equ:costFun1}) which is a constant that manages the contribution of the stiffness term; when it is high, the neighbor vertices do not move far away from each other and when it is low, a greater deformation can occur.
+The part $||.||_{F}$ is the \textit{Frobenius norm} which is illustrated in the example below \cite{Amberg2007}:
 
 \begin{equation*}
 ||A||_{F} = \sqrt{\sum_{i=1}^m \sum_{j=1}^n |a_{ij}|^2}
 \end{equation*}
 
-To make the stiffness term more simpler and applicable, we put it in a form below:
+To make the stiffness term more simpler and applicable, we put it in the form below:
 
 \begin{equation}
 E_{s}(X) = ||(M\otimes G)X||_{F}^2
 \end{equation}
 
-where $M$ is a node-arc incidence matrix defined for directed graphs. The number of rows in this matrix equal the number of nodes (vertices) and the number of columns equal the number of arcs (edges) on the graph and the values has to be \textit{zeros, ones and/or minus ones}. The value will be \textit{zero} if the edge on this column is not connected to the vertex on this row where the value lies, otherwise, the value must be either $1$ or $-1$; it will be $1$ if the edge direction is coming towards the vertex and $-1$ otherwise. As illustrated in the figure \{\ref{fig:directed_graph}\}, the matrix $M$ has size $e\times n$ where \textit{e} and \textit{n} are the number of edges and vertices respectively. $G = diag(1,1,1,\lambda)$ is the diagonal matrix and the result of $M \otimes G$ is $4e \times 4n$ matrix.
+where $M$ is a node-arc incidence matrix defined for directed graphs. The number of rows in this matrix equal the number of nodes (vertices) and the number of columns equal the number of arcs (edges) on the graph and the values must be \textit{zeros, ones and/or minus ones}. The value will be \textit{zero} if the edge on this column is not connected to the vertex on this row where the value lies, otherwise, the value must be either $1$ or $-1$; it will be $1$ if the edge direction is coming towards the vertex and $-1$ otherwise. As illustrated in the figure \{\ref{fig:directed_graph}\}, the matrix $M$ has size $e\times n$ where \textit{e} and \textit{n} are the number of edges and vertices respectively. $G = diag(1,1,1,\lambda)$ is the diagonal matrix and the result of $M \otimes G$ is $4e \times 4n$ matrix.
 
 
 \begin{figure}[h!]
@@ -287,7 +286,7 @@ E_{l}(X) = \sum_{(vi,l) \in L}||(X_{i}v_{i} - l)||^2
 Where $L = \left\{(v_{i1},l_{1}),(v_{i2},l_{2}),...,(v_{il},l_{l})\right\}$ is the set of landmarks that maps the template graph $S$ to the target graph $T$. The $\beta$ parameter in equation (\ref{equ:costFun1}) controls the influence of the landmark term.
 
 \subsection{The Final Cost Function}
-After simplifying each term separately, we are going to join them together in one equation (\ref{equ:costFun2}) as below:
+After simplifying each term separately, we are going to join them together in one equation, (\ref{equ:costFun2}) as outlined below:
 
 \begin{equation}
 \bar{E}(X) = \left\|
@@ -298,13 +297,13 @@ X -
 \begin{bmatrix}
 0 \\ WU \\ U_{L}
 \end{bmatrix}
-\right\| ^2 
+\right\| ^2
 \label{equ:costFun2}
 \end{equation}\\
 
-The current form of the function can be minimized by setting its derivative to zero and solving it as linear equation. The minimum value of $\bar{E}(X)$ is when $X = (A^T A)^{-1} A^T B$.
+The current form of the function can be minimized by setting its derivative to zero and solving it as a linear equation. The minimum value of $\bar{E}(X)$ is when $X = (A^T A)^{-1} A^T B$.
 
-Even $A$ a sparse matrix and most of its values are zeros, however, it is still a large matrix and requires the most time of solving the equation. In order to solve the equation faster, we ommited the landmark term because we already have the initial position by applying PCA. Once we omit the landmark term, the function will be:
+Even $A$ a sparse matrix and most of its values are zeros, however, it is still a large matrix and requires the most time to solve the equation. In order to solve the equation at a faster speed, we omitted the landmark term because we already have the initial position by applying PCA. Once we omit the landmark term, the function will be:
 
 \begin{equation}
 E(X) = \left\|
@@ -315,13 +314,13 @@ X -
 \begin{bmatrix}
 0 \\ WU
 \end{bmatrix}
-\right\| ^2 
+\right\| ^2
 = ||Ax - b||_{F}^2
 \label{equ:costFun3}
 \end{equation}\\
 
 \subsection{Implementing Cost Function}
-\hspace{2em}To implement the equation (\ref{equ:costFun3}), we use sparse matrix from \textit{scipy.sparse} to build $A$. First we measure the euclidean distance between each point $v_{i}\in V$ in the template graph $S$ and its correspondent point $u_{i}\in U$ in the target graph $T$ using \textit{K-D Tree} from \textit{sklearn.neighbors.KDTree}, then we filter distances by threshold value (which is parameter we will discuss how to select) to define \textit{Zeros} and \textit{Ones} and put them on $n\times n$ diagonal sparse matrix \textit{W} (\textit{scipy.sparse.diags}).
+\hspace{2em}To implement the equation (\ref{equ:costFun3}), we use the sparse matrix from \textit{scipy.sparse} to build $A$. First we measure the euclidean distance between each point $v_{i}\in V$ in the template graph $S$ and its correspondent point $u_{i}\in U$ in the target graph $T$ using \textit{K-D Tree} from \textit{sklearn.neighbors.KDTree}, then we filter distances by a threshold value (which is a parameter whose criteria for selection will be discussed later ) to define \textit{zeros} and \textit{ones} and put them on $n\times n$ diagonal sparse matrix \textit{W} (\textit{scipy.sparse.diags}).
 
 \begin{equation*}
 W =
@@ -333,23 +332,23 @@ w_{1}^T & & & \\
 \end{bmatrix}
 \end{equation*}\\
 
-Next we build $n\times 4n$ sparse matrix \textit{D}, first we join all tracts on template graph $S$ to get points cloud $V$ matrix which is $n\times 3$ matrix and add one more column in the end to have homogeneous coordinates $V=[v_{1}, v_{2}, v_{3}, \dots , v_{n}]^T$, then we take each vertex $v_{i} \in V$ and put them diagonally in sparse matrix \textit{D} as shown in equation (\ref{equ:matD}). To \textit{WD} as in equation (\ref{equ:costFun3}), we calculate dot product of \textit{W} and \textit{D} using included function \textit{scipy.sparse.dot} in the sparse matrix \textit{W} (\{$W.dot(D)$\}, the result is $n\times 4n$ matrix. To get \textit{WU} we use the same dot product, the result is $n\times 3$ matrix. All the above is part of the distance term, we will discuss stiffness term implementation in the next paragraph
+Next we build a $n\times 4n$ sparse matrix \textit{D}. First we join all tracts on a template graph $S$ to get points cloud matrix $V$ which is a $n\times 3$ matrix and we add one more column at the end to have homogeneous coordinates $V=[v_{1}, v_{2}, v_{3}, \dots , v_{n}]^T$. Then we take each vertex $v_{i} \in V$ and place it diagonally in the sparse matrix \textit{D},  as shown in equation (\ref{equ:matD}). To get \textit{WD} as in equation (\ref{equ:costFun3}), we calculate the dot product of \textit{W} and \textit{D} using the function \textit{scipy.sparse.dot} in the sparse matrix \textit{W} ($W.dot(D)$). The result is a $n\times 4n$ matrix. To get \textit{WU}, we use the same dot product function and the result is a $n\times 3$ matrix.
 
-As we can see in equation (\ref{equ:costFun3}), the stiffness term is only for template graph $S$. To implement the stiffness term, we create diagonal sparse matrix $G = diag(1,1,1,\lambda)$ and $\lambda=1$ in our case. Then we build $e\times n$ \textit{M} matrix, to do so, we use the streamlines form of template graph $S$ which has the connections of between points in the same tract (streamline). Then we calculate \textbf{Kronecker product} of $M \otimes G$. The $\lambda$ parameter is the variable user can adjust depend on the data.
+As we can see in equation (\ref{equ:costFun3}), the stiffness term is only for the template graph $S$. To implement the stiffness term, we create a diagonal sparse matrix $G = diag(1,1,1,\lambda)$ and $\lambda=1$ in our case. Then we build an $e\times n$ \textit{M} matrix. To do so, we use the streamlines form of template graph $S$ which has the connections of between points in the same tract (streamline). We next calculate \textbf{Kronecker product} of $M \otimes G$. The $\lambda$ parameter is a variable the user can adjust depending on the data.
 
-To have the final form of the cost function, we stack vertically $\alpha M \otimes G$ and $WD$ in one sparse matrix $A$ with size $n\times 4n$ which is $A$ part of equation (\ref{equ:costFun3})
+To have the final form of the cost function, we vertically stack $\alpha M \otimes G$ on top of $WD$ in one sparse matrix $A$ with size $n\times 4n$.  The sparse matrix $A$ is a part of the equation (\ref{equ:costFun3})
 
-As we discuss before when we implemented the distance term, we already have \textit{WU}, to get $b$ part of equation (\ref{equ:costFun3}), we create as sparse matrix of zeros size $n\times 3$ and vertically stack it with \textit{WU}.
+As previously discussed, we already have \textit{WU}; To get the sparse matrix $b$ in the equation (\ref{equ:costFun3}), we create a sparse matrix of zeros with size $n\times 3$ and vertically stack it on top of \textit{WU}.
 
-Now the cost function $||Ax-b||_{F}^2$ is ready to solve by using \textit{Least Square (LSQR)} from \textit{scipy.sparse.linalg.lsqr} which takes $A$ and $b$ as parameters and return $X=[x_{1}, x_{2}, x_{3}, \dots, x_{n}]$. But as we can observe, $b$ in our case is $n\times 3$ matrix and \textit{scipy.sparse.linalg.lsqr} takes $b$ as vector only. To solve this, we use the fundamental principal of matrix multiplication by applying \textit{Least Square (LSQR)} for each column in $b$ matrix.
+The cost function $||Ax-b||_{F}^2$ can then be solved by using \textit{LSQR} from \textit{scipy.sparse.linalg.lsqr} which takes $A$ and $b$ as parameters and returns $X=[x_{1}, x_{2}, x_{3}, \dots, x_{n}]$. However, as we can observe, $b$ in our case is an $n\times 3$ matrix and \textit{scipy.sparse.linalg.lsqr} takes $b$ as vector only. To solve this, we use the fundamental principle of matrix multiplication by applying \textit{LSQR} for each column in matrix $b$.
 
-To get the aligned template graph $S$ we calculate dot product of the $x$, returned by \textit{LSQR}, and $D$ matrix, the result is $n\times 3$ matrix which is points cloud form of the template graph $S$ which we must convert to original form (streamlines).\\
+To get the aligned template graph $S$, we calculate the dot product of the $x$, returned by \textit{LSQR}, and matrix $D$. The result is a $n\times 3$ matrix which is points cloud form of the template graph $S$ the must be converted to original form (i.e., streamlines).\\
 
-Finally for visualization we customize functions from \textit{Open3D} library to view brain bundles.
+Finally for visualization, we customize functions from \textit{Open3D} library to view brain tract bundles.
 
 \begin{figure}[h!]
 \centering
-\includegraphics[scale=0.3]{008_ide}
+\includegraphics[scale=0.2]{008_ide}
 \captionsetup{justification=centering}
 \caption{IDE and visualization tool}
 \end{figure}
