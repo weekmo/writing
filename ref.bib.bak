@@ -485,17 +485,4 @@
   publisher = {Wiley},
 }
 
-@Article{Cordon2006,
-  author    = {O. Cord{\'{o}}n and S. Damas and J. Santamar{\'{\i}}a},
-  title     = {A fast and accurate approach for 3D image registration using the scatter search evolutionary algorithm},
-  journal   = {Pattern Recognition Letters},
-  year      = {2006},
-  volume    = {27},
-  number    = {11},
-  pages     = {1191--1200},
-  month     = {aug},
-  doi       = {10.1016/j.patrec.2005.07.017},
-  publisher = {Elsevier {BV}},
-}
-
 @Comment{jabref-meta: databaseType:bibtex;}
