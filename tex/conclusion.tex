@@ -1,13 +1,12 @@
 \documentclass[../structure.tex]{subfiles}
 \begin{document}
 \chapter{Conclusion}
-In this thesis non-rigid ICP registration method that illustrated in \cite{Amberg2007} was discussed, customized and implemented to fit the brain pathways data which considered as challenging registration problem.
+In this thesis non-rigid ICP registration method that illustrated in \cite{Amberg2007} was discussed, customized and implemented to fit the brain pathways data which considered as challenging registration problem. 
 
-The tool developed here was tested using real brain pathways data from patients from \textbf{\textit{UKB Universitätsklinikum Bonn}}.
+The tool developed here was tested using real brain pathways data from patients from \textbf{\textit{UKB Universitätsklinikum Bonn}}. The images were taken by MRI technology and converted to 3D coordinate. The tool can handle the deformation and sign affine matrix for each vertex to optimally align overall pathway.
 
-- Images were taken by MRI technology and converted to 3D coordinate.\\
-- The tool can handle the deformation\\
-- the performance need to be improved\\
-- PCA sometimes doesn't find the right orientation\\
+The performance of the tool can be improved by applying hierarchical clustering and apply soft membership to vertices depending on the central clusters points.
+
+Applying PCA sometimes does not find the right orientation of bundles
 
 \end{document}
