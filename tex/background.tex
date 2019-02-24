@@ -5,7 +5,6 @@
 The human brain, which is the focus of our work in this thesis, is the central organ of the human nervous system. It is made up of two main components, namely, gray matter and white matter. Researchers have discerned a great deal about gray and white matter and distinct brain regions through autopsies and imaging techniques. The study of the human brain in diseased states or under conditions associated with brain damage have resulted in major insights into this complex organ.
 
 \section{Brain Anatomy :Fiber Pathways}
-
 	 \textbf{White matter} areas in the central nervous system are made up of myelinated axons, also known as tracts or fiber pathways \cite{Blumenfeld2010}. Fiber pathway is composed of bundles which connect various gray matter areas of the brain together and carry nerve impulses between neurons. Myelin acts as an insulator allowing electrical signals to jump rather than course through axons, increasing the speed of transmission of all nerve signals through a phenomenon known as saltatory conduction \cite{Klein2008}.
 %	\\Long thought to be passive tissue, white matter affects learning and brain functions, modulates the distribution of action potentials, and acts as a relay and coordinator of communication between different brain regions \cite{Fields2008}.
 	
@@ -71,14 +70,17 @@ If we have two objects and we need to align them that means we should reduce the
 		ICP is an existing method for point cloud registration.  It estimates the motion parameters by minimizing Euclidean distances between two or more point clouds. Point-to-point correspondences is most common type so far whereas point-to-plane ICP estimates the parameters by minimizing the orthogonal distance between the points in one point cloud and the local planes in the other.
 		
 In ICP (in our case) one points cloud (i.e., vertex cloud), or target, is kept fixed, while the template, is transformed to best match the target. The algorithm iteratively check the transformation (combination of translation, rotation and scaling) required to minimize a distance from the template to the target points cloud \cite{Zhang1994}. 
+
 		 \subsubsection{Least squares (LSQR)}
-		 LSQR is an iterative method to solve complex linear systems of equations and least square problems to approximate the solution. It allows the choice of of an arbitrary initial vector for the solution subspace. The number of iterations required to reach a certain accuracy depends on the scaling of the problem ($ ||Ax-b||^2 $). 
-Poor scaling of the rows or columns of A should therefore be avoided where possible \cite{Paige1982}.
+		 LSQR is an iterative method to solve complex linear systems of equations and least square problems to approximate the solution. It allows the choice of of an arbitrary initial vector for the solution subspace. The number of iterations required to reach a certain accuracy depends on the scaling of the problem ($ ||Ax-b||^2 $).  Poor scaling of the rows or columns of A should therefore be avoided where possible \cite{Paige1982}.
 % please add the equations 
 
 \section{Principal component analysis (PCA) Transformation}
-%PCA is mathematically defined as an orthogonal linear transformation that transforms the data to a new coordinate system such that the greatest variance by some projection of the data comes to lie on the first coordinate (called the first principal component), the second greatest variance on the second coordinate, and so on\cite{Jolliffe2002}.
-PCA is used in the code as a preliminary step, so that the template and target are aligned as much as possible before the registration can begin.
+
+PCA, a statistical technique converts high dimensional data to low dimensional data by selecting the most significant features that can capture maximum information about the dataset. With dimensionality reduction using PCA, the training time of the algorithms reduces and it makes the data analysis possible which is not always the case with data in high dimensions.
+
+
+It is mathematically defined as an orthogonal linear transformation that transforms the data to a new coordinate system such that the greatest variance by some projection of the data comes to lie on the first coordinate (called the first principal component), the second greatest variance on the second coordinate, and so on\cite{Jolliffe2002}.
 
 \section{K-D Tree}
 

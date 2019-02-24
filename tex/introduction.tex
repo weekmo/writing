@@ -20,6 +20,10 @@
 As we mention before, registration is important step on many application including bioinformatics, which is our case, because our data is brain pathways (sometimes in this thesis we call the bundles or tracts for simplicity). Our method will help comparing passion and control brain pathways to distinguish the deformation occur on patients brains due to disease or outside affects. we apply ICP method refer to \cite{Amberg2007} with some altering to fit the spacial case of our data, because the method on \cite{Amberg2007} applied for surface registration and our data is tracts (streamlines).
 
 Our data as we mentioned is brain pathways, which are part of white matter (brain consists of white and gray matter as we will explain later), is one of challenging registration data due to differences between same pathway in different subject or if it is on right side or left side of the brain.
+
+
+PCA is used in the code as a preliminary step, so that the template and target are aligned as much as possible before the registration can begin.
+
 \end{document}
 
 
