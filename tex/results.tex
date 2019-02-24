@@ -131,7 +131,7 @@ The second test is done for Thalamic Radiation (ATR) right side by transforming 
 \end{figure}
 \pagebreak
 
-Then we align them with DIPY to get the results in figures \{\ref{fig:hist_dipy_def}\} \{\ref{fig:img_dipy_def}\}
+Next, we align them with DIPY to get the results in figures \{\ref{fig:hist_dipy_def}\} \{\ref{fig:img_dipy_def}\}
 
 \begin{figure}[h!]
 \centering
@@ -166,6 +166,28 @@ Then we apply non-rigid ICP registration to get the results in figures \{\ref{fi
 \caption{The Orientation after deforming a bundle and align it with the original one using ICP}
 \label{fig:img_icp_def}
 \end{figure}
+
+\pagebreak
+
+Applying PCA sometimes does not find the right orientation of bundles due to similarity of vertices distribution and that gives similar principle components as shown below:
+
+
+	\begin{figure}[h!]
+	\centering
+	\includegraphics[scale=0.5]{02_img_original}
+	\captionsetup{justification=centering}
+	\caption{The original coordinate before PCA}
+	\label{fig:all_brain}
+	\end{figure}
+	
+	\begin{figure}[h!]
+	\centering
+	\includegraphics[scale=0.3]{02_img_PCA}
+	\captionsetup{justification=centering}
+	\caption{The coordinate when PCA fail to find the best alignment}
+	\label{fig:all_brain}
+	\end{figure}
+\pagebreak
 
 Finally, we found that our tool can handle the deformation easily (elastic registration) but \textit{DIPY} can only handle the size by scaling the template bundles.
 

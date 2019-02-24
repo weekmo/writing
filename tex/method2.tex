@@ -71,6 +71,8 @@ z_{1} & z_{2} & \dots & z_{n}\\
 \end{bmatrix}
 \end{equation*}
 
+\pagebreak
+
 \hspace{2em}As we are implementing the registration method, we are going to consider two objects, target graph $T$, which remains fixed, and template graph $S$, which moves iteratively until it reaches the optimal alignment with target graph $T$. To do so, we use Iterative Closest Point (ICP) as previously discussed (see figure \{\ref{fig:icp}\}). With ICP, for each point on the template graph $S$, we look for the closest point on the target graph $S$. Then we start moving each point in $S$ to a correspondent point in $T$ with respect to stiffness. After solving the cost function by using \textit{LSQR} we have a separate \textit{Affine Transformation Matrix} ($X = [X_{1}, X_{2}, X_{3}, ...,X_{n}]$) for each point in the template graph $S$ that moves separately whilst keeping the original neighbors as close to each other as possible. This type of registration is called non-rigid registration.
 
 \begin{figure}[h!]
@@ -344,11 +346,14 @@ The cost function $||Ax-b||_{F}^2$ can then be solved by using \textit{LSQR} fro
 
 To get the aligned template graph $S$, we calculate the dot product of the $x$, returned by \textit{LSQR}, and matrix $D$. The result is a $n\times 3$ matrix which is points cloud form of the template graph $S$ the must be converted to original form (i.e., streamlines).\\
 
+
+
 Finally for visualization, we customize functions from \textit{Open3D} library to view brain tract bundles.
+
 
 \begin{figure}[h!]
 \centering
-\includegraphics[scale=0.2]{008_ide}
+\includegraphics[scale=0.3]{008_ide}
 \captionsetup{justification=centering}
 \caption{IDE and visualization tool}
 \end{figure}
