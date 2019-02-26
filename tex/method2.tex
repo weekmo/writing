@@ -71,14 +71,15 @@ z_{1} & z_{2} & \dots & z_{n}\\
 \end{bmatrix}
 \end{equation*}
 
+\pagebreak
+
 \hspace{2em}As we are implementing the registration method, we are going to consider two objects, target graph $T$, which remains fixed, and template graph $S$, which moves iteratively until it reaches the optimal alignment with target graph $T$. To do so, we use Iterative Closest Point (ICP) as previously discussed (see figure \{\ref{fig:icp}\}). With ICP, for each point on the template graph $S$, we look for the closest point on the target graph $S$. Then we start moving each point in $S$ to a correspondent point in $T$ with respect to stiffness. After solving the cost function by using \textit{LSQR} we have a separate \textit{Affine Transformation Matrix} ($X = [X_{1}, X_{2}, X_{3}, ...,X_{n}]$) for each point in the template graph $S$ that moves separately whilst keeping the original neighbors as close to each other as possible. This type of registration is called non-rigid registration.
 
 \begin{figure}[h!]
 \centering
 \includegraphics[scale=0.5]{001_conn}
 \captionsetup{justification=centering}
-\caption{The template graph $S$ (green) is deformed by locally applying affine transformations $(X_{i})$ onto the target graph $T$ (red). The algorithm determines the closest points $(u_{i})$ for each displaced source vertex $(X_{i}v_{i})$ and finds the optimal deformation for the stiffness used in this iteration. This is repeated until a stable state is found. The process then continues with a lower stiffness. Due to the stiffness constraint, the vertices do not move directly towards the target graph, but may move parallel along it. The correspondences $u_{1}$
-and $u_{4}$ are dropped as they lie on the border of the target \cite{Amberg2007}.}
+\caption{The template graph $S$ (green) moves toward target graph $T$ (red) and become graph $S(X)$ by applying local deformation. Each point $v_{i}$ in the template graph $S$ moves toward correspondence point $u_{i}$ in the target graph $T$ by applying local affine matrix $x_{i}$. Some points does not have correspondent point, but they still move because of stiffness \cite{Amberg2007}.} 
 \label{fig:icp}
 \end{figure}
 

@@ -2,7 +2,7 @@
 \begin{document}
 \chapter{Results}
 \hspace{2em}After implementing non-rigid ICP, we test the code we have developed to assess the algorithm. The device used for this test is \textit{HP EliteBook 820 G3}, as shown in figure \{\ref{fig:OS}\} and the operating system used was \textit{Windows 10 Enterprise x64}
-\\
+
 \begin{figure}[h!]
 \centering
 \includegraphics[scale=1.2, frame]{009_os}
@@ -40,7 +40,7 @@ VTA&327.625&679&150&27784.125&54904&14982\\
 \end{table}
 \end{center}
 
-The test starts by reading the template and target bundles from \textit{ply} files, whereas the template bundle is the Thalamic Radiation (ATR) on the right side and the target bundle is the left side of the ATR from the same patient. Then we visualize two graphs and plot the distances between correspondences points in histograms before and after applying PCA. Depending on the result we have and whether PCA improved the alignment or not, we decide whether to use PCA or not; if PCA improves the alignment, then it is used, otherwise we skip PCA. The figures \{\ref{fig:hist_original}\} \{\ref{fig:img_original}\} \{\ref{fig:hist_PCA}\} \{\ref{fig:img_PCA}\} below show visual orientations and histograms before and after PCA.
+\hspace{2em}The test starts by reading the template and target bundles from \textit{ply} files, whereas the template bundle is the Thalamic Radiation (ATR) on the right side and the target bundle is the left side of the ATR from the same patient. Then we visualize two graphs and plot the distances between correspondences points in histograms before and after applying PCA. Depending on the result we have and whether PCA improved the alignment or not, we decide whether to use PCA or not; if PCA improves the alignment, then it is used, otherwise we skip PCA. The figures \{\ref{fig:hist_original}\} \{\ref{fig:img_original}\} \{\ref{fig:hist_PCA}\} \{\ref{fig:img_PCA}\} below show visual orientations and histograms before and after PCA.
 
 \begin{figure}[h!]
 \centering
@@ -52,12 +52,13 @@ The test starts by reading the template and target bundles from \textit{ply} fil
 
 \begin{figure}[h!]
 \centering
-\includegraphics[scale=.7]{101_img_original}
+\includegraphics[scale=.6]{101_img_original}
 \captionsetup{justification=centering}
 \caption{The original orientation}
 \label{fig:img_original}
 \end{figure}
 \pagebreak
+\vspace{4em}
 \begin{figure}[h!]
 \centering
 \includegraphics[scale=1]{101_hist_PCA}
@@ -73,6 +74,7 @@ The test starts by reading the template and target bundles from \textit{ply} fil
 \caption{The Orientation after PCA}
 \label{fig:img_PCA}
 \end{figure}
+\vspace{4em}
 \pagebreak
 %\vspace{2em}
 When we decide whether to use PCA or not, we select the threshold depending on the histogram. In this case, as we decide to use PCA, we select a threshold equal to seven and around 98\% of points will be included as correspondences. In other words, 98\% of the weight matrix $W$ will be \textit{ones}, as explained in chapter \textit{Methods and implementation}. Then we run \textit{LSQR} to solve the cost function, as illustrated in the previous chapter \textit{Method and Implementation}, and produce the results seen in figures \{\ref{fig:hist_ICP}\} \{\ref{fig:img_ICP}\} below. Later we compare our results with non-linear method called \textit{Dipy} 
