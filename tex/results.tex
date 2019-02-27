@@ -11,7 +11,7 @@
 \label{fig:OS}
 \end{figure}
 
-The number of samples used for testing is four with eleven pathways (bundles) in each side of the brain. The data is collected by \textbf{\textit{UKB Universitätsklinikum Bonn}}.
+The number of samples used for testing is four with eleven pathways (bundles) in each side of the brain. The data is brain pathways data from \textbf{\textit{Human Connectome Projects}} \cite{CCF}.
 % Statistic
 \begin{center}
 \begin{table}[h!]
@@ -77,7 +77,7 @@ VTA&327.625&679&150&27784.125&54904&14982\\
 \vspace{4em}
 \pagebreak
 %\vspace{2em}
-When we decide whether to use PCA or not, we select the threshold depending on the histogram. In this case, as we decide to use PCA, we select a threshold equal to seven and around 98\% of points will be included as correspondences. In other words, 98\% of the weight matrix $W$ will be \textit{ones}, as explained in chapter \textit{Methods and implementation}. Then we run \textit{LSQR} to solve the cost function, as illustrated in the previous chapter \textit{Method and Implementation}, and produce the results seen in figures \{\ref{fig:hist_ICP}\} \{\ref{fig:img_ICP}\} below. Later we compare our results with non-linear method called \textit{Dipy} 
+When we decide whether to use PCA or not, we select the threshold depending on the histogram. In this case, as we decide to use PCA, we select a threshold equal to seven and around 98\% of points will be included as correspondences in the first iteration. In other words, 98\% of the weight matrix $W$ will be \textit{ones}, as explained in chapter \textit{Methods and implementation}. Then we run \textit{LSQR} to solve the cost function iteratively until the distance between the last iteration and the current iteration reach a selected value. The value of \textit{acond}, which presents how good conditioned LSQR, returned by \textit{scipy.sparse.linalg.lsqr} is 51810683.6. The results are shown in figures \{\ref{fig:hist_ICP}\} \{\ref{fig:img_ICP}\} below. Later we compare our results with non-linear method called \textit{Dipy} 
 
 \begin{figure}[h!]
 \centering
@@ -95,7 +95,7 @@ When we decide whether to use PCA or not, we select the threshold depending on t
 \label{fig:img_ICP}
 \end{figure}
 \pagebreak
-We align the same bundles with the method discussed in \cite{ODonnell2012} and implemented in \textit{DIPY dipy.align.streamlinear.StreamlineLinearRegistration}. The method gets the initial orientation by bringing both graphs to the origin point of the 3D euclidean space, but it does not take care of the initial alignment. Therefore, we use the PCA tool that we develop to get the initial alignment and produce the results shown in figures \{\ref{fig:dipy_hist}\} \{\ref{fig:img_dipy}\}
+We align the same bundles with the method discussed in \cite{Garyfallidis2012} and implemented in \textit{DIPY dipy.align.streamlinear.StreamlineLinearRegistration}. The method starts by reducing the number of points in each tract to a certain number of point, which is necessary for the method to have the same number of points in each tract, and applies \textit{minimum average direct-flip distance (MDF)} to calculate the distance. The method then uses optimizer to select the best combination of variables, which later converted to affine matrix, to reduce the overall distance between template bundle and the target bundle. The method gets the initial orientation by bringing both graphs to the origin point of the 3D euclidean space, but it does not take care of the initial alignment. Therefore, we use the PCA tool that we develop to get the initial alignment and produce the results shown in figures \{\ref{fig:dipy_hist}\} \{\ref{fig:img_dipy}\}
 
 \begin{figure}[h!]
 \centering
@@ -114,7 +114,7 @@ We align the same bundles with the method discussed in \cite{ODonnell2012} and i
 \end{figure}
 \pagebreak
 
-The second test is done for the right side of the ATR by transforming it locally and globally. Essentially, what we mean by local transformation is that we apply different affine transformation matrices for each point in the bundle and local means one affine transformation matrix for all points (no deformation). Then we try to align it again with the original one. We show the results in figures \{\ref{fig:hist_original_def}\} \{\ref{fig:img_original_def}\} of local transformation only because it is relatively straightforward for global transformation.
+The second test is done for the right side of the ATR by transforming it locally and globally. Essentially, what we mean by local transformation is that we apply different affine transformation matrices for each point in the bundle and local means one affine transformation matrix for all points (no deformation). Then we try to align it again with the original one. We show the results in figures \{\ref{fig:hist_original_def}\} \{\ref{fig:img_original_def}\} of local transformation only because it is relatively straightforward for global transformation. The condition value of LSQR we got is 5741672.
 
 \begin{figure}[h!]
 \centering
@@ -193,7 +193,7 @@ Applying PCA sometimes does not find the right orientation of bundles due to sim
 
 Finally, we found that our tool can handle the deformation easily (elastic registration) but \textit{DIPY} can only handle the size by scaling the template bundles.
 
-The \textit{DIPY} method is much faster than our method because it is implemented to reduce the number of points used to calculate the distance. In our test, each tract reduced to 20 points rather than the real number of points as shown in table \{\ref{table:data}\}. Furthermore, as mentioned in \cite{ODonnell2012}, \textit{DIPY} uses a minimum average direct-flip distance (MDF) which considers the tract to tract distance whereas our tool considers the point to point distance. To improve our tool, hierarchical clustering bundles can be done and soft membership alignment can be applied.
+The \textit{DIPY} method is much faster than our method because it is implemented to reduce the number of points used to calculate the distance. In our test, each tract reduced to 20 points rather than the real number of points as shown in table \{\ref{table:data}\}. Furthermore, as mentioned in \cite{Garyfallidis2012}, \textit{DIPY} uses a minimum average direct-flip distance (MDF) which considers the tract to tract distance whereas our tool considers the point to point distance. To improve our tool, hierarchical clustering bundles can be done and soft membership alignment can be applied.
 
 \end{document}
 

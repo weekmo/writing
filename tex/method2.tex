@@ -73,7 +73,7 @@ z_{1} & z_{2} & \dots & z_{n}\\
 
 \pagebreak
 
-\hspace{2em}As we are implementing the registration method, we are going to consider two objects, target graph $T$, which remains fixed, and template graph $S$, which moves iteratively until it reaches the optimal alignment with target graph $T$. To do so, we use Iterative Closest Point (ICP) as previously discussed (see figure \{\ref{fig:icp}\}). With ICP, for each point on the template graph $S$, we look for the closest point on the target graph $S$. Then we start moving each point in $S$ to a correspondent point in $T$ with respect to stiffness. After solving the cost function by using \textit{LSQR} we have a separate \textit{Affine Transformation Matrix} ($X = [X_{1}, X_{2}, X_{3}, ...,X_{n}]$) for each point in the template graph $S$ that moves separately whilst keeping the original neighbors as close to each other as possible. This type of registration is called non-rigid registration.
+\hspace{2em}As we are implementing the registration method, we are going to consider two objects, target graph $T$, which remains fixed, and template graph $S$, which moves iteratively until it reaches the optimal alignment with target graph $T$. To do so, we use Iterative Closest Point (ICP) as previously discussed (see figure \{\ref{fig:icp}\}). With ICP, for each point on the template graph $S$, we look for the closest point on the target graph $S$. Then we start moving each point in $S$ to a correspondent point in $T$ with respect to stiffness. After solving the cost function by using \textit{LSQR} iteratively until the distance between the last iteration and the current iteration is less than a parameter selected by the user, we have a separate \textit{Affine Transformation Matrix} ($X = [X_{1}, X_{2}, X_{3}, ...,X_{n}]$) for each point in the template graph $S$ that moves separately whilst keeping the original neighbors as close to each other as possible. This type of registration is called non-rigid registration.
 
 \begin{figure}[h!]
 \centering
@@ -341,11 +341,13 @@ To have the final form of the cost function, we vertically stack $\alpha M \otim
 
 As previously discussed, we already have \textit{WU}; To get the sparse matrix $b$ in the equation (\ref{equ:costFun3}), we create a sparse matrix of zeros with size $n\times 3$ and vertically stack it on top of \textit{WU}.
 
-The cost function $||Ax-b||_{F}^2$ can then be solved by using \textit{LSQR} from \textit{scipy.sparse.linalg.lsqr} which takes $A$ and $b$ as parameters and returns $X=[x_{1}, x_{2}, x_{3}, \dots, x_{n}]$. However, as we can observe, $b$ in our case is an $n\times 3$ matrix and \textit{scipy.sparse.linalg.lsqr} takes $b$ as vector only. To solve this, we use the fundamental principle of matrix multiplication by applying \textit{LSQR} for each column in matrix $b$.
+The cost function $||Ax-b||_{F}^2$ can then be solved by using \textit{LSQR} from \textit{scipy.sparse.linalg.lsqr}, which takes $A$ and $b$ as parameters and returns $X=[x_{1}, x_{2}, x_{3}, \dots, x_{n}]$. However, as we can observe, $b$ in our case is an $n\times 3$ matrix and \textit{scipy.sparse.linalg.lsqr} takes $b$ as vector only. To solve this, we use the fundamental principle of matrix multiplication by applying \textit{LSQR} for each column in matrix $b$.
 
-To get the aligned template graph $S$, we calculate the dot product of the $x$, returned by \textit{LSQR}, and matrix $D$. The result is a $n\times 3$ matrix which is points cloud form of the template graph $S$ the must be converted to original form (i.e., streamlines).\\
+To get the aligned template graph $S$, we calculate the dot product of the $x$, returned by \textit{LSQR}, and matrix $D$. The result is a $n\times 3$ matrix which is points cloud form of the template graph $S$.
 
-Finally for visualization, we customize functions from \textit{Open3D} library to view brain tract bundles.
+All these steps apply iteratively until the distance between the last iteration and the current iteration is less than a parameter selected by the user. The result as mentioned is points cloud form of the template graph $S$ the must be converted to original form (i.e., streamlines).\\
+
+Finally for visualization, we customize functions from \textit{Open3D} \cite{Zhou2018} library to view brain tract bundles.
 
 \begin{figure}[h!]
 \centering
