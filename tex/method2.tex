@@ -2,7 +2,7 @@
 %\usepackage{../mypkg}
 \begin{document}
 \chapter{Methods and Implementation}
-\hspace{2em}Before we discuss the ICP method and its implementation, let us first briefly review the principle of affine transformation. If we have a point $[x,y,1]$ in homogeneous coordinate in 2D euclidean space and we want to move this point three units through the \textit{X axis}, $[x,y,1]^T a = [x+3,y,1]^T$, where $a$ will be  denoted as the affine matrix.
+\hspace{2em}Before we discuss the ICP method and its implementation, let us first briefly review the linear algebra of affine transformations. If we have a point $[x,y,1]$ in homogeneous coordinate in 2D euclidean space and we want to move this point three units through the \textit{X axis}, $[x,y,1]^T a = [x+3,y,1]^T$, where $a$ will be  denoted as the affine matrix.
 
 \begin{equation*}
 \begin{bmatrix}
@@ -19,17 +19,17 @@ x + 3 \\ y \\ 1
 \end{bmatrix}
 \end{equation*}
 
-The example mentioned above is only for translation; we still have some other moves (i.e. sheer, rotation and scale) which can be performed, as demonstrated in figure \{\ref{fig:affine}\} for 2D shape.
+The example mentioned above is only for translation; we still have some other transformations (i.e. sheer, rotation and scale) which can be performed, as demonstrated in Figure \ref{fig:affine} for 2D shape.
 
 \begin{figure}[h!]
 \centering
 \includegraphics[scale=0.5]{007_affine}
 \captionsetup{justification=centering}
-\caption{2D affine transformation matrices \cite{Wikipedia2016}}
+\caption{2D affine transformation matrices, figure taken from en.wikipedia.org}
 \label{fig:affine}
 \end{figure}
 
-We have shown how 2D transformation occurs; the same principles apply to 3D as well, as demonstrated below:
+We have shown how a 2D transformation occurs; the same principles apply to 3D as well, as demonstrated below:
 
 \begin{equation*}
 \begin{bmatrix}
@@ -73,7 +73,7 @@ z_{1} & z_{2} & \dots & z_{n}\\
 
 \pagebreak
 
-\hspace{2em}As we are implementing the registration method, we are going to consider two objects, target graph $T$, which remains fixed, and template graph $S$, which moves iteratively until it reaches the optimal alignment with target graph $T$. To do so, we use Iterative Closest Point (ICP) as previously discussed (see figure \{\ref{fig:icp}\}). With ICP, for each point on the template graph $S$, we look for the closest point on the target graph $S$. Then we start moving each point in $S$ to a correspondent point in $T$ with respect to stiffness. After solving the cost function by using \textit{LSQR} iteratively until the distance between the last iteration and the current iteration is less than a parameter selected by the user, we have a separate \textit{Affine Transformation Matrix} ($X = [X_{1}, X_{2}, X_{3}, ...,X_{n}]$) for each point in the template graph $S$ that moves separately whilst keeping the original neighbors as close to each other as possible. This type of registration is called non-rigid registration.
+\hspace{2em}As we are implementing the registration method, we are going to consider two objects, target graph $T$, which remains fixed, and template graph $S$, which moves iteratively until it reaches the optimal alignment with target graph $T$. To do so, we use Iterative Closest Point (ICP) as previously discussed (see Figure \ref{fig:icp}). With ICP, for each point on the template graph $S$, we look for the closest point on the target graph $S$. Then we start moving each point in $S$ to a correspondent point in $T$ with respect to stiffness. After solving the cost function by using \textit{LSQR} iteratively until the distance between the last iteration and the current iteration is less than a parameter selected by the user, we have a separate \textit{Affine Transformation Matrix} ($X = [X_{1}, X_{2}, X_{3}, ...,X_{n}]$) for each point in the template graph $S$ that moves separately whilst keeping the original neighbors as close to each other as possible. This type of registration is called non-rigid registration.
 
 \begin{figure}[h!]
 \centering
@@ -83,10 +83,10 @@ z_{1} & z_{2} & \dots & z_{n}\\
 \label{fig:icp}
 \end{figure}
 
-We implement the method in \cite{Amberg2007} by using the Python programming language, Spyder as an IDE and several packages, namely PlyFile, DIPY, NiBabel, Open3D, Numpy, Scipy, Scikit-learn and Matplotlib.
+We implement the method in \cite{Amberg2007} by using the Python programming language, Spyder as an IDE \cite{spyder} and several packages, namely PlyFile \cite{plyfile}, DIPY \cite{nipy}, NiBabel \cite{nipy}, Open3D \cite{Zhou2018}, Numpy \cite{numpy}, Scipy \cite{scipy}, Scikit-learn \cite{sklearn} and Matplotlib \cite{matplotlib}.
 
 \section{Data preparation}
-\hspace{2em}In this work, we follow the method in \cite{Amberg2007} which is implemented for surface graphs. However, due to differences between data used in \cite{Amberg2007} which are surface graphs saved in either points cloud or mesh format, and our data which are pathways in streamlines format and saved in \textit{ply} file as shown in figure \{\ref{fig:data}\}, we had to build a tool for reading the \textit{ply} file format as streamlines and build graphs out of it. In this case, each \textit{ply} file has one pathway.
+\hspace{2em}In this work, we follow the method in \cite{Amberg2007} which is implemented for surface graphs. However, due to differences between data used in \cite{Amberg2007} which are surface graphs saved in either points cloud or mesh format, and our data which are pathways in streamlines format and saved in \textit{ply} file as shown in Figure \ref{fig:data}, we had to build a tool for reading the \textit{ply} file format as streamlines and build graphs out of it. In this case, each \textit{ply} file has one pathway.
 
 \begin{figure}[h!]
 \centering
@@ -109,10 +109,10 @@ We implement the method in \cite{Amberg2007} by using the Python programming lan
 \item The remaining lines are the body of the file which has all the data, with each element in one line.
 \end{itemize}
 
-\hspace{2em}Before we start registering the graphs, it is better to have the initial position which makes the template graph $S$ as close as possible to the target graph $T$ and in the best possible alignment before ICP. To do so, we use Principal Components Analysis which is illustrated below.
+\hspace{2em}Before we start registering the graphs, it is better to have the initial position which makes the template graph $S$ as close as possible to the target graph $T$ and in the best possible alignment before ICP. To do so, we use Principal Components Analysis as illustrated below.
 
 \section{Principal Components Analysis }
-\hspace{2em}Before applying PCA, we scale the template graph $S$ and the target graph $T$ to $[0,1]$. This is done by subtracting all points from the minimum value in the graph and then dividing them by the maximum value in the graph. Next, we apply PCA (from \textit{sklearn.decomposition.PCA}) and use $[-1,1]^3$ cube combination and measure the Euclidean distance between each point in the template graph to the closest point in the target graph as illustrated in the equation $\sum ||v_i-v_j||_F^2$ where $v_i \in S, v_j \in T$. This formula is applied eight times to select the combination with the minimum distance as illustrated in table \{\ref{table:cube}\} and in figure \{\ref{fig:pca}\}. Because we have to keep the target graph $T$ fixed, we apply the transformation calculated from both graphs on template graph $T$, thus the transformation of target graph $T$ has to apply oppositely.
+\hspace{2em}Before applying PCA, we scale the template graph $S$ and the target graph $T$ to $[0,1]$. This is done by subtracting all points from the minimum value in the graph and then dividing them by the maximum value in the graph. Next, we apply PCA and use $[-1,1]^3$ cube combination and measure the Euclidean distance between each point in the template graph to the closest point in the target graph as illustrated in the equation $\sum ||v_i-v_j||_F^2$ where $v_i \in S, v_j \in T$. This formula is applied eight times to select the combination with the minimum distance as illustrated in Table \ref{table:cube} and in figure \ref{fig:pca}. Because we have to keep the target graph $T$ fixed, we apply the transformation calculated from both graphs on template graph $T$, thus the transformation of target graph $T$ has to apply oppositely.
 \vspace{2em}
 \begin{center}
 \begin{table}[h]
@@ -151,12 +151,14 @@ We implement the method in \cite{Amberg2007} by using the Python programming lan
 
 \begin{equation}
 \label{equ:equation1}
-||Ax-b||^2
+Dist(Ax,b) = ||Ax-b||^2
 \end{equation}
+
+Where $A$ and $b$ are complexes of matrices including template graph and target graph respectively as we will illustrate below
 
 This simple form of the cost function makes it easy to solve by the \textit{LSQR} (\textit{scipy.sparse.linalg.lsqr}) algorithm which is the implementation of a conjugate-gradient type method for solving sparse linear equations and sparse least-squares problems \cite{Paige1982a}.
 
-To illustrate the cost function more we need to divide it into three parts, as shown in equation (\ref{equ:costFun1}). These include the distance term, stiffness term, and landmark term.
+To illustrate the cost function more we need to divide it into three parts, as shown in equation (\ref{equ:costFun1}). These include the distance term $E_{d}$, stiffness term $E_{s}$, and landmark term $E_{t}$.
 
 \begin{equation}
 E(X) = E_{d}(X) + \alpha E_{s}(X) + \beta E_{t}(X)
