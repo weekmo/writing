@@ -68,7 +68,7 @@ The dMRI technology ease the clinical application and understanding brain anatom
 \section{Image Registration}
 Image registration (IR), also known as alignment or absolute orientation, is crucial in several fields such as computer vision, medicine and remote sensing. 3D IR is an approach to solve existing variants of the problem \cite{Cordon2006}. It is the process of transforming different batches of data such as multiple photographs from different sensors, times, depths or views into one coordinate system. Medical image registration of data from the same patient taken at different time spans for change detection or tumor monitoring involves elastic registration also called non rigid registration to deal with deformation of the bundles.
 
-If we have two objects and we need to align them, that means we should reduce the distance between them by making one object fixed and move the other one to reduce the distance between them. This simple form of alignment is called rigid transformation. If we were to add scaling, then it would be called non-rigid transformation and would extend to the size of the object as well. Due to its fundamental importance in computer vision, it is a necessary step in many different applications for instance, object recognition, tracking, range data fusion, graphics, medical image alignment, robotics and structural bioinformatics \cite{Li2007}.
+If we have two objects and we need to align them, that means we should reduce the distance between them and find the optimal registration. To do so, we making one object fixed, let us call it target, and move the other, let us call it template, until we reach the optimal alignment and distance. This simple form of alignment is called rigid transformation. If we were to add scaling or deform the shape, then it would be called non-rigid transformation and would extend to the size of the object as well. Due to its fundamental importance in computer vision, it is a necessary step in many different applications for instance, object recognition, tracking, range data fusion, graphics, medical image alignment, robotics and structural bioinformatics \cite{Li2007}.
 
 		\subsection{Iterative closest point}
 		
@@ -93,7 +93,7 @@ A K-D Tree is a binary search tree where each node is a K-Dimensional point in s
 	\centering
 	\includegraphics[scale=0.5]{005_3dtree}
 	\captionsetup{justification=centering}
-	\caption{K-D tree in 3D coordinate splitting the space, figure adopted from en.wikipedia.org.}
+	\caption{K-D tree in 3D coordinate splitting the space. Figure adopted from en.wikipedia.org.}
 	\label{fig:k_d_tree}
 \end{figure}
 \end{document}

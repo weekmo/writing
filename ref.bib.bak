@@ -534,33 +534,38 @@
 }
 
 @Misc{spyder,
-  title = {Spyder IDE},
-  url   = {https://www.spyder-ide.org/},
+  title        = {Spyder IDE},
+  howpublished = {\url{https://www.spyder-ide.org/}},
 }
 
 @Misc{plyfile,
-  title = {PlyFile},
-  url   = {https://github.com/dranjan/python-plyfile},
+  title        = {PlyFile},
+  howpublished = {\url{https://github.com/dranjan/python-plyfile}},
 }
 
 @Misc{nipy,
-  title = {NIPY},
-  url   = {http://nipy.org},
+  title        = {NIPY},
+  howpublished = {\url{http://nipy.org}},
 }
 
 @Misc{numpy,
-  title = {NumPy},
-  url   = {http://www.numpy.org/},
+  title        = {NumPy},
+  howpublished = {\url{http://www.numpy.org/}},
 }
 
 @Misc{scipy,
-  title = {SciPy},
-  url   = {https://www.scipy.org/},
+  title        = {SciPy},
+  howpublished = {\url{https://www.scipy.org/}},
 }
 
 @Misc{sklearn,
-  title = {scikit-learn},
-  url   = {https://scikit-learn.org},
+  title        = {scikit-learn},
+  howpublished = {\url{https://scikit-learn.org}},
+}
+
+@Misc{matplotlib,
+  title        = {Matplotlib},
+  howpublished = {https://matplotlib.org/},
 }
 
 @Comment{jabref-meta: databaseType:bibtex;}
