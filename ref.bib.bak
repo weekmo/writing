@@ -565,7 +565,7 @@
 
 @Misc{matplotlib,
   title        = {Matplotlib},
-  howpublished = {https://matplotlib.org/},
+  howpublished = {\url{https://matplotlib.org/}},
 }
 
 @Comment{jabref-meta: databaseType:bibtex;}

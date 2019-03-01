@@ -328,7 +328,15 @@ X -
 \subsection{Implementing Cost Function}
 \hspace{2em}To implement the equation (\ref{equ:costFun3}), we use sparse matrices to build most of the matrices, that because the majority of values in these matrices are zeros.
 
-The first step is measuring the euclidean distance between each point $v_{i}\in V$ in the template graph $S$ and its correspondent point $u_{i}\in U$ in the target graph $T$ using \textit{K-D Tree}, then we filter distances by a threshold value (which is a parameter whose criteria for selection will be discussed later ) to define \textit{zeros} and \textit{ones} and put them diagonally on $n\times n$ sparse matrix \textit{W}.
+\begin{figure}[h!]
+\centering
+\includegraphics[scale=0.8]{010_cost_fun}
+\captionsetup{justification=centering}
+\caption{Building the cost function flow}
+\label{fig:cost_flow}
+\end{figure}
+
+Figure \ref{fig:cost_flow} shows how we are going to implement the cost function. The first step is measuring the Euclidean distance between each point $v_{i}\in V$ in the template graph $S$ and its correspondent point $u_{i}\in U$ in the target graph $T$ using \textit{K-D Tree}, then we filter distances by a threshold value (which is a parameter whose criteria for selection will be discussed later ) to define \textit{zeros} and \textit{ones} and put them diagonally on $n\times n$ sparse matrix \textit{W}.
 
 \begin{equation*}
 W =
