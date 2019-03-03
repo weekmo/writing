@@ -44,12 +44,10 @@ distance function, which can be applied only when all tracts have the same numbe
 The method then uses optimizer to select the best combination of variables, which later converted to affine matrix, while reducing the overall distance between template bundle.
 
 \begin{comment}
-\section{ICP testing steps}
+\section{Testing steps}
 \begin{itemize}
 \item Read bundles from \textit{ply} files
-\item Save the visual orientation of the original alignment
-\item Apply PCA
-\item Visualize bundles after PCA and compare with original visual orientation
+\item Apply PCA and visually inspect the alignment result
 \item If the visual inspection was positive and PCA improved the alignment, we consider its result, otherwise we just flip the template bundle or consider the original orientation
 \item Generate distances histogram between two bundles to select the distance threshold
 \item Start the registration and iterate until there is no more improvement on the alignment
@@ -59,7 +57,7 @@ The method then uses optimizer to select the best combination of variables, whic
 \section{Experiment (1)}
 \hspace{2em}In this experiment we use both side of Thalamic Radiation (ATR) fiber pathway, whereas the template bundle is the ATR on the right side and the target bundle is the left side of the ATR from the same patient.
 
-First, we read the data (left and right side of ATR) using a tool that we customized from \textit{PlyFile} package to suit our data. Then we apply PCA and visually inspect the result as shown in Figures \ref{fig:img_original} and \ref{fig:img_PCA}. If PCA improves the alignment, we consider its alignment, otherwise we accept the original orientation if it sufficient or just flip the template bundle if two bundles are from different side of the brain.
+First, we read the data (left and right side of ATR) using a tool that we customized from \textit{PlyFile} package to suit our data. Then we apply PCA and visually inspect the result as shown in Figures \ref{fig:img_original} and \ref{fig:img_PCA}. If PCA improves the alignment, we consider its result, otherwise we accept the original orientation or just flip the template bundle if two bundles are from different side of the brain.
 
 \begin{figure}[h!]
 \centering
@@ -77,11 +75,9 @@ First, we read the data (left and right side of ATR) using a tool that we custom
 \label{fig:img_PCA}
 \end{figure}
 
-As we can see in the result of this experiment in Figure \ref{fig:img_PCA}, the PCA tool improved the alignment, so we go ahead and generate distances histogram as shown in Figure \ref{fig:hist_PCA} to select the threshold, which uses to build weights matrix. We also present the original distances histogram to show the improvement of the distances as well in Figure \ref{fig:hist_original}.
-
 \begin{figure}[h!]
 \centering
-\includegraphics[scale=1]{110_hist_original}
+\includegraphics[scale=.7]{110_hist_original}
 \captionsetup{justification=centering}
 \caption{The original distances histogram, it shows that the distances between points of template bundle and the points of target bundle lie between around thirty five and eight, and most of distances between fifteen and twenty five}
 \label{fig:hist_original}
@@ -89,19 +85,24 @@ As we can see in the result of this experiment in Figure \ref{fig:img_PCA}, the 
 
 \begin{figure}[h!]
 \centering
-\includegraphics[scale=1]{110_hist_PCA}
+\includegraphics[scale=.7]{110_hist_PCA}
 \captionsetup{justification=centering}
 \caption{Histogram of distances between template bundle and target bundle after applying PCA, it shows how PCA reduces the distances. Most of distances lie between zero and five}
 \label{fig:hist_PCA}
 \end{figure}
 
-From the distances histogram in Figure \ref{fig:hist_PCA} we can choose the threshold to be seven, in that case, around ninety eight percent 98\% of points will have weight equal \textit{one} in the weight matrix $W$ and the remaining will be \textit{zero}.
-\pagebreak
+As we can see the result in Figure \ref{fig:img_PCA}, the PCA tool improved the alignment and it also reduced the distance between two bundles as shown in Figure \ref{fig:hist_PCA} and Figure \ref{fig:hist_original}, so we consider the result as initial alignment for the registration.
 
-Now we need to select the stiffness weight $\alpha$, which is not trivial, it comes after observing the visual out of the registration. If the template bundle strongly deformed and it is about to map to target bundle, then we increase the value of $\alpha$ and vice versa. In this experiment we decide the optimal value of $\alpha$ is 999999.
+The next step is choosing the threshold, which determines the values of the weight matrix $W$ as discussed in the chapter \textit{Methods and Implementation}. The value  is \textit{one} if the distance between pint in template bundle and the correspondent point in target bundle is less than the threshold, otherwise it is \textit{one}. 
 
-The visual result of the registration is shown in Figure \ref{fig:hist_ICP}.
-% we must put the results together
+To choose the threshold we need to know the frequency of distances, therefore, we generate a histogram as shown in Figure \ref{fig:hist_PCA}. This experiment we decide to choose the value of the threshold to be seven, in this case, around ninety eight percent 98\% of points will have weight equal \textit{one} in the weight matrix $W$ and the remaining will be \textit{zeros}.
+
+Now we need to choose the stiffness weight $\alpha$, which is not trivial, it comes after observing the visual output of the registration. If the template bundle strongly deformed and it is about to map to target bundle, then we increase the value of $\alpha$ and vice versa. In this experiment we decide the optimal value of $\alpha$ is 9999.
+
+After we have the initial alignment using PCA and the parameters values, we register two bundles (template and target) using our tool and then DIPY registration function to compare the results.
+
+The comparison between our tool and DIPY tool is done visually and by distance. The visual comparison is shown in Figure \ref{fig:img_ICP} (our tool's result) and Figure \ref{fig:img_dipy} (DIPY result).
+
 \begin{figure}[h!]
 \centering
 \includegraphics[scale=.4]{101_img_ICP}
@@ -109,18 +110,6 @@ The visual result of the registration is shown in Figure \ref{fig:hist_ICP}.
 \caption{The Orientation after ICP}
 \label{fig:img_ICP}
 \end{figure}
-
-We also generate a histogram of distances to inspect the alignment improvement as shown in Figure \ref{fig:hist_ICP}
-
-\begin{figure}[h!]
-\centering
-\includegraphics[scale=1]{101_hist_ICP}
-\captionsetup{justification=centering}
-\caption{The distances histogram after ICP}
-\label{fig:hist_ICP}
-\end{figure}
-
-We register the same bundles with \textit{DIPY} method to compare it with our method. As we mention before, we use the bundles after PCA alignment here as well because DIPY fails to have sufficient initial alignment between pathways in different sides of the brain, but it can accepting an affine matrix as parameter as initial orientation. To solve this problem, we use the PCA tool that we develop to initiate the position of template bundle. The visual result of DIPY registration is shown in Figures \ref{fig:img_dipy} and we put again here the visual result of our tool ease the comparison.
 
 \begin{figure}[h!]
 \centering
@@ -130,23 +119,7 @@ We register the same bundles with \textit{DIPY} method to compare it with our me
 \label{fig:img_dipy}
 \end{figure}
 
-\begin{figure}[h!]
-\centering
-\includegraphics[scale=.4]{101_img_ICP}
-\captionsetup{justification=centering}
-\caption{The Orientation after ICP}
-\label{fig:img_ICP}
-\end{figure}
-
-And we present the distances histograms after registration our tool and after registering using DIPY in Figures 
-
-\begin{figure}[h!]
-\centering
-\includegraphics[scale=1]{101_dipy_hist}
-\captionsetup{justification=centering}
-\caption{The distances histogram after DIPY}
-\label{fig:dipy_hist}
-\end{figure}
+We also compare the distances between the registration of our tool and DIPY tool as shown in Figure 
 
 \begin{figure}[h!]
 \centering
@@ -156,8 +129,16 @@ And we present the distances histograms after registration our tool and after re
 \label{fig:hist_ICP}
 \end{figure}
 
+\begin{figure}[h!]
+\centering
+\includegraphics[scale=1]{101_dipy_hist}
+\captionsetup{justification=centering}
+\caption{The distances histogram after DIPY}
+\label{fig:dipy_hist}
+\end{figure}
+
 \section{Experiment (2)}
-The second experiment is measuring how the method can correct the deformation. Therefore, we toke the right side of ATR and deform its shape, then we register it with the original copy before deformation. As we can see in Figures , the tool can correct the deformation appropriately.
+The second experiment is testing how the method can correct the deformation. Therefore, we take the right side of ATR and deform its shape locally (local transformation). Essentially, what we mean by local transformation is that we apply different affine transformation matrices for each point in the bundle. Then we register the deformed bundle with the original copy (before deformation) using our tool and then DIPY. As we can see in Figures \ref{fig:hist_icp_def}, our tool can correct the deformation appropriately, but not DIPY.
 
 \begin{figure}[h!]
 \centering
@@ -167,7 +148,21 @@ The second experiment is measuring how the method can correct the deformation. T
 \label{fig:img_original_def}
 \end{figure}
 
-Also, we put the distances histograms before and after registration in Figures 
+\begin{figure}[h!]
+\centering
+\includegraphics[scale=.3]{102_img_ICP}
+\captionsetup{justification=centering}
+\caption{The orientation after deforming a bundle and aligning it with the original one using ICP}
+\label{fig:img_icp_def}
+\end{figure}
+
+\begin{figure}[h!]
+\centering
+\includegraphics[scale=.3]{102_img_dipy}
+\captionsetup{justification=centering}
+\caption{The orientation after deforming a bundle and aligning it with the original one using DIPY}
+\label{fig:img_dipy_def}
+\end{figure}
 
 \begin{figure}[h!]
 \centering
@@ -185,20 +180,6 @@ Also, we put the distances histograms before and after registration in Figures
 \label{fig:hist_icp_def}
 \end{figure}
 
-% Stoped here last time
- using our tool. by transforming it locally and globally. Essentially, what we mean by local transformation is that we apply different affine transformation matrices for each point in the bundle and local means one affine transformation matrix for all points (no deformation). Then we try to align it again with the original one. We show the results in Figures \ref{fig:hist_original_def} \ref{fig:img_original_def} of local transformation only because it is relatively straightforward for global transformation. The condition value of LSQR we got is 5741672.
-
-\begin{figure}[h!]
-\centering
-\includegraphics[scale=.3]{102_img_original}
-\captionsetup{justification=centering}
-\caption{The orientation after deformation}
-\label{fig:img_original_def}
-\end{figure}
-\pagebreak
-
-Next, we align them with DIPY to get the results in Figures \ref{fig:hist_dipy_def} \ref{fig:img_dipy_def}.
-
 \begin{figure}[h!]
 \centering
 \includegraphics[scale=1]{102_hist_dipy}
@@ -206,54 +187,6 @@ Next, we align them with DIPY to get the results in Figures \ref{fig:hist_dipy_d
 \caption{The distances histogram after deforming a bundle and aligning it with the original one using DIPY}
 \label{fig:hist_dipy_def}
 \end{figure}
-
-\begin{figure}[h!]
-\centering
-\includegraphics[scale=.3]{102_img_dipy}
-\captionsetup{justification=centering}
-\caption{The orientation after deforming a bundle and aligning it with the original one using DIPY}
-\label{fig:img_dipy_def}
-\end{figure}
-\pagebreak
-We then apply non-rigid ICP registration to get the results in Figures \ref{fig:hist_icp_def} \ref{fig:img_icp_def}.
-
-\begin{figure}[h!]
-\centering
-\includegraphics[scale=1]{102_hist_ICP}
-\captionsetup{justification=centering}
-\caption{The distances histogram after deforming a bundle and aligning it with the original one using ICP}
-\label{fig:hist_icp_def}
-\end{figure}
-
-\begin{figure}[h!]
-\centering
-\includegraphics[scale=.3]{102_img_ICP}
-\captionsetup{justification=centering}
-\caption{The orientation after deforming a bundle and aligning it with the original one using ICP}
-\label{fig:img_icp_def}
-\end{figure}
-
-\pagebreak
-
-Applying PCA sometimes does not find the right orientation of bundles due to similarity of vertices distribution and that gives similar principle components as shown below:
-
-
-	\begin{figure}[h!]
-	\centering
-	\includegraphics[scale=0.5]{02_img_original}
-	\captionsetup{justification=centering}
-	\caption{The original coordinate before PCA}
-	\label{fig:all_brain}
-	\end{figure}
-	
-	\begin{figure}[h!]
-	\centering
-	\includegraphics[scale=0.3]{02_img_PCA}
-	\captionsetup{justification=centering}
-	\caption{The coordinate when PCA fails to find the best alignment}
-	\label{fig:all_brain}
-	\end{figure}
-\pagebreak
 
 Finally, we found that our tool can handle the deformation easily (elastic registration) but \textit{DIPY} can only handle the size by scaling the template bundles.
 
