@@ -2,7 +2,7 @@
 %\usepackage{../mypkg}
 \begin{document}
 \chapter{Methods and Implementation}
-\hspace{2em}Before we discuss the ICP method and its implementation, let us first briefly review the linear algebra of affine transformations. If we have a point $[x,y,1]$ in homogeneous coordinate in 2D euclidean space and we want to move this point three units through the \textit{X axis}, $[x,y,1]^T a = [x+3,y,1]^T$, where $a$ will be  denoted as the affine matrix.
+\hspace{2em}Before we discuss the ICP method and its implementation, let us first briefly review the linear algebra of affine transformations. If we have a point $[x,y,1]$ in homogeneous coordinate in 2D Euclidean space and we want to move this point three units through the \textit{X axis}, $[x,y,1]^T a = [x+3,y,1]^T$, where $a$ will be  denoted as the affine matrix.
 
 \begin{equation*}
 \begin{bmatrix}
@@ -79,7 +79,8 @@ z_{1} & z_{2} & \dots & z_{n}\\
 \centering
 \includegraphics[scale=0.5]{001_conn}
 \captionsetup{justification=centering}
-\caption{The template graph $S$ (green) moves toward target graph $T$ (red) and become graph $S(X)$ by applying local deformation. Each point $v_{i}$ in the template graph $S$ moves toward correspondence point $u_{i}$ in the target graph $T$ by applying local affine matrix $x_{i}$. Some points does not have correspondent point, but they still move because of stiffness \cite{Amberg2007}.} 
+\caption{The template graph $S$ (green) moves toward target graph $T$ (red) and become graph $S(X)$ by applying local deformation.} %
+{Each point $v_{i}$ in the template graph $S$ moves toward correspondence point $u_{i}$ in the target graph $T$ by applying local affine matrix $x_{i}$. Some points does not have correspondent point, but they still move because of stiffness \cite{Amberg2007}.} 
 \label{fig:icp}
 \end{figure}
 
@@ -157,12 +158,12 @@ cost(Ax,b) = ||Ax-b||^2
 
 Where $A$ and $b$ are complexes of matrices including template graph and target graph respectively as we will illustrate below
 
-This simple form of the cost function makes it easy to solve by the \textit{LSQR} (\textit{scipy.sparse.linalg.lsqr}) algorithm which is the implementation of a conjugate-gradient type method for solving sparse linear equations and sparse least-squares problems \cite{Paige1982a}.
+This simple form of the cost function makes it easy to solve by the \textit{LSQR} algorithm which is the implementation of a conjugate-gradient type method for solving sparse linear equations and sparse least-squares problems \cite{Paige1982a}.
 
-To illustrate the cost function more we need to divide it into three parts, as shown in equation (\ref{equ:costFun1}). These include the distance term $E_{d}$, stiffness term $E_{s}$, and landmark term $E_{t}$.
+To illustrate the cost function more we need to divide it into three parts, as shown in equation (\ref{equ:costFun1}). These include the distance term $E_{d}$, stiffness term $E_{s}$, and landmark term $E_{l}$.
 
 \begin{equation}
-E(X) = E_{d}(X) + \alpha E_{s}(X) + \beta E_{t}(X)
+E(X) = E_{d}(X) + \alpha E_{s}(X) + \beta E_{l}(X)
 \label{equ:costFun1}
 \end{equation}
 
@@ -176,7 +177,7 @@ dist^2(T,X_{i}v_{i}) = ||X_{i}v_{i}-u_{i}||^2
 
 where $T$ is the target graph, $X_{i}$ is the correspondent affine matrix in size $3\times4$, $v_{i}\in V$ is template graph $S$ vertex in homogeneous coordinates $v_{i} = [x,y,z,1]$ because we want to include transformation on affine matrix $X_{i}$.
 
-To get overall distance we calculate it using equation (\ref{equ:distance1})
+To get overall distance we calculate the summation of all distances as shown in equation (\ref{equ:distance1})
 
 \begin{equation}
 E_{d}(X) = \sum_{v_{i} \in V} w_{i}dist^2(T,X_{i}v_{i})
@@ -187,7 +188,7 @@ where $W = [w_{1}, w_{2}, w_{3}, ..., w_{n}];\quad w_{i}\in [0,1]$ is weight whi
 
 We calculate the result of $||X_{i}v_{i}-u_{i}||^2$ while the algorithm reduces the distance and improves the alignment iteratively.
 
-If we look back to equation (\ref{equ:distance1}) and combine it with equation (\ref{equ:distance2}), then we have a complete equation (\ref{equ:distance3})
+If we look back to equation (\ref{equ:distance1}) and combine it with equation (\ref{equ:distance2}), then we have a complete equation (\ref{equ:distance3}) as follows :
 
 \begin{equation}
 \bar{E}_{d}(X) = \sum_{v_{i}\in V} w_{i}||X_{i}v_{i}-u_{i}||^2
@@ -239,14 +240,14 @@ v_{1}^T & & & \\
 \label{equ:matD}
 \end{equation}\\
 
-The new format of the equation becomes:
+The new format of the equation becomes as follows:
 
 \begin{equation}
 \bar{E}_{d}(X) = ||W(DX-U)||_{F}^2
 \label{equ:distance4}
 \end{equation}
 
-\hspace{2em}Where the matrix $W$ has size $n\times n$, the matrix $D$ has size $n\times 4n$ (vertices $v_{i}$ are in homogeneous coordinates $[x,y,z,1]^T$), $X$ has size $4n\times 3$, $U$ does not change with shape $n\times 3$ (vertices $u_{i}$ are in 3D coordinate) and $||.||_{F}$ denote the Frobenius norm.
+\hspace{2em} where the matrix $W$ has size $n\times n$, the matrix $D$ has size $n\times 4n$ (vertices $v_{i}$ are in homogeneous coordinates $[x,y,z,1]^T$), $X$ has size $4n\times 3$, $U$ does not change with shape $n\times 3$ (vertices $u_{i}$ are in 3D coordinate) and $||.||_{F}$ denote the Frobenius norm.
 
 \subsection{Stiffness Term}
 \hspace{2em}The stiffness term is the second part of the equation (\ref{equ:costFun1}). It regularizes the deformation of template graph $S$ by penalizing the weighted difference of the transformations of neighboring vertices under the Frobenius norm $||.||_{F}$ using a weight matrix $G := diag(1, 1, 1, \gamma)$ \cite{Amberg2007}, that keeps the distance between vertices which are neighbours (i.e., vertices which have an edge between them) and also in the same tract constant.
@@ -352,6 +353,14 @@ We continue building variables in equation (\ref{equ:costFun3}). Now we have the
 
 As we already have $n\times 3$ matrix $U=[u_{1}, u_{2}, u_{3}, \dots , u_{n}]$, which is point cloud of target graph $T$. And we have $W$ as calculated above, we can calculate $n\times 3$ matrix $WU=W\times U$ as $W$ dot product $U$.
 
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.3]{008_ide}
+\captionsetup{justification=centering}
+\caption{Spyder IDE and Open3D visualization tool}
+\label{fig:spyder}
+\end{figure}
+
 The stiffness term is only for the template graph $S$ as we can see in equation (\ref{equ:costFun3}). To implement the stiffness term, we need to have $M$ and $D$. First, we build diagonal sparse matrix $G = diag(1,1,1,\lambda)$ and $\lambda=1$ in our case. Then we build an $e\times n$ node-arc matrix \textit{M}. To do so, we use the streamlines form template graph $S$ which has the connections of between points in the same tract (streamline). We next calculate Kronecker product of $M \otimes G$. The $\lambda$ parameter is a variable the user can adjust depending on the data.
 
 To have the final form of the cost function, we vertically stack $\alpha M \otimes G$ on top of $WD$ in one sparse matrix $A$ with size $n\times 4n$.  The sparse matrix $A$ is a part of the equation (\ref{equ:costFun3})
@@ -366,14 +375,9 @@ When we have the optimal alignment, we need to have the original form of pathway
 
 Finally, we can convert the point cloud of the template graph back to the original form of pathways as streamlines.
 
-Finally for visualization, we customize functions from \textit{Open3D} \cite{Zhou2018} library to view brain fiber pathways.
+Finally for visualization, we customize functions from \textit{Open3D} \cite{Zhou2018} library to view brain fiber pathways as shown in the Figure \ref{fig:spyder} .
 
-\begin{figure}[h!]
-\centering
-\includegraphics[scale=0.3]{008_ide}
-\captionsetup{justification=centering}
-\caption{Spyder IDE and Open3D visualization tool}
-\end{figure}
+
 
 \end{document}
 
