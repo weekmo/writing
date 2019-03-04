@@ -3,7 +3,6 @@
 \chapter{Results}
 \hspace{2em}After implementing non-rigid ICP, we test the tools we have developed to assess the algorithm. We use data collected from \textbf{\textit{Human Connectome Projects}} \cite{CCF}. The number of samples used for testing is four with eleven pathways (bundles) in each side of the brain. We present two experiments to show how the method works from the same patient. The first experiment is left and right side of the same pathway and the second one is for one pathway, which deformed and re-registered again with the original shape.
 
-% Statistic
 \begin{center}
 \begin{table}[h!]
 	\begin{tabular}{| c | c  c  c | c  c  c |}
@@ -54,20 +53,15 @@ The method then uses optimizer to select the best combination of variables, whic
 \end{itemize}
 \end{comment}
 
-\section{Experiment (1)}
-\hspace{2em}In this experiment we use both side of Thalamic Radiation (ATR) fiber pathway, whereas the template bundle is the ATR on the right side and the target bundle is the left side of the ATR from the same patient.
-
-First, we read the data (left and right side of ATR) using a tool that we customized from \textit{PlyFile} package to suit our data. Then we apply PCA and visually inspect the result as shown in Figures \ref{fig:img_original} and \ref{fig:img_PCA}. If PCA improves the alignment, we consider its result, otherwise we accept the original orientation or just flip the template bundle if two bundles are from different side of the brain.
-
-\begin{figure}[h!]
+\begin{figure}[H]
 \centering
-\includegraphics[scale=.8]{101_img_original}
+\includegraphics[scale=.7]{101_img_original}
 \captionsetup{justification=centering}
 \caption{The original orientation of ATR left side (red) as target bundle and right side of ATR (blue) as template bundle}
 \label{fig:img_original}
 \end{figure}
 
-\begin{figure}[h!]
+\begin{figure}[H]
 \centering
 \includegraphics[scale=.3]{101_img_PCA}
 \captionsetup{justification=centering}
@@ -75,21 +69,27 @@ First, we read the data (left and right side of ATR) using a tool that we custom
 \label{fig:img_PCA}
 \end{figure}
 
-\begin{figure}[h!]
+\section{Experiment Result (1)}
+\hspace{2em}In this experiment we use both side of Thalamic Radiation (ATR) fiber pathway, whereas the template bundle is the ATR on the right side and the target bundle is the left side of the ATR from the same patient.
+
+\begin{figure}[H]
 \centering
-\includegraphics[scale=.7]{110_hist_original}
+\includegraphics[scale=.95]{110_hist_original}
 \captionsetup{justification=centering}
 \caption{The original distances histogram, it shows that the distances between points of template bundle and the points of target bundle lie between around thirty five and eight, and most of distances between fifteen and twenty five}
 \label{fig:hist_original}
 \end{figure}
 
-\begin{figure}[h!]
+\begin{figure}[H]
 \centering
-\includegraphics[scale=.7]{110_hist_PCA}
+\includegraphics[scale=.95]{110_hist_PCA}
 \captionsetup{justification=centering}
 \caption{Histogram of distances between template bundle and target bundle after applying PCA, it shows how PCA reduces the distances. Most of distances lie between zero and five}
 \label{fig:hist_PCA}
 \end{figure}
+
+
+First, we read the data (left and right side of ATR) using a tool that we customized from \textit{PlyFile} package to suit our data. Then we apply PCA and visually inspect the result as shown in Figures \ref{fig:img_original} and \ref{fig:img_PCA}. If PCA improves the alignment, we consider its result, otherwise we accept the original orientation or just flip the template bundle if two bundles are from different side of the brain.
 
 As we can see the result in Figure \ref{fig:img_PCA}, the PCA tool improved the alignment and it also reduced the distance between two bundles as shown in Figure \ref{fig:hist_PCA} and Figure \ref{fig:hist_original}, so we consider the result as initial alignment for the registration.
 
@@ -99,9 +99,7 @@ To choose the threshold we need to know the frequency of distances, therefore, w
 
 Now we need to choose the stiffness weight $\alpha$, which is not trivial, it comes after observing the visual output of the registration. If the template bundle strongly deformed and it is about to map to target bundle, then we increase the value of $\alpha$ and vice versa. In this experiment we decide the optimal value of $\alpha$ is 9999.
 
-After we have the initial alignment using PCA and the parameters values, we register two bundles (template and target) using our tool and then DIPY registration function to compare the results.
-
-The comparison between our tool and DIPY tool is done visually and by distance. The visual comparison is shown in Figure \ref{fig:img_ICP} (our tool's result) and Figure \ref{fig:img_dipy} (DIPY result).
+After we have the initial alignment using PCA and the parameters values, we register two bundles (template and target) using our tool and then DIPY registration function to compare the results. The visual results presented in Figure \ref{fig:img_ICP} and Figure \ref{fig:img_dipy} show that our tool has better registration and can deform the shape of the template bundle.
 
 \begin{figure}[h!]
 \centering
@@ -119,7 +117,7 @@ The comparison between our tool and DIPY tool is done visually and by distance. 
 \label{fig:img_dipy}
 \end{figure}
 
-We also compare the distances between the registration of our tool and DIPY tool as shown in Figure 
+We also generate distances histograms to compare the reduction on overall distance between two methods, see Figure \ref{fig:hist_ICP} and Figure \ref{fig:hist_dipy}. We want to mention that LSQR function return acond equal \textit{100000531}, which is average of tree time calculation of LSQR as we mention in the chapter \textit{Methods and Implementation}.
 
 \begin{figure}[h!]
 \centering
@@ -134,11 +132,11 @@ We also compare the distances between the registration of our tool and DIPY tool
 \includegraphics[scale=1]{101_dipy_hist}
 \captionsetup{justification=centering}
 \caption{The distances histogram after DIPY}
-\label{fig:dipy_hist}
+\label{fig:hist_dipy}
 \end{figure}
 
-\section{Experiment (2)}
-The second experiment is testing how the method can correct the deformation. Therefore, we take the right side of ATR and deform its shape locally (local transformation). Essentially, what we mean by local transformation is that we apply different affine transformation matrices for each point in the bundle. Then we register the deformed bundle with the original copy (before deformation) using our tool and then DIPY. As we can see in Figures \ref{fig:hist_icp_def}, our tool can correct the deformation appropriately, but not DIPY.
+\section{Experiment Result (2)}
+The second experiment is testing how the method can correct the deformation. Therefore, we take the right side of ATR and deform its shape locally (local transformation). Essentially, what we mean by local transformation is that we apply different affine transformation matrices for each point in the bundle. Then we register the deformed bundle with the original copy (before deformation) using our tool and then DIPY. As we can see in Figures \ref{fig:hist_icp_def}, our tool can correct the deformation appropriately. DIPY can give optimal alignment but it can not correct the deformation. The return value average of acond equal \textbf{5741672}
 
 \begin{figure}[h!]
 \centering
@@ -190,7 +188,7 @@ The second experiment is testing how the method can correct the deformation. The
 
 Finally, we found that our tool can handle the deformation easily (elastic registration) but \textit{DIPY} can only handle the size by scaling the template bundles.
 
-The \textit{DIPY} method is much faster than our method because it is implemented to reduce the number of points used to calculate the distance. In our test, each tract reduced to 20 points rather than the real number of points as shown in table \{\ref{table:data}\}. Furthermore, as mentioned in \cite{Garyfallidis2012}, \textit{DIPY} uses a minimum average direct-flip distance (MDF) which considers the tract to tract distance whereas our tool considers the point to point distance. To improve our tool, hierarchical clustering bundles can be done and soft membership alignment can be applied.
+The \textit{DIPY} method is much faster than our method because it is implemented to reduce the number of points used to calculate the distance. In our test, each tract reduced to 20 points rather than the real number of points as shown in table \ref{table:data}. Furthermore, as mentioned in \cite{Garyfallidis2012}, \textit{DIPY} uses a minimum average direct-flip distance (MDF) which considers the tract to tract distance whereas our tool considers the point to point distance. To improve our tool, hierarchical clustering bundles can be done and soft membership alignment can be applied.
 
 \end{document}
 
