@@ -57,7 +57,8 @@ The method then uses optimizer to select the best combination of variables, whic
 \centering
 \includegraphics[scale=.7]{101_img_original}
 \captionsetup{justification=centering}
-\caption{The original orientation of ATR left side (red) as target bundle and right side of ATR (blue) as template bundle}
+\caption{The original orientation of ATR}%
+{ left side (red) as target bundle and right side of ATR (blue) as template bundle}
 \label{fig:img_original}
 \end{figure}
 
@@ -65,11 +66,12 @@ The method then uses optimizer to select the best combination of variables, whic
 \centering
 \includegraphics[scale=.3]{101_img_PCA}
 \captionsetup{justification=centering}
-\caption{The Orientation of ATR left side (red) as target bundle and right side of ATR (blue) as template bundle after applying PCA}
+\caption{The PCA Orientation of ATR}%
+{ left side (red) as target bundle and right side of ATR (blue) as template bundle after applying PCA}
 \label{fig:img_PCA}
 \end{figure}
 
-\section{Experiment Result (1)}
+\section{Result from Experiment (1)}
 \hspace{2em}In this experiment we use both side of Thalamic Radiation (ATR) fiber pathway, whereas the template bundle is the ATR on the right side and the target bundle is the left side of the ATR from the same patient.
 
 First, we read the data (left and right side of ATR) using a tool that we customized from \textit{PlyFile} package to suit our data. Then we apply PCA and visually inspect the result as shown in Figures \ref{fig:img_original} and \ref{fig:img_PCA}. If PCA improves the alignment, we consider its result, otherwise we accept the original orientation or just flip the template bundle if two bundles are from different side of the brain.
@@ -86,17 +88,19 @@ After we have the initial alignment using PCA and the parameters values ($\alpha
 
 \begin{figure}[H]
 \centering
-\includegraphics[scale=.95]{117_hist_original}
+\includegraphics[scale=.90]{117_hist_original}
 \captionsetup{justification=centering}
-\caption{The original distances histogram between ATR left and right side, it shows that the distances between points of template bundle and the points of target bundle lie between around thirty five and eight, and most of distances between fifteen and twenty five}
+\caption{The original distances histogram of ATR}%
+{The original distances histogram between ATR left and right side, it shows that the distances between points of template bundle and the points of target bundle lie between around thirty five and eight, and most of distances between fifteen and twenty five}
 \label{fig:hist_original}
 \end{figure}
 
 \begin{figure}[H]
 \centering
-\includegraphics[scale=.95]{117_hist_PCA}
+\includegraphics[scale=.90]{117_hist_PCA}
 \captionsetup{justification=centering}
-\caption{Histogram of distances between template bundle and target bundle (ATR left and right side respectively) after applying PCA, it shows how PCA reduces the distances. Most of distances lie between zero and five}
+\caption{ATR distance Histogram after PCA}
+{Distances histogram between template bundle and target bundle (ATR left and right side respectively) after applying PCA, it shows how PCA reduces the distances. Most of distances lie between zero and five}
 \label{fig:hist_PCA}
 \end{figure}
 
@@ -111,7 +115,7 @@ After we have the initial alignment using PCA and the parameters values ($\alpha
 	\includegraphics[width=.7\textwidth]{101_img_dipy}
 	\caption{DIPY registration}
 	\end{subfigure}
-\caption{The Orientation result after applying ICP and DIPY registration.}%
+\caption{The Orientation after applying ICP and DIPY registration}%
 {The ATR pathway left side (red) as target bundle and right side of ATR (blue) as template bundle}
 \label{fig:registration}
 \end{figure}
@@ -120,31 +124,33 @@ Also, we compare the distances after applying ICP and DIPY. To do so, we generat
 
 \begin{figure}[H]
 \centering
-\includegraphics[scale=.97]{117_hist_ICP}
+\includegraphics[scale=.90]{117_hist_ICP}
 \captionsetup{justification=centering}
-\caption{The histogram shows the frequency of distances between template points and correspondent points in target graph (ATR left and right side respectively) after applying non-rigid ICP registration.}
+\caption{Distances histogram after ICP}%
+{The histogram shows the frequency of distances between template points and correspondent points in target graph (ATR left and right side respectively) after applying non-rigid ICP registration.}
 \label{fig:hist_ICP}
 \end{figure}
 
 \begin{figure}[H]
 \centering
-\includegraphics[scale=.97]{117_dipy_hist}
+\includegraphics[scale=.90]{117_dipy_hist}
 \captionsetup{justification=centering}
-\caption{The histogram shows the frequency of distances between template points and correspondent points in target graph (ATR left and right side respectively) after applying DIPY registration.}
+\caption{Distances histogram after DIPY}%
+{The histogram shows the frequency of distances between template points and correspondent points in target graph (ATR left and right side respectively) after applying DIPY registration.}
 \label{fig:hist_dipy}
 \end{figure}
 
-\section{Experiment Result (2)}
+\section{Result from Experiment (2)}
 The second experiment tests how the method can correct the deformation. To evaluate this, we take one pathway, deform its shape locally (local transformation) and try to correct the deformation again and get the original shape again (almost). Essentially, what we mean by local transformation is that we apply different affine transformation matrices for each point in the bundle. 
 
-In this experiment we choose the right side of ATR and apply local transformation on it as we mentioned. Then we try to register the deformed pathway with the original one using ICP and then DIPY. As we can see in Figures \ref{fig:hist_icp_def}, non-rigid ICP can correct the deformation appropriately, whereas DIPY can give optimal alignment but it can not correct the deformation (see Figure \ref{fig:img_dipy_def}. The return value average of acond equal \textbf{5741672}
+In this experiment we choose the right side of ATR and apply local transformation on it as we mentioned. Then we try to register the deformed pathway with the original one using ICP and then DIPY. As we can see in Figures \ref{fig:registration3}, non-rigid ICP can correct the deformation appropriately, whereas DIPY can give optimal alignment but it can not correct the deformation. The return value average of acond equal \textbf{5741672}
 
 \begin{figure}[H]
 \centering
-\includegraphics[scale=.35]{102_img_original}
+\includegraphics[scale=.30]{102_img_original}
 \captionsetup{justification=centering}
-\caption{The orientation of ATR left side before deformation (the original pathway (red)) and after local deformation (blue).}%
-{This orientation consider as the original orientation before registration}
+\caption{The original visual orientation}%
+{The orientation of ATR left side before deformation (the original pathway (red)) and after local deformation (blue). This orientation consider as the original orientation before registration}
 \label{fig:img_original_def}
 \end{figure}
 
@@ -162,51 +168,35 @@ In this experiment we choose the right side of ATR and apply local transformatio
 	\caption{Orientation after DIPY registration}
 	\end{subfigure}
 \captionsetup{justification=centering}
-\caption{The orientation of ATR left side before deformation (red) and after local deformation (blue).}
-\label{fig:pca}
-\end{figure}
-
-\begin{comment}
-\begin{figure}[H]
-\centering
-\includegraphics[scale=.3]{102_img_ICP}
-\captionsetup{justification=centering}
-\caption{The orientation of ATR left side before deformation (the original pathway (red)) and after local deformation (blue).}%
-{This orientation is after applying ICP registration to correct the local deformation}
-\label{fig:img_icp_def}
+\caption{Visual orientation after registration}
+{The orientation of ATR left side before deformation (red) and after local deformation (blue).}
+\label{fig:registration3}
 \end{figure}
 
 \begin{figure}[H]
 \centering
-\includegraphics[scale=.4]{102_img_dipy}
+\includegraphics[scale=.7]{118_hist_original}
 \captionsetup{justification=centering}
-\caption{The orientation of ATR left side before deformation (the original pathway (red)) and after local deformation (blue).}%
-{This orientation is after applying DIPY registration to find the optimal alignment}
-\label{fig:img_dipy_def}
-\end{figure}
-\end{comment}
-
-\begin{figure}[H]
-\centering
-\includegraphics[scale=.8]{118_hist_original}
-\captionsetup{justification=centering}
-\caption{The histogram shows the frequency of distances between the original pathway points (before local deformation) and correspondent points in the locally deformed version.}
+\caption{Original deformed bundle distances histogram}
+{The histogram shows the frequency of distances between the original pathway points (before local deformation) and correspondent points in the locally deformed version.}
 \label{fig:hist_original_def}
 \end{figure}
 
 \begin{figure}[H]
 \centering
-\includegraphics[scale=.97]{118_hist_ICP}
+\includegraphics[scale=.90]{118_hist_ICP}
 \captionsetup{justification=centering}
-\caption{The histogram shows the frequency of distances between the original pathway points (before local deformation) and correspondent points in the deformed version after applying ICP registration.}
+\caption{ICP Distances histogram of deformed bundle}
+{The histogram shows the frequency of distances between the original pathway points (before local deformation) and correspondent points in the deformed version after applying ICP registration.}
 \label{fig:hist_icp_def}
 \end{figure}
 
 \begin{figure}[H]
 \centering
-\includegraphics[scale=.97]{118_hist_dipy}
+\includegraphics[scale=.90]{118_hist_dipy}
 \captionsetup{justification=centering}
-\caption{The histogram shows the frequency of distances between the original pathway points (before local deformation) and correspondent points in the deformed version after applying DIPY registration.}
+\caption{DIPY Distances histogram of deformed bundle}
+{The histogram shows the frequency of distances between the original pathway points (before local deformation) and correspondent points in the deformed version after applying DIPY registration.}
 \label{fig:hist_dipy_def}
 \end{figure}
 
@@ -214,6 +204,7 @@ Finally, we found that our tools can correct the deformation and also locally de
 
 The \textit{DIPY} method is much faster than our method because DIPY is implemented to reduce the number of points used to calculate the distance. In our test, each tract reduced to 20 points rather than the real number of points as shown in table \ref{table:data}. Furthermore, as mentioned in \cite{Garyfallidis2012}, \textit{DIPY} uses a minimum average direct-flip distance (MDF) which considers the tract to tract distance calculation whereas our tool considers the point to point distance calculation. To improve our tool, hierarchical clustering bundles can be done and soft membership alignment can be applied.
 
+\section{Results from different Experiments}
 We tested non-rigid ICP registration tool in other pathways and we have sufficient results as shown below.
 
 \begin{figure}[H]
@@ -230,7 +221,8 @@ We tested non-rigid ICP registration tool in other pathways and we have sufficie
 	\caption{Orientation after ICP registration}
 	\end{subfigure}
 \captionsetup{justification=centering}
-\caption{Cingulum fiber pathway left (red) and right (blue) side of brain, before and after ICP registration}
+\caption{Cingulum fiber pathway}
+{left (red) and right (blue) side of brain, before and after ICP registration}
 \label{fig:pca}
 \end{figure}
 
@@ -248,7 +240,7 @@ We tested non-rigid ICP registration tool in other pathways and we have sufficie
 	\caption{Orientation after ICP registration}
 	\end{subfigure}
 \captionsetup{justification=centering}
-\caption{Anterior Thalamic Radiation fiber pathway left (red) and right (blue) side of brain, before and after ICP registration}
+\caption{Anterior Thalamic Radiation fiber pathway}{ left (red) and right (blue) side of brain, before and after ICP registration}
 \label{fig:pca}
 \end{figure}
 
@@ -266,7 +258,7 @@ We tested non-rigid ICP registration tool in other pathways and we have sufficie
 	\caption{Orientation after ICP registration}
 	\end{subfigure}
 \captionsetup{justification=centering}
-\caption{The body of Corpus Callosum fiber pathway left (red) and right (blue) side of brain, before and after ICP registration}
+\caption{The body of Corpus Callosum fiber pathway}{ left (red) and right (blue) side of brain, before and after ICP registration}
 \label{fig:pca}
 \end{figure}
 
@@ -284,7 +276,7 @@ We tested non-rigid ICP registration tool in other pathways and we have sufficie
 	\caption{Orientation after ICP registration}
 	\end{subfigure}
 \captionsetup{justification=centering}
-\caption{Corticospinal Tract fiber pathway left (red) and right (blue) side of brain, before and after ICP registration}
+\caption{Corticospinal Tract fiber pathway}{ left (red) and right (blue) side of brain, before and after ICP registration}
 \label{fig:pca}
 \end{figure}
 
@@ -302,7 +294,7 @@ We tested non-rigid ICP registration tool in other pathways and we have sufficie
 	\caption{Orientation after ICP registration}
 	\end{subfigure}
 \captionsetup{justification=centering}
-\caption{Fronix fiber pathway left (red) and right (blue) side of brain, before and after ICP registration}
+\caption{Fronix fiber pathway}{ left (red) and right (blue) side of brain, before and after ICP registration}
 \label{fig:pca}
 \end{figure}
 
@@ -320,7 +312,7 @@ We tested non-rigid ICP registration tool in other pathways and we have sufficie
 	\caption{Orientation after ICP registration}
 	\end{subfigure}
 \captionsetup{justification=centering}
-\caption{Genu fiber pathway left (red) and right (blue) side of brain, before and after ICP registration}
+\caption{Genu fiber pathway}{ left (red) and right (blue) side of brain, before and after ICP registration}
 \label{fig:pca}
 \end{figure}
 
@@ -338,7 +330,7 @@ We tested non-rigid ICP registration tool in other pathways and we have sufficie
 	\caption{Orientation after ICP registration}
 	\end{subfigure}
 \captionsetup{justification=centering}
-\caption{Inferior Fronto-occipital Fasciculus fiber pathway left (red) and right (blue) side of brain, before and after ICP registration}
+\caption{Inferior Fronto-occipital Fasciculus fiber pathway}{ left (red) and right (blue) side of brain, before and after ICP registration}
 \label{fig:pca}
 \end{figure}
 
@@ -356,7 +348,7 @@ We tested non-rigid ICP registration tool in other pathways and we have sufficie
 	\caption{Orientation after ICP registration}
 	\end{subfigure}
 \captionsetup{justification=centering}
-\caption{Inferior Longtudinal Faciculus fiber pathway left (red) and right (blue) side of brain, before and after ICP registration}
+\caption{Inferior Longtudinal Faciculus fiber pathway}{ left (red) and right (blue) side of brain, before and after ICP registration}
 \label{fig:pca}
 \end{figure}
 

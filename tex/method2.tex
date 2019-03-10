@@ -25,7 +25,8 @@ The example mentioned above is only for translation; we still have some other tr
 \centering
 \includegraphics[scale=0.7]{007_affine}
 \captionsetup{justification=centering}
-\caption{2D affine transformation matrices.\\ Figure taken from en.wikipedia.org}
+\caption{2D affine transformation matrices.}%
+{Figure taken from en.wikipedia.org}
 \label{fig:affine}
 \end{figure}
 
@@ -79,15 +80,15 @@ z_{1} & z_{2} & \dots & z_{n}\\
 \centering
 \includegraphics[scale=0.5]{001_conn}
 \captionsetup{justification=centering}
-\caption{The template graph $S$ (green) moves toward target graph $T$ (red) and become graph $S(X)$ by applying local deformation.} %
-{Each point $v_{i}$ in the template graph $S$ moves toward correspondence point $u_{i}$ in the target graph $T$ by applying local affine matrix $x_{i}$. Some points does not have correspondent point, but they still move because of stiffness \cite{Amberg2007}.} 
+\caption{One iteration of ICP}%
+{The template graph $S$ (green) moves toward target graph $T$ (red) and become graph $S(X)$ by applying local deformation. Each point $v_{i}$ in the template graph $S$ moves toward correspondence point $u_{i}$ in the target graph $T$ by applying local affine matrix $x_{i}$. Some points does not have correspondent point, but they still move because of stiffness \cite{Amberg_2007}.} 
 \label{fig:icp}
 \end{figure}
 
-We implement the method in \cite{Amberg2007} by using the Python programming language, Spyder as an IDE \cite{spyder} and several packages, namely PlyFile \cite{plyfile}, DIPY \cite{nipy}, NiBabel \cite{nipy}, Open3D \cite{Zhou2018}, Numpy \cite{numpy}, Scipy \cite{scipy}, Scikit-learn \cite{sklearn} and Matplotlib \cite{matplotlib}.
+We implement the method in \cite{Amberg_2007} by using the Python programming language, Spyder as an IDE \cite{spyder} and several packages, namely PlyFile \cite{plyfile}, DIPY \cite{nipy}, NiBabel \cite{nipy}, Open3D \cite{Zhou2018}, Numpy \cite{numpy}, Scipy \cite{scipy}, Scikit-learn \cite{sklearn} and Matplotlib \cite{matplotlib}.
 
 \section{Data preparation}
-\hspace{2em}In this work, we follow the method in \cite{Amberg2007} which is implemented for surface graphs. However, due to differences between data used in \cite{Amberg2007} which are surface graphs saved in either points cloud or mesh format, and our data which are pathways in streamlines format and saved in \textit{ply} file as shown in Figure \ref{fig:data}, we had to build a tool for reading the \textit{ply} file format as streamlines and build graphs out of it. In this case, each \textit{ply} file has one pathway.
+\hspace{2em}In this work, we follow the method in \cite{Amberg_2007} which is implemented for surface graphs. However, due to differences between data used in \cite{Amberg_2007} which are surface graphs saved in either points cloud or mesh format, and our data which are pathways in streamlines format and saved in \textit{ply} file as shown in Figure \ref{fig:data}, we had to build a tool for reading the \textit{ply} file format as streamlines and build graphs out of it. In this case, each \textit{ply} file has one pathway.
 
 \subsection{The PLY file}
 \hspace{2em}Let us illustrate a bit of our data and the \textit{ply} files we used to save our data, as shown in Figure \ref{fig:data}. The \textit{ply} file consists of two parts: the header and body. The header consists of all information that is necessary to parse the file, and the body has the data itself.
@@ -250,16 +251,16 @@ The new format of the equation becomes as follows:
 \hspace{2em} where the matrix $W$ has size $n\times n$, the matrix $D$ has size $n\times 4n$ (vertices $v_{i}$ are in homogeneous coordinates $[x,y,z,1]^T$), $X$ has size $4n\times 3$, $U$ does not change with shape $n\times 3$ (vertices $u_{i}$ are in 3D coordinate) and $||.||_{F}$ denote the Frobenius norm.
 
 \subsection{Stiffness Term}
-\hspace{2em}The stiffness term is the second part of the equation (\ref{equ:costFun1}). It regularizes the deformation of template graph $S$ by penalizing the weighted difference of the transformations of neighboring vertices under the Frobenius norm $||.||_{F}$ using a weight matrix $G := diag(1, 1, 1, \gamma)$ \cite{Amberg2007}, that keeps the distance between vertices which are neighbours (i.e., vertices which have an edge between them) and also in the same tract constant.
+\hspace{2em}The stiffness term is the second part of the equation (\ref{equ:costFun1}). It regularizes the deformation of template graph $S$ by penalizing the weighted difference of the transformations of neighboring vertices under the Frobenius norm $||.||_{F}$ using a weight matrix $G := diag(1, 1, 1, \gamma)$ \cite{Amberg_2007}, that keeps the distance between vertices which are neighbours (i.e., vertices which have an edge between them) and also in the same tract constant.
 \begin{equation}
 E_{s}(X) = \sum_{i,j \in E} ||(X_{i} - X_{j})G||_{F}^2
 \label{equ:stiffness1}
 \end{equation}
 
-The parameter $\gamma$ is used to balance the rotation and skew against translation while transforming the template graph $S$ \cite{Amberg2007}. In our case $\gamma$ is \textit{one} as we have already scaled our data into the $[-1, 1]^3$ cube.
+The parameter $\gamma$ is used to balance the rotation and skew against translation while transforming the template graph $S$ \cite{Amberg_2007}. In our case $\gamma$ is \textit{one} as we have already scaled our data into the $[-1, 1]^3$ cube.
 
 To make our function solvable directly we need to write it as a quadratic function. Therefore we use twelve parameters per vertex in $3 \times 4$ shape and an $\alpha$ parameter in equation (\ref{equ:costFun1}) which is a constant that manages the contribution of the stiffness term; when it is high, the neighbor vertices do not move far away from each other and when it is low, a greater deformation can occur.
-The part $||.||_{F}$ is the \textit{Frobenius norm} which is illustrated in the example below \cite{Amberg2007}:
+The part $||.||_{F}$ is the \textit{Frobenius norm} which is illustrated in the example below \cite{Amberg_2007}:
 
 \begin{equation*}
 ||A||_{F} = \sqrt{\sum_{i=1}^m \sum_{j=1}^n |a_{ij}|^2}
@@ -278,7 +279,8 @@ where $M$ is a node-arc incidence matrix defined for directed graphs. The number
 \centering
 \includegraphics[scale=0.2]{006_direct_graph}
 \captionsetup{justification=centering}
-\caption{Oriented graph with corresponding incidence matrix.\\ Figure taken from en.wikipedia.org}
+\caption{Oriented graph with corresponding incidence matrix.}%
+{Figure taken from en.wikipedia.org}
 \label{fig:directed_graph}
 \end{figure}
 \pagebreak
